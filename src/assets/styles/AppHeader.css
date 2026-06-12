@@ -1,0 +1,18 @@
+.app-header {
+  background-color: var(--clr-primary);
+  padding: 1em 2em;
+  color: white;
+}
+
+.app-header h1 {
+  font-size: var(--font-size-xlarge);
+  font-weight: bold;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

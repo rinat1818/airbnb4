@@ -1,0 +1,15 @@
+:root {
+  --clr-primary: #FF385C;
+  --clr-bg: #ffffff;
+  --clr-text: #222222;
+  --clr-text-light: #717171;
+  --clr-border: #dddddd;
+
+  --font-size-small: 12px;
+  --font-size-normal: 14px;
+  --font-size-large: 18px;
+  --font-size-xlarge: 24px;
+
+  --border-radius: 12px;
+  --spacing: 16px;
+}

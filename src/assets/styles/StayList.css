@@ -1,0 +1,27 @@
+.stay-list ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1em;
+  padding: 1em;
+}
+
+.stay-list li {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  padding: 1em;
+  border: 2px solid var(--clr-border);
+  background-color: white;
+  border-radius: 8px;
+}
+
+.stay-list li img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  transition: 600ms;
+}
+
+.stay-list li img:hover {
+  rotate: -10deg;
+}
