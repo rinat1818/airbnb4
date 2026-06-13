@@ -1,13 +1,18 @@
-import { StayIndex } from './pages/StayIndex.jsx'
-import { AppHeader } from './cmps/AppHeader.jsx'
+// import { StayIndex } from './pages/StayIndex.jsx'
+// import { AppHeader } from './cmps/AppHeader.jsx'
 
+// function App() {
+//  return (
+//     <>
+//       <AppHeader />
+//       <StayIndex />
+//     </>
+//   )
+// }
+
+// export default App
 function App() {
- return (
-    <>
-      <AppHeader />
-      <StayIndex />
-    </>
-  )
+  return null
 }
 
 export default App

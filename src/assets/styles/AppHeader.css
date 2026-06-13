@@ -1,22 +1,4 @@
-/* .app-header {
-  background-color: var(--clr-primary);
-  padding: 1em 2em;
-  color: white;
-}
-
-.app-header h1 {
-  font-size: var(--font-size-xlarge);
-  font-weight: bold;
-}
-
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-} */
-
+/* 
 
 .app-header {
   background-color: #ffffff;
@@ -32,6 +14,31 @@
 .header-container {
   width: 888px;
   height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  color: #ff385c;
+  font-size: 1.8em;
+  font-weight: bold;
+  font-style: italic;
+} */
+ .app-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ebebeb;
+  padding: 0 2em;
+  height: 80px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  width: 888px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
