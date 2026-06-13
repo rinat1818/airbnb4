@@ -13,8 +13,8 @@ export function StayIndex() {
 
   return (
     <main>
-    
-      <StayList stays={stays} />
+      <StayList stays={stays.slice(0, 30)} />
+      {/* <StayList stays={stays} /> */}
     </main>
   )
 }
