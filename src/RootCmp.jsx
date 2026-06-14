@@ -36,7 +36,7 @@ import { Routes, Route } from 'react-router-dom'
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { StayIndex } from './pages/StayIndex.jsx'
 
-export function App() {
+export function RootCmp() {
   const [filterBy, setFilterBy] = useState({
     location: '',
     checkIn: '',
