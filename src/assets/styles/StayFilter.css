@@ -1,0 +1,121 @@
+/* .stay-filter {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.stay-filter input {
+    padding: 0.6em 1em;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    font-size: 0.95em;
+}
+
+.stay-filter button {
+    padding: 0.6em 1.2em;
+    border: none;
+    border-radius: 24px;
+    background-color: #ff385c;
+    color: white;
+    cursor: pointer;
+} */
+
+
+.stay-filter {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+
+ .guests-picker > button {
+    color: #222 !important;
+    background: white !important;
+}
+.stay-filter button {
+    padding: 0.6em 1.2em;
+    border: none;
+    border-radius: 24px;
+    background-color: #ff385c;
+    color: white;
+    cursor: pointer;
+}
+
+.react-datepicker-popper {
+    width: 100%;
+    max-width: 700px;
+}
+
+.react-datepicker {
+    width: 100%;
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+    font-family: inherit;
+    padding: 1.5em;
+}
+
+.react-datepicker__month-container {
+    width: 50%;
+}
+
+.react-datepicker__header {
+    background-color: white;
+    border-bottom: none;
+}
+
+.react-datepicker__current-month {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.react-datepicker__day-name {
+    color: #717171;
+    width: 2.5em;
+    line-height: 2.5em;
+}
+
+.react-datepicker__day {
+    width: 2.5em;
+    line-height: 2.5em;
+    border-radius: 50%;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range {
+    background-color: #222;
+    color: white;
+}
+
+
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 32px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    overflow: visible;
+}
+
+.filter-container > * {
+    border: none;
+    border-radius: 0;
+    padding: 0.8em 1.5em;
+}
+
+.filter-container > *:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
+
+.filter-container input {
+    outline: none;
+}
+
+.react-datepicker-wrapper input,
+.guests-picker > button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.95em;
+}
