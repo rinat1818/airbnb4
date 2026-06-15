@@ -6,6 +6,8 @@ import { StayIndex } from './pages/StayIndex.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
 import { SignupPage } from './pages/SignupPage.jsx'
 import { userService } from './services/user.service.js'
+import { StayDetails } from './pages/StayDetails.jsx'
+
 
 export function RootCmp() {
     const [filterBy, setFilterBy] = useState({ location: '' })
@@ -20,6 +22,7 @@ export function RootCmp() {
                     <Route path="/" element={<StayIndex />} />
                     <Route path="/stay" element={<StayIndex />} />
                     <Route path="/stay/search" element={<StayIndex />} />
+                    <Route path="/stay/:stayId" element={<StayDetails />} />
                     <Route path="/login" element={<LoginPage onSetUser={setLoggedinUser} />} />
                     <Route path="/signup" element={<SignupPage onSetUser={setLoggedinUser} />} />
                 </Routes>
