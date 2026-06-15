@@ -37,6 +37,7 @@ export function StayDetails() {
             <h1>{stay.name}</h1>
             <div className="stay-meta">
                 {avgRating && <span>⭐ {avgRating} · {stay.reviews.length} reviews</span>}
+                <br/>
                 <span>{stay.loc.city}, {stay.loc.country}</span>
             </div>
             <div className="carousel">
