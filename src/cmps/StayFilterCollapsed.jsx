@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-export function StayFilter({ filterBy, setFilterBy, onSearchDone }) {
+export function StayFilterCollapsed({ filterBy, setFilterBy, onClick }) {
     const [filterToEdit, setFilterToEdit] = useState(structuredClone(filterBy))
     const [startDate, setStartDate] = useState(null)
 
@@ -45,13 +45,13 @@ export function StayFilter({ filterBy, setFilterBy, onSearchDone }) {
     }, [])
 
     function onSearch() {
-    setIsGuestsOpen(false)
-    navigate(`/stay/search?location=${filterToEdit.location}`)
-    if (onSearchDone) onSearchDone()
-}
+        setIsGuestsOpen(false)
+        navigate(`/stay/search?location=${filterToEdit.location}`)
+    }
+
     return (
-        <section className="stay-filter">
-            <div className="filter-container">
+    <section className="stay-filter-collapsed" onClick={onClick}>
+            <div className="filter-container-collapsed">
                 <input
                     type="text"
                     name="location"
