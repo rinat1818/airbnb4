@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import { loadStays } from '../store/actions/stay.actions.js'
 import { StayList } from '../cmps/StayList.jsx'
+import '../assets/styles/pages/StayIndex.css'
 
 export function StayIndex() {
   const stays = useSelector(state => state.stayModule.stays)
@@ -18,33 +19,27 @@ export function StayIndex() {
     if (!locationFilter) return true
     const loc = locationFilter.toLowerCase()
     return stay.loc.city.toLowerCase().includes(loc) ||
-           stay.loc.country.toLowerCase().includes(loc)
+      stay.loc.country.toLowerCase().includes(loc)
   })
+
+  const staysByCountry = filteredStays.reduce((acc, stay) => {
+    const country = stay.loc?.country || 'Other'
+    if (!acc[country]) acc[country] = []
+    acc[country].push(stay)
+    return acc
+  }, {})
 
   const isSearchPage = !!locationFilter
 
   return (
-    <main>
-      <StayList stays={isSearchPage ? filteredStays : filteredStays.slice(0, 30)} />
+    <main className="stay-index">
+      {Object.entries(staysByCountry).map(([country, countryStays]) => (
+        <StayList
+          key={country}
+          stays={countryStays}
+          title={country}
+        />
+      ))}
     </main>
   )
 }
-
-// import { useEffect } from 'react'
-// import { useSelector } from 'react-redux'
-// import { loadStays } from '../store/actions/stay.actions.js'
-// import { StayList } from '../cmps/StayList.jsx'
-
-// export function StayIndex() {
-//   const stays = useSelector(state => state.stayModule.stays)
-
-//   useEffect(() => {
-//     loadStays()
-//   }, [])
-
-//   return (
-//     <main>
-//       <StayList stays={stays} />
-//     </main>
-//   )
-// }
