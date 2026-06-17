@@ -105,7 +105,8 @@ export function AppHeader() {
                     </div>
                 </div>
                 <div  className={`header-bottom ${showFull ? 'visible' : ''}`}>
-                    <StayFilter onSearchDone={() => { setTimeout(() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }, 50) }} />
+                    {/* <StayFilter onSearchDone={() => { setTimeout(() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }, 50) }} /> */}
+                    <StayFilter onSearchDone={() => setUserExpanded(false)} />
                 </div>
             </section>
         </header>
