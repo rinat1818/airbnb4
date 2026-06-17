@@ -1,10 +1,17 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+
+import { useDispatch, useSelector } from 'react-redux'
+import { setFilter } from '../store/actions/stay.actions.js'
+
+
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-export function StayFilterCollapsed({ filterBy, setFilterBy, onClick }) {
+export function StayFilterCollapsed({ onClick }) {
+    const filterBy = useSelector(state => state.stayModule.filterBy)
+    const dispatch = useDispatch()
     const [filterToEdit, setFilterToEdit] = useState(structuredClone(filterBy))
     const [startDate, setStartDate] = useState(null)
 
@@ -43,11 +50,10 @@ export function StayFilterCollapsed({ filterBy, setFilterBy, onClick }) {
         document.addEventListener('mousedown', handleClickOutside)
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
-
-    function onSearch() {
-        setIsGuestsOpen(false)
-        navigate(`/stay/search?location=${filterToEdit.location}`)
-    }
+function onSearch() {
+    setIsGuestsOpen(false)
+    dispatch(setFilter(filterToEdit))
+}
 
     return (
     <section className="stay-filter-collapsed" onClick={onClick}>

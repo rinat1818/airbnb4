@@ -16,9 +16,9 @@
     background-color: #ff385c;
     color: white;
     cursor: pointer;
-}
+} */
 
-.react-datepicker-popper {
+ .react-datepicker-popper {
     width: 100%;
     max-width: 700px;
 }
@@ -58,11 +58,13 @@
     border-radius: 50%;
 }
 
-.react-datepicker__day--selected,
+/* .react-datepicker__day--selected,
 .react-datepicker__day--in-range {
     background-color: #222;
     color: white;
-}
+} */
+
+/* אחרי על עיצוב הקומפוננטה הגדול  */
 
 .filter-container {
     display: flex;
@@ -95,56 +97,46 @@
     font-size: 0.95em;
 }
 
-.filter-container-collapsed {
+
+
+
+עיצוב של הכפתור שמפלטר לפי מיקום
+.location-picker {
+    position: relative;
+}
+
+.location-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 0.5em 0;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+}
+.filter-container .location-picker {
+    position: relative;
+    flex: 1;
+}
+
+.location-item {
     display: flex;
     align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 24px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    overflow: visible;
-    padding: 0.4em 0.4em 0.4em 1em;
-    gap: 0.5em;
+    gap: 1em;
+    padding: 0.8em 1.5em;
     cursor: pointer;
+    font-size: 0.9em;
 }
 
-.filter-container-collapsed > * {
-    border: none;
-    border-radius: 0;
-    padding: 0.3em 0.8em;
-    font-size: 0.85em;
+.location-item:hover {
+    background-color: #f5f5f5;
 }
 
-.filter-container-collapsed > *:not(:last-child) {
-    border-right: 1px solid #ddd;
-}
-
-.filter-container-collapsed input {
-    width: 100px;
-    outline: none;
-}
-
-.filter-container-collapsed .react-datepicker-wrapper input {
-    width: 100px;
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-.filter-container-collapsed .guests-picker > button {
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-.stay-filter-collapsed button:last-child {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #ff385c;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
+/* לא לגעת בזה בכלל זה קשור להפקת של שינוי הקומפוננטות */
 
 .filter-collapsed-wrapper {
     display: none;
@@ -161,3 +153,5 @@
 .header-bottom.visible {
     display: flex;
 }
+
+/*  */ 

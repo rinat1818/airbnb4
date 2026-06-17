@@ -1,31 +1,26 @@
 
-import { useState } from 'react'
+// import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { StayIndex } from './pages/StayIndex.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
 import { SignupPage } from './pages/SignupPage.jsx'
-import { userService } from './services/user.service.js'
 import { StayDetails } from './pages/StayDetails.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
 
 
 export function RootCmp() {
-    const [filterBy, setFilterBy] = useState({ location: '' })
-    const [loggedinUser, setLoggedinUser] = useState(userService.getLoggedinUser())
-
     return (
         <div>
-            {/* <AppHeader filterBy={filterBy} setFilterBy={setFilterBy} /> */}
-            <AppHeader filterBy={filterBy} setFilterBy={setFilterBy} loggedinUser={loggedinUser} setLoggedinUser={setLoggedinUser} />
+           
+            <AppHeader />
             <main>
                 <Routes>
                     <Route path="/" element={<StayIndex />} />
                     <Route path="/stay" element={<StayIndex />} />
-                    <Route path="/stay/search" element={<StayIndex />} />
                     <Route path="/stay/:stayId" element={<StayDetails />} />
-                    <Route path="/login" element={<LoginPage onSetUser={setLoggedinUser} />} />
-                    <Route path="/signup" element={<SignupPage onSetUser={setLoggedinUser} />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignupPage />} />
                 </Routes>
             </main>
             <AppFooter />
