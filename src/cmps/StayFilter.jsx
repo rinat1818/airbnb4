@@ -63,11 +63,18 @@ export function StayFilter({ onSearchDone }) {
         document.addEventListener('mousedown', handleClickOutside)
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
-    function onSearch() {
+    function onSearch(ev) {
+    ev.stopPropagation()
     setIsGuestsOpen(false)
     dispatch(setFilter(filterToEdit))
     if (onSearchDone) onSearchDone()
 }
+
+//     function onSearch() {
+//     setIsGuestsOpen(false)
+//     dispatch(setFilter(filterToEdit))
+//     if (onSearchDone) onSearchDone()
+// }
     return (
         <section className="stay-filter">
             <div className="filter-container">
@@ -127,7 +134,8 @@ export function StayFilter({ onSearchDone }) {
                     )}
                 </div>
             </div>
-            <button onClick={onSearch}>🔍</button>
+            <button className="search-btn" onClick={onSearch}>🔍</button>
+            {/* <button onClick={onSearch}>🔍</button> */}
         </section>
     )
 }

@@ -49,25 +49,44 @@ export function AppHeader() {
     }
     setUserExpanded(false)
 }, [location.pathname])
-
-    useEffect(() => {
-        function handleClickOutside(ev) {
-            if (filterRef.current && !filterRef.current.contains(ev.target)) {
-                if (showFull) {
-                    if (isHomePage && window.scrollY < 100) {
-                        setShowFull(true)
-                        setShowCollapsed(false)
-                        return
-                    }
-                    setShowFull(false)
-                    setShowCollapsed(true)
-                    setUserExpanded(false)
+useEffect(() => {
+    function handleClickOutside(ev) {
+        if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
+        // if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper')) {
+            if (showFull) {
+                if (isHomePage && window.scrollY < 100) {
+                    setShowFull(true)
+                    setShowCollapsed(false)
+                    return
                 }
+                setShowFull(false)
+                setShowCollapsed(true)
+                setUserExpanded(false)
             }
         }
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [showFull, isHomePage])
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+}, [showFull, isHomePage])
+
+    // useEffect(() => {
+    //     function handleClickOutside(ev) {
+    //         if (filterRef.current && !filterRef.current.contains(ev.target)) {
+    //             if (showFull) {
+    //                 if (isHomePage && window.scrollY < 100) {
+    //                     setShowFull(true)
+    //                     setShowCollapsed(false)
+    //                     return
+    //                 }
+    //                 setShowFull(false)
+    //                 setShowCollapsed(true)
+    //                 setUserExpanded(false)
+    //             }
+    //         }
+    //     }
+    //     document.addEventListener('mousedown', handleClickOutside)
+    //     return () => document.removeEventListener('mousedown', handleClickOutside)
+    // }, [showFull, isHomePage])
 
     async function onLogout() {
         await dispatch(logout())
