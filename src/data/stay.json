@@ -1,4 +1,4 @@
-export const stays = [
+[
   {
     "_id": "622f337a75c7d36e498aaaf8",
     "name": "Westin Kaanapali KORVN 2BR",

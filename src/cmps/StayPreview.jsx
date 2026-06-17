@@ -6,7 +6,7 @@ export function StayPreview({ stay }) {
     ?? 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600&q=80'
 
   const avgRating = stay.reviews.length
-    ? (stay.reviews.reduce((sum, r) => sum + r.rate, 0) / stay.reviews.length).toFixed(1)
+    ? (stay.reviews.reduce((sum, r) => sum + r.rating, 0) / stay.reviews.length).toFixed(1)
     : null
 
   return (
