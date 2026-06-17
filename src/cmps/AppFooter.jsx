@@ -29,7 +29,7 @@ const footerData = {
         { label: 'Find a co‑host', href: '#' },
         { label: 'Refer a host', href: '#' },
     ],
-    Airbnb: [
+    Airbob: [
         { label: '2026 Summer Release', href: '#' },
         { label: 'Newsroom', href: '#' },
         { label: 'Careers', href: '#' },

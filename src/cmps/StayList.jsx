@@ -26,7 +26,7 @@ export function StayList({ stays, title }) {
 
   return (
     <section className="stay-list">
-      <div className="stay-list__header">
+      <div className="stay-list-header">
         <div className='stay-list-title'>
           <h2>Popular homes in {title}</h2>
           <button className="title-btn" onClick={onTitleArrowClick}>
