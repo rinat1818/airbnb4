@@ -21,10 +21,10 @@ export function StayFilter({ onSearchDone }) {
     const guestsRef = useRef(null)
     const locationRef = useRef(null)
 
-    const locations = [...new Set([
-        ...stays.map(s => s.loc.city),
-        ...stays.map(s => s.loc.country)
-    ])].sort()
+   const locations = [...new Set([
+    ...stays.map(s => s.loc.city),
+    ...stays.map(s => s.loc.country)
+])].sort(() => Math.random() - 0.5)
 
     const navigate = useNavigate()
 
