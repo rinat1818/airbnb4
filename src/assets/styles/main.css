@@ -1,5 +1,7 @@
 @import './setup/vars.css';
 @import './base/reset.css';
 @import './cmps/StayList.css';
+@import './cmps/StayPreview.css';
 @import './cmps/AppHeader.css';
 @import './cmps/StayFilter.css';
+@import './cmps/AppFooter.css';

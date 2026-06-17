@@ -1,0 +1,102 @@
+.main-footer {
+    background-color: #f7f7f7;
+    font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #222222;
+    padding: 0 48px;
+
+    .links-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin: 0;
+        padding: 48px 0;
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    .links-heading {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-transform: capitalize;
+        margin: 0 0 16px;
+        color: #222222;
+    }
+
+    .links-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .footer-link {
+        color: #222222;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 1.4;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .footer-bottom {
+        margin: 0 auto;
+        padding-bottom: 96px;
+        padding-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .copyright-container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        color: #222222;
+        font-size: 14px;
+    }
+
+    .dot {
+        color: #717171;
+    }
+
+    .social-container {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        font-weight: 500;
+    }
+
+    .icons-container {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .icon-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            padding: 0;
+
+            &:hover {
+                background: #e8e8e8;
+            }
+        }
+    }
+}

@@ -7,6 +7,7 @@ import { LoginPage } from './pages/LoginPage.jsx'
 import { SignupPage } from './pages/SignupPage.jsx'
 import { userService } from './services/user.service.js'
 import { StayDetails } from './pages/StayDetails.jsx'
+import { AppFooter } from './cmps/AppFooter.jsx'
 
 
 export function RootCmp() {
@@ -27,6 +28,7 @@ export function RootCmp() {
                     <Route path="/signup" element={<SignupPage onSetUser={setLoggedinUser} />} />
                 </Routes>
             </main>
+            <AppFooter />
         </div>
     )
 }
