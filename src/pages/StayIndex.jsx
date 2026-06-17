@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useSearchParams } from 'react-router-dom'
 import { loadStays } from '../store/actions/stay.actions.js'
 import { StayList } from '../cmps/StayList.jsx'
 import '../assets/styles/pages/StayIndex.css'
@@ -8,8 +7,8 @@ import '../assets/styles/pages/StayIndex.css'
 export function StayIndex() {
   const stays = useSelector(state => state.stayModule.stays)
   const dispatch = useDispatch()
-  const [searchParams] = useSearchParams()
-  const locationFilter = searchParams.get('location') || ''
+ const filterBy = useSelector(state => state.stayModule.filterBy)
+const locationFilter = filterBy.location || ''
 
   useEffect(() => {
     dispatch(loadStays())

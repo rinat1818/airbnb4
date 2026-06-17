@@ -27,3 +27,8 @@ export function saveStay(stay) {
       })
   }
 }
+export function setFilter(filterBy) {
+    return dispatch => {
+        dispatch({ type: 'SET_FILTER', filterBy })
+    }
+}

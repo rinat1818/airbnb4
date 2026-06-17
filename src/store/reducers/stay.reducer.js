@@ -1,5 +1,6 @@
 const initialState = {
   stays: [],
+    filterBy: { location: '' }
 }
 
 export function stayReducer(state = initialState, action) {
@@ -12,6 +13,8 @@ export function stayReducer(state = initialState, action) {
       return { ...state, stays: [...state.stays, action.stay] }
     case 'UPDATE_STAY':
       return { ...state, stays: state.stays.map(s => s._id === action.stay._id ? action.stay : s) }
+      case 'SET_FILTER':
+    return { ...state, filterBy: action.filterBy }
     default:
       return state
   }

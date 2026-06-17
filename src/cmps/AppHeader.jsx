@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react'
-
+import { useSelector, useDispatch } from 'react-redux'
 import { StayFilter } from './StayFilter.jsx'
 import { StayFilterCollapsed } from './StayFilterCollapsed.jsx'
-
-import { userService } from '../services/user.service.js'
+import { logout } from '../store/actions/user.actions.js'
 import { NavLink, useLocation } from 'react-router-dom'
 
-export function AppHeader({ filterBy, setFilterBy, loggedinUser, setLoggedinUser }) {
+export function AppHeader({ filterBy, setFilterBy }) {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [showFull, setShowFull] = useState(false)
     const [showCollapsed, setShowCollapsed] = useState(false)
     const [userExpanded, setUserExpanded] = useState(false)
+
+    const dispatch = useDispatch()
+    const loggedinUser = useSelector(state => state.userModule.loggedinUser)
 
     const location = useLocation()
     const isHomePage = location.pathname === '/'
@@ -45,8 +47,7 @@ export function AppHeader({ filterBy, setFilterBy, loggedinUser, setLoggedinUser
     }, [location.pathname])
 
     async function onLogout() {
-        await userService.logout()
-        setLoggedinUser(null)
+        await dispatch(logout())
         setIsMenuOpen(false)
     }
 
