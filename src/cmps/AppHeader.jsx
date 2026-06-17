@@ -48,6 +48,7 @@ export function AppHeader() {
             setShowCollapsed(true)
         }
         setUserExpanded(false)
+        window.dispatchEvent(new Event('scroll'))
     }, [location.pathname])
     useEffect(() => {
         function handleClickOutside(ev) {

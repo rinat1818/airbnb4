@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -8,7 +9,7 @@ export function StayFilter({ onSearchDone }) {
     const stays = useSelector(state => state.stayModule.stays)
     const filterBy = useSelector(state => state.stayModule.filterBy)
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
     const [filterToEdit, setFilterToEdit] = useState(structuredClone(filterBy))
     const [isGuestsOpen, setIsGuestsOpen] = useState(false)
     const [isLocationOpen, setIsLocationOpen] = useState(false)
@@ -68,12 +69,11 @@ export function StayFilter({ onSearchDone }) {
     ]
 
     function onSearch(ev) {
-        ev.stopPropagation()
-        setIsGuestsOpen(false)
-        dispatch(setFilter(filterToEdit))
-        if (onSearchDone) onSearchDone()
-    }
-
+    ev.nativeEvent.stopImmediatePropagation()
+    setIsGuestsOpen(false)
+    dispatch(setFilter(filterToEdit))
+    navigate('/')
+}
     return (
         <section className="stay-filter">
             <div className="filter-container">
