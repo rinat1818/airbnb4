@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
@@ -26,7 +26,7 @@ export function StayFilter({ onSearchDone }) {
     ...stays.map(s => s.loc.country)
 ])].sort(() => Math.random() - 0.5)
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     function handleChange(ev) {
         const { name, value } = ev.target
@@ -70,11 +70,7 @@ export function StayFilter({ onSearchDone }) {
     if (onSearchDone) onSearchDone()
 }
 
-//     function onSearch() {
-//     setIsGuestsOpen(false)
-//     dispatch(setFilter(filterToEdit))
-//     if (onSearchDone) onSearchDone()
-// }
+
     return (
         <section className="stay-filter">
             <div className="filter-container">
@@ -135,7 +131,7 @@ export function StayFilter({ onSearchDone }) {
                 </div>
             </div>
             <button className="search-btn" onClick={onSearch}>🔍</button>
-            {/* <button onClick={onSearch}>🔍</button> */}
+         
         </section>
     )
 }

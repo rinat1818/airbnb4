@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StayFilter } from './StayFilter.jsx'
 import { StayFilterCollapsed } from './StayFilterCollapsed.jsx'
@@ -13,7 +13,7 @@ export function AppHeader() {
     const [showCollapsed, setShowCollapsed] = useState(false)
     const [userExpanded, setUserExpanded] = useState(false)
 
-    const filterRef = useRef(null)
+    // const filterRef = useRef(null)
     const dispatch = useDispatch()
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
 
@@ -38,56 +38,38 @@ export function AppHeader() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [isHomePage, showFull, showCollapsed])
 
-   
+
     useEffect(() => {
-    if (isHomePage && window.scrollY < 100) {
-        setShowFull(true)
-        setShowCollapsed(false)
-    } else {
-        setShowFull(false)
-        setShowCollapsed(true)
-    }
-    setUserExpanded(false)
-}, [location.pathname])
-useEffect(() => {
-    function handleClickOutside(ev) {
-        if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
-        // if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper')) {
-            if (showFull) {
-                if (isHomePage && window.scrollY < 100) {
-                    setShowFull(true)
-                    setShowCollapsed(false)
-                    return
+        if (isHomePage && window.scrollY < 100) {
+            setShowFull(true)
+            setShowCollapsed(false)
+        } else {
+            setShowFull(false)
+            setShowCollapsed(true)
+        }
+        setUserExpanded(false)
+    }, [location.pathname])
+    useEffect(() => {
+        function handleClickOutside(ev) {
+            if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
+              
+                if (showFull) {
+                    if (isHomePage && window.scrollY < 100) {
+                        setShowFull(true)
+                        setShowCollapsed(false)
+                        return
+                    }
+                    setShowFull(false)
+                    setShowCollapsed(true)
+                    setUserExpanded(false)
                 }
-                setShowFull(false)
-                setShowCollapsed(true)
-                setUserExpanded(false)
             }
         }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-}, [showFull, isHomePage])
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [showFull, isHomePage])
 
-    // useEffect(() => {
-    //     function handleClickOutside(ev) {
-    //         if (filterRef.current && !filterRef.current.contains(ev.target)) {
-    //             if (showFull) {
-    //                 if (isHomePage && window.scrollY < 100) {
-    //                     setShowFull(true)
-    //                     setShowCollapsed(false)
-    //                     return
-    //                 }
-    //                 setShowFull(false)
-    //                 setShowCollapsed(true)
-    //                 setUserExpanded(false)
-    //             }
-    //         }
-    //     }
-    //     document.addEventListener('mousedown', handleClickOutside)
-    //     return () => document.removeEventListener('mousedown', handleClickOutside)
-    // }, [showFull, isHomePage])
-
+    
     async function onLogout() {
         await dispatch(logout())
         setIsMenuOpen(false)
@@ -122,8 +104,8 @@ useEffect(() => {
                         )}
                     </div>
                 </div>
-                <div ref={filterRef} className={`header-bottom ${showFull ? 'visible' : ''}`}>
-                    <StayFilter onSearchDone={() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }} />
+                <div  className={`header-bottom ${showFull ? 'visible' : ''}`}>
+                    <StayFilter onSearchDone={() => { setTimeout(() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }, 50) }} />
                 </div>
             </section>
         </header>
