@@ -1,23 +1,23 @@
-
 .app-header {
     background: linear-gradient(180deg, #ffffff 39.9%, #f8f8f8 100%);
-  border-bottom: 1px solid #ebebeb;
-  padding: 1.5em 2em;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+    border-bottom: 1px solid #ebebeb;
+    padding: 1.5em 2em;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
- /* .header-container {
+
+/* .header-container {
   width: 888px;
   display: flex;
   flex-direction: column;
@@ -25,11 +25,11 @@
 } */
 
 .header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 1048px;
-  height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1048px;
+    height: 58px;
 }
 
 /* .header-bottom {
@@ -39,18 +39,18 @@
   width: 100%;
 } */
 .header-bottom {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 1em;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1em;
 }
 
 .logo {
-  color: #ff385c;
-  font-size: 1.8em;
-  font-weight: bold;
-  font-style: italic;
+    color: #ff385c;
+    font-size: 1.8em;
+    font-weight: bold;
+    font-style: italic;
 }
 
 
@@ -68,12 +68,13 @@
     background: white;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     min-width: 150px;
     padding: 0.5em 0;
 }
 
-.dropdown a, .dropdown button {
+.dropdown a,
+.dropdown button {
     padding: 0.5em 1em;
     text-align: left;
     border: none;
@@ -81,7 +82,8 @@
     cursor: pointer;
 }
 
-.dropdown a:hover, .dropdown button:hover {
+.dropdown a:hover,
+.dropdown button:hover {
     background-color: #f5f5f5;
 }
 
@@ -93,7 +95,7 @@
     position: relative;
 }
 
-.guests-picker > button {
+.guests-picker>button {
     padding: 0.6em 1em;
     border: 1px solid #ddd;
     border-radius: 24px;
@@ -107,7 +109,7 @@
     right: 0;
     background: white;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     padding: 1em 1.5em;
     width: 280px;
     z-index: 10;
@@ -143,21 +145,21 @@
     align-items: center;
     border: 1px solid #ddd;
     border-radius: 24px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     overflow: visible;
     padding: 0.4em 0.4em 0.4em 1em;
     gap: 0.5em;
     cursor: pointer;
 }
 
-.filter-container-collapsed > * {
+.filter-container-collapsed>* {
     border: none;
     border-radius: 0;
     padding: 0.3em 0.8em;
     font-size: 0.85em;
 }
 
-.filter-container-collapsed > *:not(:last-child) {
+.filter-container-collapsed>*:not(:last-child) {
     border-right: 1px solid #ddd;
 }
 
@@ -173,7 +175,7 @@
     cursor: pointer;
 }
 
-.filter-container-collapsed .guests-picker > button {
+.filter-container-collapsed .guests-picker>button {
     border: none;
     background: none;
     cursor: pointer;

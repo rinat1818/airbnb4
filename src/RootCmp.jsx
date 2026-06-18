@@ -7,14 +7,14 @@ import { LoginPage } from './pages/LoginPage.jsx'
 import { SignupPage } from './pages/SignupPage.jsx'
 import { StayDetails } from './pages/StayDetails.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
+import './assets/styles/main.css'
 
 
 export function RootCmp() {
     return (
-        <div>
-           
+        <div className="main-layout">
             <AppHeader />
-            <main>
+            <div className="main-content">
                 <Routes>
                     <Route path="/" element={<StayIndex />} />
                     <Route path="/stay" element={<StayIndex />} />
@@ -22,7 +22,7 @@ export function RootCmp() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
                 </Routes>
-            </main>
+            </div>
             <AppFooter />
         </div>
     )
