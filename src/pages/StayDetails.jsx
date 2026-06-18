@@ -14,6 +14,9 @@ export function StayDetails() {
     const [checkOut, setCheckOut] = useState(null)
     const [guests, setGuests] = useState(1)
 
+    const [toast, setToast] = useState(null)
+    const [toastVisible, setToastVisible] = useState(false)
+
     useEffect(() => {
         stayService.get(stayId)
             .then(stay => setStay(stay))
@@ -22,6 +25,13 @@ export function StayDetails() {
                 navigate('/')
             })
     }, [stayId])
+
+    function showToast(message, type = 'success') {
+        setToast({ message, type })
+        setToastVisible(true)
+        setTimeout(() => setToastVisible(false), 1500)
+        setTimeout(() => setToast(null), 1500)
+    }
 
     if (!stay) return <div className="loading">Loading...</div>
 
@@ -43,13 +53,27 @@ export function StayDetails() {
     const totalPrice = nights * stay.price
 
     function onReserve() {
-        if (!checkIn || !checkOut) return alert('Please select check-in and check-out dates')
-        if (nights < 1) return alert('Check-out must be after check-in')
-        alert(`Reservation confirmed!\n${nights} nights · ${guests} guest${guests > 1 ? 's' : ''}\nTotal: $${totalPrice}`)
+        if (!checkIn || !checkOut) {
+            showToast('Please select check-in and check-out dates', 'error')
+            return
+        }
+        if (nights < 1) {
+            showToast('Check-out must be after check-in', 'error')
+            return
+        }
+        showToast(`Reservation confirmed! ${nights} night${nights > 1 ? 's' : ''} · $${totalPrice} total`, 'success')
     }
 
     return (
         <section className="stay-details">
+
+            {toast && (
+                <div className={`toast toast-${toast.type} ${toastVisible ? 'toast-enter' : 'toast-exit'}`}>
+                    <span>{toast.type === 'success' ? '✓' : '✕'}</span>
+                    {toast.message}
+                </div>
+            )}
+
             <button onClick={() => navigate(-1)} className="btn-back">← Back</button>
             <h1>{stay.name}</h1>
             <div className="stay-meta">

@@ -1,0 +1,349 @@
+.toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 1000;
+    padding: 14px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.toast-success { background: #008a05; color: white; }
+.toast-error   { background: #e02020; color: white; }
+.toast-enter   { opacity: 1; transform: translateY(0); }
+.toast-exit    { opacity: 0; transform: translateY(-16px); }
+
+
+.stay-details {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 24px 80px;
+    font-family: 'Circular', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #222;
+}
+
+.stay-details .btn-back {
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 0;
+    margin-bottom: 16px;
+    color: #222;
+    text-decoration: underline;
+}
+
+.stay-details .btn-back:hover { color: #000; }
+
+.stay-details h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.stay-details .stay-meta {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.stay-details .carousel {
+    position: relative;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    background: #f0f0f0;
+}
+
+.stay-details .carousel img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+}
+
+.stay-details .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.2s;
+    z-index: 2;
+}
+
+.stay-details .carousel-btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.stay-details .carousel-btn.prev  { left: 16px; }
+.stay-details .carousel-btn.next  { right: 16px; }
+
+.stay-details .carousel-counter {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    background: rgba(0,0,0,0.55);
+    color: white;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+
+.stay-details .details-layout {
+    display: flex;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+.stay-details .details-body {
+    flex: 1;
+    min-width: 0;
+}
+
+
+.stay-details .host-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 0;
+}
+
+.stay-details .host-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.stay-details .host-info h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.stay-details .host-info p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.stay-details hr {
+    border: none;
+    border-top: 1px solid #ebebeb;
+    margin: 8px 0;
+}
+
+
+.stay-details .stay-description {
+    padding: 24px 0;
+}
+
+.stay-details .stay-description h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.stay-details .stay-description p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #444;
+}
+
+
+.stay-details .stay-amenities {
+    padding: 24px 0;
+}
+
+.stay-details .stay-amenities h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.stay-details .stay-amenities ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.stay-details .stay-amenities li {
+    font-size: 15px;
+    color: #333;
+    padding: 10px 14px;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    background: #fafafa;
+}
+
+
+.stay-details .booking-widget {
+    width: 360px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 100px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.stay-details .booking-price {
+    margin-bottom: 4px;
+}
+
+.stay-details .booking-price .price {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.stay-details .booking-price .per-night {
+    font-size: 15px;
+    color: #555;
+}
+
+.stay-details .booking-rating {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.stay-details .booking-dates {
+    display: flex;
+    border: 1px solid #b0b0b0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.stay-details .date-field {
+    flex: 1;
+    padding: 10px 12px;
+    border-right: 1px solid #b0b0b0;
+}
+
+.stay-details .date-field:last-child { border-right: none; }
+
+.stay-details .date-field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.stay-details .date-field .react-datepicker-wrapper,
+.stay-details .date-field input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    background: transparent;
+    cursor: pointer;
+}
+
+.stay-details .guest-field {
+    border: 1px solid #b0b0b0;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+}
+
+.stay-details .guest-field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #222;
+    margin-bottom: 6px;
+}
+
+.stay-details .guest-counter {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stay-details .guest-counter button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #b0b0b0;
+    background: white;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+}
+
+.stay-details .guest-counter button:hover { border-color: #222; }
+
+.stay-details .guest-counter span {
+    font-size: 15px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.stay-details .btn-reserve {
+    width: 100%;
+    padding: 14px;
+    background: #ff385c;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 16px;
+}
+
+.stay-details .btn-reserve:hover { background: #e0314f; }
+
+.stay-details .booking-summary {
+    border-top: 1px solid #ebebeb;
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+}
+
+.stay-details .booking-summary div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stay-details .booking-total {
+    border-top: 1px solid #ebebeb;
+    padding-top: 12px;
+    font-size: 16px;
+}
