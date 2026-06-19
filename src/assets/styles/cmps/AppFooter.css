@@ -1,27 +1,18 @@
 .main-footer {
-    background-color: #f7f7f7;
-    font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: #222222;
-    padding: 0 48px;
+    background-color: var(--clr-bg-secondary);
+    padding: 0 var(--medium-padding);
 
     .links-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
+        gap: var(--large-gap);
         margin: 0;
-        padding: 48px 0;
-        border-bottom: 1px solid #e8e8e8;
+        padding: var(--medium-padding) 0;
+        border-bottom: 1px solid var(--clr-footer-line);
     }
 
     .links-heading {
-        font-size: 14px;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        text-transform: capitalize;
-        margin: 0 0 16px;
-        color: #222222;
+        margin-bottom: var(--small-gap);
     }
 
     .links-list {
@@ -30,73 +21,62 @@
         padding: 0;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: var(--small-gap);
+
+
     }
 
-    .footer-link {
-        color: #222222;
-        text-decoration: none;
-        font-size: 14px;
-        line-height: 1.4;
-
+    a {
         &:hover {
             text-decoration: underline;
         }
     }
 
+    span {
+        font-size: 0.875em;
+    }
+
     .footer-bottom {
         margin: 0 auto;
-        padding-bottom: 96px;
-        padding-top: 24px;
+        padding-bottom: var(--large-padding);
+        padding-top: var(--small-padding);
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: var(--small-gap);
     }
 
     .copyright-container {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 6px;
-        color: #222222;
-        font-size: 14px;
-    }
-
-    .dot {
-        color: #717171;
+        gap: var(--x-small-gap);
     }
 
     .social-container {
         display: flex;
         align-items: center;
-        gap: 16px;
-
-        font-weight: 500;
+        gap: var(--medium-gap);
     }
 
     .icons-container {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: var(--medium-gap);
+    }
 
-        .icon-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 1px solid transparent;
-            background: transparent;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.15s ease;
-            padding: 0;
+    img {
+        width: 18px;
+        height: 18px;
+    }
 
-            &:hover {
-                background: #e8e8e8;
-            }
+    .icon-btn {
+        &:hover {
+            transform: none;
+            border-color: transparent;
         }
     }
+
+
 }

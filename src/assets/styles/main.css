@@ -1,9 +1,15 @@
+/* Setup */
 @import './setup/vars.css';
-@import './base/reset.css';
+@import './setup/typography.css';
+
+/* Basics */
+@import './base/base.css';
+@import './base/helpers.css';
+@import './base/layout.css';
+
+/* Components */
 @import './cmps/StayList.css';
 @import './cmps/StayPreview.css';
 @import './cmps/AppHeader.css';
 @import './cmps/StayFilter.css';
 @import './cmps/AppFooter.css';
-@import './cmps/Login.css';
-@import './cmps/SingUp.css';

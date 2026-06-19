@@ -18,7 +18,7 @@ export function StayPreview({ stay }) {
 
       <div className="stay-info">
 
-        <h2 className="stay-title">{stay.name}</h2>
+        <h3 className="stay-title">{stay.name}</h3>
 
         <p className="stay-location">
           {stay.loc?.city || 'Unknown City'}, {stay.loc?.country || 'Unknown Country'}
