@@ -34,13 +34,22 @@ export function StayIndex() {
 
   return (
     <main className="stay-index">
-      {Object.entries(staysByCountry).map(([country, countryStays]) => (
+      {isSearchPage ? (
         <StayList
-          key={country}
-          stays={countryStays}
-          title={country}
+          stays={filteredStays}
+          title={`Over ${filteredStays.length} homes`}
+          className="stay-list--filtered"
         />
-      ))}
+      ) : (
+        Object.entries(staysByCountry).map(([country, countryStays]) => (
+          <StayList
+            key={country}
+            stays={countryStays}
+            title={`Popular homes in ${country}`}
+            location={country}
+          />
+        ))
+      )}
     </main>
   )
 }

@@ -1,0 +1,10 @@
+.stay-list--filtered .stay-list-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.stay-list--filtered .stay-preview-card .stay-image {
+    height: 280px;
+    object-fit: cover;
+}
