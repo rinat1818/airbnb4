@@ -343,9 +343,9 @@
     background: linear-gradient(to right, #e61e4d, #e31c5f, #d70466);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 2000px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
     margin-bottom: 16px;
