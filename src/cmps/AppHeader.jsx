@@ -5,6 +5,7 @@ import { StayFilter } from './StayFilter.jsx'
 import { StayFilterCollapsed } from './StayFilterCollapsed.jsx'
 import { logout } from '../store/actions/user.actions.js'
 import { NavLink, useLocation } from 'react-router-dom'
+import Logo from '../assets/icons/Airbnb_Logo.svg'
 
 export function AppHeader() {
 
@@ -53,7 +54,7 @@ export function AppHeader() {
     useEffect(() => {
         function handleClickOutside(ev) {
             if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
-              
+
                 if (showFull) {
                     if (isHomePage && window.scrollY < 100) {
                         setShowFull(true)
@@ -70,7 +71,7 @@ export function AppHeader() {
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [showFull, isHomePage])
 
-    
+
     async function onLogout() {
         await dispatch(logout())
         setIsMenuOpen(false)
@@ -80,7 +81,11 @@ export function AppHeader() {
         <header className="app-header">
             <section className="header-container">
                 <div className="header-top">
-                    <h1 className="logo">airbnb</h1>
+
+                    <div className="logo-container">
+                        <img src={Logo} alt="logo"/>
+                    </div>
+
                     <div
                         className={`filter-collapsed-wrapper ${showCollapsed ? 'visible' : ''}`}
                         onClick={() => { setShowCollapsed(false); setShowFull(true); setUserExpanded(true) }}
@@ -105,7 +110,7 @@ export function AppHeader() {
                         )}
                     </div>
                 </div>
-                <div  className={`header-bottom ${showFull ? 'visible' : ''}`}>
+                <div className={`header-bottom ${showFull ? 'visible' : ''}`}>
                     {/* <StayFilter onSearchDone={() => { setTimeout(() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }, 50) }} /> */}
                     <StayFilter onSearchDone={() => setUserExpanded(false)} />
                 </div>

@@ -2,13 +2,15 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { loadStays } from '../store/actions/stay.actions.js'
 import { StayList } from '../cmps/StayList.jsx'
+import { useSearchParams } from 'react-router-dom'
 import '../assets/styles/pages/StayIndex.css'
 
 export function StayIndex() {
   const stays = useSelector(state => state.stayModule.stays)
   const dispatch = useDispatch()
- const filterBy = useSelector(state => state.stayModule.filterBy)
-const locationFilter = filterBy.location || ''
+  const [searchParams] = useSearchParams()
+  const filterBy = useSelector(state => state.stayModule.filterBy)
+  const locationFilter = searchParams.get('location') || filterBy.location || ''
 
   useEffect(() => {
     dispatch(loadStays())
