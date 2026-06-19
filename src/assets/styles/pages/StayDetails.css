@@ -10,15 +10,29 @@
     gap: 10px;
     font-size: 15px;
     font-weight: 500;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.toast-success { background: #008a05; color: white; }
-.toast-error   { background: #e02020; color: white; }
-.toast-enter   { opacity: 1; transform: translateY(0); }
-.toast-exit    { opacity: 0; transform: translateY(-16px); }
+.toast-success {
+    background: #008a05;
+    color: white;
+}
 
+.toast-error {
+    background: #e02020;
+    color: white;
+}
+
+.toast-enter {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-exit {
+    opacity: 0;
+    transform: translateY(-16px);
+}
 
 .stay-details {
     max-width: 1120px;
@@ -40,7 +54,9 @@
     text-decoration: underline;
 }
 
-.stay-details .btn-back:hover { color: #000; }
+.stay-details .btn-back:hover {
+    color: #000;
+}
 
 .stay-details h1 {
     font-size: 26px;
@@ -56,7 +72,6 @@
     flex-direction: column;
     gap: 4px;
 }
-
 
 .stay-details .carousel {
     position: relative;
@@ -85,7 +100,7 @@
     height: 36px;
     font-size: 20px;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,21 +108,28 @@
     z-index: 2;
 }
 
-.stay-details .carousel-btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-.stay-details .carousel-btn.prev  { left: 16px; }
-.stay-details .carousel-btn.next  { right: 16px; }
+.stay-details .carousel-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.stay-details .carousel-btn.prev {
+    left: 16px;
+}
+
+.stay-details .carousel-btn.next {
+    right: 16px;
+}
 
 .stay-details .carousel-counter {
     position: absolute;
     bottom: 14px;
     right: 16px;
-    background: rgba(0,0,0,0.55);
+    background: rgba(0, 0, 0, 0.55);
     color: white;
     font-size: 13px;
     padding: 4px 10px;
     border-radius: 20px;
 }
-
 
 .stay-details .details-layout {
     display: flex;
@@ -208,7 +230,7 @@
     border: 1px solid #ddd;
     border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
     background: white;
 }
 
@@ -246,7 +268,9 @@
     border-right: 1px solid #b0b0b0;
 }
 
-.stay-details .date-field:last-child { border-right: none; }
+.stay-details .date-field:last-child {
+    border-right: none;
+}
 
 .stay-details .date-field label {
     display: block;
@@ -304,7 +328,9 @@
     transition: border-color 0.2s;
 }
 
-.stay-details .guest-counter button:hover { border-color: #222; }
+.stay-details .guest-counter button:hover {
+    border-color: #222;
+}
 
 .stay-details .guest-counter span {
     font-size: 15px;
@@ -315,18 +341,27 @@
 .stay-details .btn-reserve {
     width: 100%;
     padding: 14px;
-    background: #ff385c;
+    background: linear-gradient(to right, #e61e4d, #e31c5f, #d70466);
     color: white;
     border: none;
     border-radius: 10px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
     margin-bottom: 16px;
 }
 
-.stay-details .btn-reserve:hover { background: #e0314f; }
+.stay-details .btn-reserve:hover {
+    filter: brightness(0.92);
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.stay-details .btn-reserve:active {
+    transform: scale(0.98);
+    filter: brightness(0.85);
+}
 
 .stay-details .booking-summary {
     border-top: 1px solid #ebebeb;
