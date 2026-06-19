@@ -9,6 +9,7 @@
 
     .stay-image-wrapper {
         grid-area: i;
+        position: relative;
         width: 100%;
         aspect-ratio: 1 / 1;
         border-radius: var(--border-radius);
@@ -18,6 +19,53 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            line-height: 0;
+        }
+
+        .wishlist-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: rgba(0, 0, 0, 0.35);
+            stroke: white;
+            stroke-width: 2;
+            transition: fill 0.15s ease;
+        }
+
+        .wishlist-btn.wishlisted svg {
+            fill: var(--clr-primary);
+            stroke: var(--clr-primary);
+        }
+
+        .wishlist-btn:hover svg {
+            fill: rgba(0, 0, 0, 0.6);
+        }
+
+        .wishlist-btn.wishlisted:hover svg {
+            fill: var(--clr-primary);
+        }
+
+        .guest-favourite {
+            position: absolute;
+            top: var(--small-gap);
+            left: var(--small-gap);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            color: var(--clr-text);
+            font-family: AirbnbCereal_W_Bd;
+            font-size: 0.8em;
+            padding: 4px 10px;
+            border-radius: var(--border-radius);
+            pointer-events: none;
         }
     }
 
