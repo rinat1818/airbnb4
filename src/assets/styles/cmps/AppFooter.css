@@ -72,9 +72,10 @@
     }
 
     .icon-btn {
+        background-color: transparent;
+
         &:hover {
             transform: none;
-            border-color: transparent;
         }
     }
 
