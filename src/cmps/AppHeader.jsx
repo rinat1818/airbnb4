@@ -94,7 +94,7 @@ export function AppHeader() {
                     </div>
                     <div className="user-menu">
                         <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                            {loggedinUser ? loggedinUser.fullname : 'butten'}
+                            {loggedinUser ? loggedinUser.fullname : 'Log in / Sign up'}
                         </button>
                         {isMenuOpen && (
                             <div className="dropdown">
