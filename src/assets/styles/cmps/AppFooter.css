@@ -66,8 +66,17 @@
         gap: var(--medium-gap);
     }
 
-    .icon-btn:hover {
-        transform: none;
-        border-color: transparent;
+    img {
+        width: 18px;
+        height: 18px;
     }
+
+    .icon-btn {
+        &:hover {
+            transform: none;
+            border-color: transparent;
+        }
+    }
+
+
 }

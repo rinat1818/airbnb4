@@ -72,18 +72,18 @@ export function AppFooter() {
                 </div>
 
                 <div className="social-container">
-                    <img src={GlobeIcon} alt="Globe" width={18} height={18} />
+                    <img src={GlobeIcon} alt="Globe"/>
                     <h3>English (US)</h3>
                     <h3>$ USD</h3>
                     <div className="icons-container">
                         <button className="icon-btn">
-                            <img src={FacebookIcon} alt="Facebook" width={18} height={18} />
+                            <img src={FacebookIcon} alt="Facebook"/>
                         </button>
                         <button className="icon-btn">
-                            <img src={TwitterIcon} alt="Twitter" width={18} height={18} />
+                            <img src={TwitterIcon} alt="Twitter"/>
                         </button>
                         <button className="icon-btn">
-                            <img src={InstagramIcon} alt="Instagram" width={18} height={18} />
+                            <img src={InstagramIcon} alt="Instagram"/>
                         </button>
                     </div>
                 </div>

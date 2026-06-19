@@ -45,4 +45,9 @@
     display: flex;
     gap: var(--x-small-gap);
   }
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
 }
