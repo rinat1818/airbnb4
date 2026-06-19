@@ -13,9 +13,3 @@
 @import './cmps/AppHeader.css';
 @import './cmps/StayFilter.css';
 @import './cmps/AppFooter.css';
-
-/* Pages */
-@import './pages/StayIndex.css';
-
-/* MQ */
-@import './setup/mq.css';
