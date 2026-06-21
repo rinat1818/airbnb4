@@ -69,15 +69,16 @@ export function StayFilter({ onSearchDone }) {
     ]
 
     function onSearch(ev) {
-    ev.nativeEvent.stopImmediatePropagation()
-    setIsGuestsOpen(false)
-    dispatch(setFilter(filterToEdit))
-    navigate('/')
-}
+        ev.nativeEvent.stopImmediatePropagation()
+        setIsGuestsOpen(false)
+        dispatch(setFilter(filterToEdit))
+        navigate('/')
+    }
     return (
         <section className="stay-filter">
             <div className="filter-container">
                 <div className="location-picker" ref={locationRef}>
+                    <label className="filter-label">Where</label>
                     <input
                         type="text"
                         name="location"
@@ -104,7 +105,20 @@ export function StayFilter({ onSearchDone }) {
                         </div>
                     )}
                 </div>
-                <DatePicker
+                <div className="date-picker-wrapper">
+                    <label className="filter-label">When</label>
+                    <DatePicker
+                        selectsRange
+                        startDate={filterToEdit.startDate}
+                        endDate={filterToEdit.endDate}
+                        onChange={([start, end]) => setFilterToEdit({ ...filterToEdit, startDate: start, endDate: end })}
+                        placeholderText="Select dates"
+                        monthsShown={2}
+                        minDate={new Date()}
+                    />
+                </div>
+
+                {/* <DatePicker
                     selectsRange
                     startDate={filterToEdit.startDate}
                     endDate={filterToEdit.endDate}
@@ -112,13 +126,24 @@ export function StayFilter({ onSearchDone }) {
                     placeholderText="Select dates"
                     monthsShown={2}
                     minDate={new Date()}
-                />
+                /> */}
                 <div className="guests-picker" ref={guestsRef}>
-                  <button onClick={() => setIsGuestsOpen(!isGuestsOpen)}>
-    {filterToEdit.guests.adults + filterToEdit.guests.children > 0
+                       <label className="filter-label">Who</label>
+                       {/* <button className="guests-btn" onClick={() => setIsGuestsOpen(!isGuestsOpen)}>
+                   
+                        {filterToEdit.guests.adults + filterToEdit.guests.children > 0
+                            ? `${filterToEdit.guests.adults + filterToEdit.guests.children} guests`
+                            : 'Add guests'}
+                    </button> */}
+                    <input
+    type="text"
+    readOnly
+    value={filterToEdit.guests.adults + filterToEdit.guests.children > 0
         ? `${filterToEdit.guests.adults + filterToEdit.guests.children} guests`
-        : 'Add guests'}
-</button>
+        : ''}
+    placeholder="Add guests"
+    onClick={() => setIsGuestsOpen(!isGuestsOpen)}
+/>
                     {isGuestsOpen && (
                         <div className="guests-dropdown">
                             {guestTypes.map(({ key, label }) => (
@@ -132,8 +157,8 @@ export function StayFilter({ onSearchDone }) {
                         </div>
                     )}
                 </div>
+                    <button className="search-btn" onClick={onSearch}>🔍</button>
             </div>
-            <button className="search-btn" onClick={onSearch}>🔍</button>
         </section>
     )
 }

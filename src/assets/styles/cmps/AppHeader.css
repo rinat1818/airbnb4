@@ -178,7 +178,7 @@
 }
 
 .filter-container-collapsed .react-datepicker-wrapper input {
-    width: 100px;
+    /* width: 100px; */
     border: none;
     background: none;
     cursor: pointer;
