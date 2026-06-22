@@ -15,6 +15,7 @@
 @import './cmps/AppFooter.css';
 @import './cmps/SingUp.css';
 @import './cmps/Login.css';
+@import './cmps/StayFilterCollapsed.css';
 
 /* Pages */
 @import './pages/StayDetails.css';

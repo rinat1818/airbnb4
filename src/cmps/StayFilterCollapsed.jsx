@@ -12,9 +12,9 @@ export function StayFilterCollapsed({ onClick }) {
     const [isGuestsOpen, setIsGuestsOpen] = useState(false)
 
     const guestsRef = useRef(null)
-useEffect(() => {
-    setFilterToEdit(structuredClone(filterBy))
-}, [filterBy.location, filterBy.startDate, filterBy.endDate, filterBy.guests])
+    useEffect(() => {
+        setFilterToEdit(structuredClone(filterBy))
+    }, [filterBy.location, filterBy.startDate, filterBy.endDate, filterBy.guests])
 
 
     useEffect(() => {
@@ -58,31 +58,43 @@ useEffect(() => {
         <section className="stay-filter-collapsed" onClick={onClick}>
             <div className="filter-container-collapsed">
                 <input
+                 className="filter-input-collapsed"
                     type="text"
                     name="location"
                     value={filterToEdit.location}
-                    placeholder="Search by city or country"
+                    placeholder="Anywhere"
                     onChange={handleChange}
                 />
                 <DatePicker
+                 className="filter-input-collapsed"
                     selectsRange
                     startDate={filterToEdit.startDate}
                     endDate={filterToEdit.endDate}
                     onChange={([start, end]) => setFilterToEdit({ ...filterToEdit, startDate: start, endDate: end })}
-                    placeholderText="Select dates"
+                    placeholderText="Anyweek"
                     monthsShown={2}
                     minDate={new Date()}
                 />
-                <div className="guests-picker" ref={guestsRef}>
-                 <button onClick={() => setIsGuestsOpen(!isGuestsOpen)}>
-    {filterToEdit.guests.adults + filterToEdit.guests.children > 0
-        ? `${filterToEdit.guests.adults + filterToEdit.guests.children} guests`
-        : 'Add guests'}
-</button>
+                <div className="guests-picker-collapsed" ref={guestsRef}>
+                    {/* <button onClick={() => setIsGuestsOpen(!isGuestsOpen)}>
+                        {filterToEdit.guests.adults + filterToEdit.guests.children > 0
+                            ? `${filterToEdit.guests.adults + filterToEdit.guests.children} guests`
+                            : 'Add guests'}
+                    </button> */}
+                    <input
+                     className="filter-input-collapsed  guests-input-collapsed"
+                        type="text"
+                        readOnly
+                        value={filterToEdit.guests.adults + filterToEdit.guests.children > 0
+                            ? `${filterToEdit.guests.adults + filterToEdit.guests.children} guests`
+                            : ''}
+                        placeholder="Add guests"
+                        onClick={() => setIsGuestsOpen(!isGuestsOpen)}
+                    />
                     {isGuestsOpen && (
-                        <div className="guests-dropdown">
+                        <div className="guests-dropdown-collapsed">
                             {guestTypes.map(({ key, label }) => (
-                                <div className="guest-row" key={key}>
+                                <div className="guest-row-collapsed" key={key}>
                                     <span>{label}</span>
                                     <button onClick={() => updateGuests(key, -1)}>-</button>
                                     <span>{filterToEdit.guests[key]}</span>
@@ -92,8 +104,8 @@ useEffect(() => {
                         </div>
                     )}
                 </div>
+                <button onClick={onSearch}>🔍</button>
             </div>
-            <button onClick={onSearch}>🔍</button>
         </section>
     )
 }
