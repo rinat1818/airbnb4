@@ -8,15 +8,29 @@
     z-index: 100;
 
     .logo-container {
-        display: block;
+        /* display: block; */
+          display: flex;
+    align-items: center;
+    /* gap: 8px; */
 
         img {
-            width: 120px;
+            width: 55px;
             height: auto;
         }
     }
 }
-
+.logo-container img {
+    filter: invert(45%) sepia(80%) saturate(800%) hue-rotate(310deg);
+    /* width: 40px; */
+}
+.logo-text {
+    color: #ff385c;
+    font-size: 1.8em;
+    font-weight: bold;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+  
+}
 .header-container {
     width: 100%;
     max-width: 1200px;
@@ -26,27 +40,24 @@
     gap: 1em;
 }
 
-/* .header-container {
-  width: 888px;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-} */
 
 .header-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    height: 58px;
+    position: relative;
+}
+/* .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 1048px;
     height: 58px;
-}
-
-/* .header-bottom {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  width: 100%;
 } */
+
+
 .header-bottom {
     display: flex;
     text-align: center;
@@ -62,10 +73,15 @@
     font-style: italic;
 }
 
-
-
 .user-menu {
     position: relative;
+    z-index: 200;
+    margin-left: auto;
+}
+.menu-btn.logged-in {
+    background-color: #ff385c;
+    color: white;
+    border-color: #ff385c;
 }
 
 .dropdown {
@@ -97,5 +113,30 @@
 }
 
 
+.search-btn:hover {
+    opacity: 0.9 !important;
+    background-color: #ff385c !important;
+}
 
+.menu-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    background: white;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+        margin-left: auto;
+}
+
+.menu-btn span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: #222;
+
+}
 

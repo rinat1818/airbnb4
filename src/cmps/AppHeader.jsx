@@ -5,7 +5,7 @@ import { StayFilter } from './StayFilter.jsx'
 import { StayFilterCollapsed } from './StayFilterCollapsed.jsx'
 import { logout } from '../store/actions/user.actions.js'
 import { NavLink, useLocation } from 'react-router-dom'
-import Logo from '../assets/icons/Airbnb_Logo.svg'
+import airbnb from '../assets/icons/airbnb.svg'
 
 export function AppHeader() {
 
@@ -83,7 +83,8 @@ export function AppHeader() {
                 <div className="header-top">
 
                     <div className="logo-container">
-                        <img src={Logo} alt="logo"/>
+                        <img src={airbnb} alt="logo" />
+                            <span className="logo-text">airbob</span>
                     </div>
 
                     <div
@@ -93,8 +94,8 @@ export function AppHeader() {
                         <StayFilterCollapsed onClick={() => { setShowCollapsed(false); setShowFull(true) }} />
                     </div>
                     <div className="user-menu">
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                            {loggedinUser ? loggedinUser.fullname : 'Log in / Sign up'}
+                        <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                            {loggedinUser ? loggedinUser.fullname : '☰'}
                         </button>
                         {isMenuOpen && (
                             <div className="dropdown">
