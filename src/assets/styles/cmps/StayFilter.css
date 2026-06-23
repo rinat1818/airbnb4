@@ -21,6 +21,10 @@
  .react-datepicker-popper {
     width: 100%;
     max-width: 700px;
+       margin-top: 8px !important;
+}
+.react-datepicker__triangle {
+    display: none !important;
 }
 
 .react-datepicker {
@@ -188,7 +192,7 @@
     align-items: center;
     border-radius: 999px;
     background: white; 
-    padding: 8px;
+    /* padding: 8px; */
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
@@ -279,4 +283,68 @@
     caret-color: transparent;
 }
 
+.filter-container.has-active .location-picker:not(.dimmed),
+.filter-container.has-active .date-picker-wrapper:not(.dimmed),
+.filter-container.has-active .guests-picker:not(.dimmed) {
+    background-color: white;
+    border-radius: 999px;
+}
 
+.filter-container.has-active {
+    /* border-radius: 999px; */
+  
+    background-color: #ebebeb;
+}
+
+.location-picker {
+   
+    padding: 8px;
+}
+
+.date-picker-wrapper {
+  
+    padding: 8px;
+}
+
+.guests-picker {
+    padding: 8px;
+}
+
+
+.guests-dropdown .guest-row button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #b0b0b0;
+    background: white !important;
+    color: #222 !important;
+    padding: 0 !important;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.guest-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: 1em;
+    padding: 1.2em 0;
+    border-bottom: 1px solid #eee;
+}
+
+.guest-row span:nth-child(3) {
+    min-width: 2em;
+    text-align: center;
+}
+
+.guests-dropdown {
+    position: fixed;
+   
+        margin-top: 16px !important;
+         padding: 1.5em 3em;
+               border-radius: 24px;
+    transform: none;
+ 
+    z-index: 1000;
+    background-color: #ffffff;
+}
