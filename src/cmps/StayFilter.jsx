@@ -77,13 +77,12 @@ export function StayFilter({ onSearchDone }) {
         }))
     }
 
-    const guestTypes = [
-        { key: 'adults', label: 'Adults' },
-        { key: 'children', label: 'Children' },
-        { key: 'infants', label: 'Infants' },
-        { key: 'pets', label: 'Pets' },
-    ]
-
+const guestTypes = [
+    { key: 'adults', label: 'Adults', sub: 'Ages 13 or above' },
+    { key: 'children', label: 'Children', sub: 'Ages 2 – 12' },  // ← יש כאן רווח בהתחלה?
+    { key: 'infants', label: 'Infants', sub: 'Under 2' },  // ← ואולי כאן?
+    { key: 'pets', label: 'Pets', sub: 'Bringing a service animal?' },
+]
     function onSearch(ev) {
         ev.nativeEvent.stopImmediatePropagation()
         setIsGuestsOpen(false)
@@ -140,6 +139,7 @@ export function StayFilter({ onSearchDone }) {
                         monthsShown={2}
                         minDate={new Date()}
                         onFocus={() => setActiveField('date')}
+                         formatWeekDay={day => day.charAt(0)}
                     />
                 </div>
 
@@ -155,7 +155,7 @@ export function StayFilter({ onSearchDone }) {
                         placeholder="Add guests"
                         onClick={() => { setIsGuestsOpen(!isGuestsOpen); setActiveField('guests') }}
                     />
-                    {isGuestsOpen && (
+                    {/* {isGuestsOpen && (
                         <div className="guests-dropdown">
                             {guestTypes.map(({ key, label }) => (
                                 <div key={key} className="guest-row">
@@ -166,7 +166,22 @@ export function StayFilter({ onSearchDone }) {
                                 </div>
                             ))}
                         </div>
-                    )}
+                    )} */}
+                    {isGuestsOpen && (
+    <div className="guests-dropdown">
+        {guestTypes.map(({ key, label, sub }) => (
+            <div key={key} className="guest-row">
+                <div>
+                    <span className="guest-label">{label}</span>
+                    <span className="guest-sub">{sub}</span>
+                </div>
+                <button onClick={() => updateGuests(key, -1)}>-</button>
+                <span>{filterToEdit.guests[key]}</span>
+                <button onClick={() => updateGuests(key, 1)}>+</button>
+            </div>
+        ))}
+    </div>
+)}
                 </div>
                 <button className="search-btn" onClick={onSearch}>🔍</button>
             </div>
