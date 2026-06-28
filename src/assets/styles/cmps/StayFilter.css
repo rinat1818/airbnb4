@@ -207,6 +207,7 @@
 .filter-container .location-picker {
     position: relative;
     flex: 1;
+    
 }
 
 .location-item {
@@ -222,26 +223,6 @@
     background-color: #f5f5f5;
 }
 
-/* לא לגעת בזה בכלל זה קשור להפקת של שינוי הקומפוננטות */
-
-.filter-collapsed-wrapper {
-    display: none;
-       position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.filter-collapsed-wrapper.visible {
-    display: flex;
-}
-
-.header-bottom {
-    display: none;
-}
-
-.header-bottom.visible {
-    display: flex;
-}
 
 /*  */ 
 
@@ -270,8 +251,13 @@
     align-items: center;
 } */
 
-.filter-container > *:not(:last-child):not(.search-btn) {
+
+.filter-container > *:has( + :not(.dimmed)):not(.selected):not(:last-child):not(.guests-picker)::after {
+    content: "";
     border-right: 1px solid #ddd;
+    margin-block: 10px;
+    grid-area: 1 / 2 / 3 / 3;
+    align-self: stretch;
 }
 
 .filter-container input {
@@ -326,6 +312,9 @@
 .filter-container > * {
     flex-direction: column;
     align-items: flex-start;
+    &:not(:last-child):not(.guests-picker) {
+        display: grid;
+    }
 }
 
 
@@ -486,17 +475,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /* 
 
 .filter-container {
@@ -590,11 +568,38 @@
     display: block;
     font-size: 13px;
     color: #717171;
-      padding-left: 0;  /* ← וודאי שאין padding */
-    margin-left: 0;   /* ← וודאי שאין margin */
+      padding-left: 0;  
+    margin-left: 0;   
     text-indent: 0; 
 }
 .guest-sub {
     padding-left: 0 !important;
     margin-left: 0 !important;
+}
+
+
+
+
+
+
+
+/* לא לגעת בזה בכלל זה קשור להפקת של שינוי הקומפוננטות */
+
+.filter-collapsed-wrapper {
+    display: none;
+       position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.filter-collapsed-wrapper.visible {
+    display: flex;
+}
+
+.header-bottom {
+    display: none;
+}
+
+.header-bottom.visible {
+    display: flex;
 }

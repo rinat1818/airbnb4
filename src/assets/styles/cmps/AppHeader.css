@@ -1,9 +1,18 @@
+.header{
+    position: fixed;
+    
+}
+.stay-index {
+    padding-top: 200px;
+}
 .app-header {
     background: linear-gradient(180deg, #ffffff 39.9%, #f8f8f8 100%);
     border-bottom: 1px solid #ebebeb;
     padding: 1.5em 2em;
     width: 100%;
-    position: sticky;
+    position: fixed;
+     /* margin-top: 100px; */
+    /* position: static; */
     top: 0;
     z-index: 100;
 
