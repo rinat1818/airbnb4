@@ -127,8 +127,55 @@
 .location-picker {
     position: relative;
 }
-
 .location-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: white;
+    border-radius: 34px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    width: 425px;
+    max-width: 600px;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.location-dropdown-inner::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* .location-dropdown-inner::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+} */
+/* 
+.location-dropdown-inner::-webkit-scrollbar-track {
+    background: transparent;
+} */
+
+.location-dropdown-inner::-webkit-scrollbar-thumb {
+    background-color: #b2a5a5;
+    border-radius: 3px;
+     width: 4px;
+     /* height: 1px; */
+}
+.location-dropdown-inner::-webkit-scrollbar-thumb {
+    background-color: #b2a5a5;
+    border-radius: 3px;
+}
+
+.location-dropdown-inner::-webkit-scrollbar-track {
+    padding: 16px 0;
+    background: transparent;
+}
+
+.location-dropdown-inner {
+    max-height: 515px;
+    overflow-y: auto;
+    padding-block: 8px;
+     /* scrollbar-width: none; */
+}
+/* .location-dropdown {
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
@@ -136,11 +183,18 @@
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     padding: 0.5em 0;
-    width: 300px;
-    max-height: 300px;
+   
+ 
+        width: 425px;
+      max-height: 515.2px;
+      max-width: 600px;
+     
+        border-radius: 34px;
+    overflow: hidden;
+
     overflow-y: auto;
     z-index: 100;
-}
+} */
 .filter-container .location-picker {
     position: relative;
     flex: 1;
@@ -150,7 +204,7 @@
     display: flex;
     align-items: center;
     gap: 1em;
-    padding: 0.8em 1.5em;
+    padding: 1.5em 1.5em;
     cursor: pointer;
     font-size: 0.9em;
 }
@@ -350,4 +404,31 @@
  
     z-index: 1000;
     background-color: #ffffff;
+}
+
+
+.location-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+      
+}
+
+.location-desc {
+    /* font-size: 0.8em; */
+    color: #717171;
+}
+
+.location-item {
+    text-align: left;
+    /* font-size: 15px; */
+}
+
+.location-name {
+    font-size: 1em;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 3px;
 }

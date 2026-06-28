@@ -3,6 +3,8 @@ import DatePicker from 'react-datepicker'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
+// import { getRandomLocationImage } from '../services/location.service.js'
+import { getRandomLocationImage, getRandomLocationDescription } from '../services/location.service.js'
 import 'react-datepicker/dist/react-datepicker.css'
 
 export function StayFilter({ onSearchDone }) {
@@ -103,24 +105,30 @@ export function StayFilter({ onSearchDone }) {
                         onChange={handleChange}
                         onFocus={() => { setIsLocationOpen(true); setActiveField('location') }}
                     />
-                    {isLocationOpen && (
-                        <div className="location-dropdown">
-                            {locations
-                                .filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase()))
-                                .slice(0, 10)
-                                .map(loc => (
-                                    <div key={loc} className="location-item"
-                                        onClick={() => {
-                                            setFilterToEdit({ ...filterToEdit, location: loc })
-                                            setIsLocationOpen(false)
-                                        }}>
-                                        {loc}
-                                    </div>
-                                ))
-                            }
+                   {isLocationOpen && (
+    <div className="location-dropdown">
+        <div className="location-dropdown-inner">
+            {locations
+                .filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase()))
+                .slice(0, 10)
+                .map(loc => (
+                    <div key={loc} className="location-item"
+                        onClick={() => {
+                            setFilterToEdit({ ...filterToEdit, location: loc })
+                            setIsLocationOpen(false)
+                        }}>
+                        <img className="location-img" src={getRandomLocationImage()} alt={loc} />
+                        <div>
+                            <div className="location-name">{loc}</div>
+                            <div className="location-desc">{getRandomLocationDescription()}</div>
                         </div>
-                    )}
-                </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+)}
+</div>
                 <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''}`}>
                     <label className="filter-label">When</label>
                     <DatePicker
@@ -135,15 +143,6 @@ export function StayFilter({ onSearchDone }) {
                     />
                 </div>
 
-                {/* <DatePicker
-                    selectsRange
-                    startDate={filterToEdit.startDate}
-                    endDate={filterToEdit.endDate}
-                    onChange={([start, end]) => setFilterToEdit({ ...filterToEdit, startDate: start, endDate: end })}
-                    placeholderText="Select dates"
-                    monthsShown={2}
-                    minDate={new Date()}
-                /> */}
                 <div className={`guests-picker ${activeField && activeField !== 'guests' ? 'dimmed' : ''}`} ref={guestsRef}>
                     <label className="filter-label">Who</label>
 
