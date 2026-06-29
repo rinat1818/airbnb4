@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
 
 
-import { BiSearch } from 'react-icons/bi'
+// import { BiSearch } from 'react-icons/bi'
+
+
+
 // import { getRandomLocationImage } from '../services/location.service.js'
 import { getRandomLocationImage, getRandomLocationDescription } from '../services/location.service.js'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -189,10 +192,12 @@ const guestTypes = [
     </div>
 )}
                 </div>
-              <button className="search-btn" onClick={onSearch}>
+              {/* <button className="search-btn" onClick={onSearch}>
     <BiSearch />
    
-</button>
+</button> */}
+
+<button className="search-btn" onClick={onSearch}>🔍</button>
             </div>
         </section>
     )

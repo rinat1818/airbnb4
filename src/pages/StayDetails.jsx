@@ -121,9 +121,12 @@ export function StayDetails() {
                     <div className="stay-amenities">
                         <h2>What this place offers</h2>
                         <ul>
-                            {stay.amenities.map(amenity => (
+                            {/* {stay.amenities.map(amenity => (
                                 <li key={amenity}>{amenity}</li>
-                            ))}
+                            ))} */}
+                            {stay.amenities.map((amenity, index) => (
+    <li key={`${amenity}-${index}`}>{amenity}</li>
+))}
                         </ul>
                     </div>
                 </div>
