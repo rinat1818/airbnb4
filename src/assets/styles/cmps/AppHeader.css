@@ -8,7 +8,9 @@
 .app-header {
     background: linear-gradient(180deg, #ffffff 39.9%, #f8f8f8 100%);
     border-bottom: 1px solid #ebebeb;
-    padding: 38px;
+  
+    padding-left: 38px;
+    padding: 1.5em 2em;
     width: 100%;
     position: fixed;
     
