@@ -93,7 +93,8 @@ const guestTypes = [
     return (
         <section className="stay-filter">
             <div className={`filter-container ${activeField ? 'has-active' : ''}`} ref={filterRef}>
-                <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''}`} ref={locationRef}>
+                <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''} ${activeField === 'location' ? 'active' : ''}`} ref={locationRef}>
+                {/* <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''}`} ref={locationRef}> */}
                     <label className="filter-label">Where</label>
                     <input
                         type="text"
@@ -128,7 +129,8 @@ const guestTypes = [
     </div>
 )}
 </div>
-                <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''}`}>
+                {/* <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''}`}> */}
+                <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''} ${activeField === 'date' ? 'active' : ''}`}>
                     <label className="filter-label">When</label>
                     <DatePicker
                         selectsRange
@@ -143,7 +145,8 @@ const guestTypes = [
                     />
                 </div>
 
-                <div className={`guests-picker ${activeField && activeField !== 'guests' ? 'dimmed' : ''}`} ref={guestsRef}>
+                {/* <div className={`guests-picker ${activeField && activeField !== 'guests' ? 'dimmed' : ''}`} ref={guestsRef}> */}
+                <div className={`guests-picker ${activeField && activeField !== 'guests' ? 'dimmed' : ''} ${activeField === 'guests' ? 'active' : ''}`} ref={guestsRef}>
                     <label className="filter-label">Who</label>
 
                     <input
