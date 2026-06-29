@@ -6,6 +6,7 @@ import { StayFilterCollapsed } from './StayFilterCollapsed.jsx'
 import { logout } from '../store/actions/user.actions.js'
 import { NavLink, useLocation } from 'react-router-dom'
 import airbnb from '../assets/icons/airbnb.svg'
+import { Link } from 'react-router-dom'
 
 export function AppHeader() {
 
@@ -82,10 +83,14 @@ export function AppHeader() {
             <section className="header-container">
                 <div className="header-top">
 
-                    <div className="logo-container">
+                    {/* <div className="logo-container">
                         <img src={airbnb} alt="logo" />
                             <span className="logo-text">airbob</span>
-                    </div>
+                    </div> */}
+                    <Link to="/" className="logo-container">
+                        <img src={airbnb} alt="logo" />
+                        <span className="logo-text">airbob</span>
+                    </Link>
 
                     <div
                         className={`filter-collapsed-wrapper ${showCollapsed ? 'visible' : ''}`}
