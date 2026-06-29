@@ -237,6 +237,9 @@
     background: white; 
     position: relative;
     /* padding: 8px; */
+       /* max-width: 850px; */
+    /* width: 100%; */
+   
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
@@ -248,24 +251,38 @@
     align-items: center;
 } */
 
-/* 
-.filter-container > *:has( + :not(.dimmed)):not(.selected):not(:last-child):not(.guests-picker)::after {
+
+/* .filter-container > *:has( + :not(.dimmed)):not(.selected):not(:last-child):not(.guests-picker)::after {
     content: "";
     border-right: 1px solid #ddd;
     margin-block: 10px;
     grid-area: 1 / 2 / 3 / 3;
     align-self: stretch;
 } */
- .filter-container > *:not(.active):not(:has(+ .active)):not(.selected):not(:last-child):not(.guests-picker)::after {
+
+/* ////////////////// */
+ /* .filter-container > *:not(.active):not(:has(+ .active)):not(.selected):not(:last-child):not(.guests-picker)::after {
     content: "";
     border-right: 1px solid #ddd;
     margin-block: 6px;
     grid-area: 1 / 2 / 3 / 3;
     align-self: stretch;
       border-right: 1.5px solid #b0b0b0;
+       
+} */
+
+.filter-container > *:not(.active):not(:has(+ .active)):not(.selected):not(:last-child):not(.guests-picker):not(:hover):not(:has(+ *:hover))::after {
+    content: "";
+    margin-block: 6px;
+    grid-area: 1 / 2 / 3 / 3;
+    align-self: stretch;
+    border-right: 1.5px solid #b0b0b0;
 }
 
-
+.filter-container > *:hover {
+    background-color: #ebebeb;
+    border-radius: 999px;
+}
 
 .filter-container input {
     outline: none;
@@ -275,7 +292,7 @@
     box-sizing: content-box;
     width: 235px;
        /* width: auto; */
-    height: 1px;
+    height: 11px;
     padding: 10px 24px;
 }
 /* .guests-picker .filter-label {
@@ -331,8 +348,8 @@
     right: 0;
     margin: 0.4rem;
 
-   width: 42px;
-   height: 42px;
+   width: 48px;
+   height: 48px;
    aspect-ratio: 1/1;
 
 
@@ -621,3 +638,21 @@
 .header-bottom.visible {
     display: flex;
 }
+
+.search-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+.filter-container input,
+.filter-container label {
+    cursor: pointer;
+   
+}
+
+/* .filter-container > *:hover {
+    background-color: #ebebeb;
+    border-radius: 999px;
+    cursor: pointer;
+} */

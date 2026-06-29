@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
+import { BiSearch } from 'react-icons/bi'
 import 'react-datepicker/dist/react-datepicker.css'
 
 export function StayFilterCollapsed({ onClick }) {
@@ -104,7 +105,7 @@ export function StayFilterCollapsed({ onClick }) {
                         </div>
                     )}
                 </div>
-                <button onClick={onSearch}>🔍</button>
+                <button onClick={onSearch}><BiSearch  /></button>
             </div>
         </section>
     )
