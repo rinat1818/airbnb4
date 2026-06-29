@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
 
@@ -18,6 +18,7 @@ export function StayFilter({ onSearchDone }) {
     const filterBy = useSelector(state => state.stayModule.filterBy)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
     const [filterToEdit, setFilterToEdit] = useState(structuredClone(filterBy))
     const [isGuestsOpen, setIsGuestsOpen] = useState(false)
     const [isLocationOpen, setIsLocationOpen] = useState(false)
@@ -68,6 +69,20 @@ export function StayFilter({ onSearchDone }) {
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
 
+    useEffect(() => {
+        const location = searchParams.get('location') || ''
+        const startDate = searchParams.get('startDate') ? new Date(searchParams.get('startDate')) : null
+        const endDate = searchParams.get('endDate') ? new Date(searchParams.get('endDate')) : null
+        const adults = Number(searchParams.get('adults')) || 0
+        const children = Number(searchParams.get('children')) || 0
+        const infants = Number(searchParams.get('infants')) || 0
+        const pets = Number(searchParams.get('pets')) || 0
+
+        const newFilter = { ...filterToEdit, location, startDate, endDate, guests: { adults, children, infants, pets } }
+        setFilterToEdit(newFilter)
+        dispatch(setFilter(newFilter))
+    }, [searchParams])                   
+
     function handleChange(ev) {
         const { name, value } = ev.target
         setFilterToEdit({ ...filterToEdit, [name]: value })
@@ -83,24 +98,36 @@ export function StayFilter({ onSearchDone }) {
         }))
     }
 
-const guestTypes = [
-    { key: 'adults', label: 'Adults', sub: 'Ages 13 or above' },
-    { key: 'children', label: 'Children', sub: 'Ages 2 – 12' },  // ← יש כאן רווח בהתחלה?
-    { key: 'infants', label: 'Infants', sub: 'Under 2' },  // ← ואולי כאן?
-    { key: 'pets', label: 'Pets', sub: 'Bringing a service animal?' },
-]
+    const guestTypes = [
+        { key: 'adults', label: 'Adults', sub: 'Ages 13 or above' },
+        { key: 'children', label: 'Children', sub: 'Ages 2 – 12' },  // ← יש כאן רווח בהתחלה?
+        { key: 'infants', label: 'Infants', sub: 'Under 2' },  // ← ואולי כאן?
+        { key: 'pets', label: 'Pets', sub: 'Bringing a service animal?' },
+    ]
+
     function onSearch(ev) {
         ev.nativeEvent.stopImmediatePropagation()
         setIsGuestsOpen(false)
         setActiveField(null)
+
+        const params = new URLSearchParams()
+        if (filterToEdit.location) params.set('location', filterToEdit.location)
+        if (filterToEdit.startDate) params.set('startDate', filterToEdit.startDate.toISOString())
+        if (filterToEdit.endDate) params.set('endDate', filterToEdit.endDate.toISOString())
+        params.set('adults', filterToEdit.guests.adults)
+        params.set('children', filterToEdit.guests.children)
+        params.set('infants', filterToEdit.guests.infants)
+        params.set('pets', filterToEdit.guests.pets)
+
         dispatch(setFilter(filterToEdit))
-        navigate('/')
+        navigate(`/?${params.toString()}`)
     }
+
     return (
         <section className="stay-filter">
             <div className={`filter-container ${activeField ? 'has-active' : ''}`} ref={filterRef}>
                 <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''} ${activeField === 'location' ? 'active' : ''}`} ref={locationRef}>
-                {/* <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''}`} ref={locationRef}> */}
+                    {/* <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''}`} ref={locationRef}> */}
                     <label className="filter-label">Where</label>
                     <input
                         type="text"
@@ -111,30 +138,30 @@ const guestTypes = [
                         onChange={handleChange}
                         onFocus={() => { setIsLocationOpen(true); setActiveField('location') }}
                     />
-                   {isLocationOpen && (
-    <div className="location-dropdown">
-        <div className="location-dropdown-inner">
-            {locations
-                .filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase()))
-                .slice(0, 10)
-                .map(loc => (
-                    <div key={loc} className="location-item"
-                        onClick={() => {
-                            setFilterToEdit({ ...filterToEdit, location: loc })
-                            setIsLocationOpen(false)
-                        }}>
-                        <img className="location-img" src={getRandomLocationImage()} alt={loc} />
-                        <div>
-                            <div className="location-name">{loc}</div>
-                            <div className="location-desc">{getRandomLocationDescription()}</div>
+                    {isLocationOpen && (
+                        <div className="location-dropdown">
+                            <div className="location-dropdown-inner">
+                                {locations
+                                    .filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase()))
+                                    .slice(0, 10)
+                                    .map(loc => (
+                                        <div key={loc} className="location-item"
+                                            onClick={() => {
+                                                setFilterToEdit({ ...filterToEdit, location: loc })
+                                                setIsLocationOpen(false)
+                                            }}>
+                                            <img className="location-img" src={getRandomLocationImage()} alt={loc} />
+                                            <div>
+                                                <div className="location-name">{loc}</div>
+                                                <div className="location-desc">{getRandomLocationDescription()}</div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
                         </div>
-                    </div>
-                ))
-            }
-        </div>
-    </div>
-)}
-</div>
+                    )}
+                </div>
                 {/* <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''}`}> */}
                 <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''} ${activeField === 'date' ? 'active' : ''}`}>
                     <label className="filter-label">When</label>
@@ -147,7 +174,7 @@ const guestTypes = [
                         monthsShown={2}
                         minDate={new Date()}
                         onFocus={() => setActiveField('date')}
-                         formatWeekDay={day => day.charAt(0)}
+                        formatWeekDay={day => day.charAt(0)}
                     />
                 </div>
 
@@ -177,27 +204,27 @@ const guestTypes = [
                         </div>
                     )} */}
                     {isGuestsOpen && (
-    <div className="guests-dropdown">
-        {guestTypes.map(({ key, label, sub }) => (
-            <div key={key} className="guest-row">
-                <div>
-                    <span className="guest-label">{label}</span>
-                    <span className="guest-sub">{sub}</span>
+                        <div className="guests-dropdown">
+                            {guestTypes.map(({ key, label, sub }) => (
+                                <div key={key} className="guest-row">
+                                    <div>
+                                        <span className="guest-label">{label}</span>
+                                        <span className="guest-sub">{sub}</span>
+                                    </div>
+                                    <button onClick={() => updateGuests(key, -1)}>-</button>
+                                    <span>{filterToEdit.guests[key]}</span>
+                                    <button onClick={() => updateGuests(key, 1)}>+</button>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
-                <button onClick={() => updateGuests(key, -1)}>-</button>
-                <span>{filterToEdit.guests[key]}</span>
-                <button onClick={() => updateGuests(key, 1)}>+</button>
-            </div>
-        ))}
-    </div>
-)}
-                </div>
-              {/* <button className="search-btn" onClick={onSearch}>
+                {/* <button className="search-btn" onClick={onSearch}>
     <BiSearch />
    
 </button> */}
 
-<button className="search-btn" onClick={onSearch}>🔍</button>
+                <button className="search-btn" onClick={onSearch}>🔍</button>
             </div>
         </section>
     )
