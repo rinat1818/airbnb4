@@ -24,7 +24,7 @@ export function StayList({ stays, title, className = '', location = '' }) {
   }
 
   function onTitleArrowClick() {
-    navigate(`/stay/search?location=${location}`)
+    navigate(`/stay/?location=${location}`)
   }
 
   const isFiltered = className.includes('stay-list--filtered')
