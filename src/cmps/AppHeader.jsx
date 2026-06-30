@@ -109,7 +109,11 @@ export function AppHeader() {
                         {isMenuOpen && (
                             <div className="dropdown">
                                 {loggedinUser ? (
-                                    <button onClick={onLogout}>Logout</button>
+                                    <>
+                                        <NavLink to="/user" onClick={() => setIsMenuOpen(false)}>My user</NavLink>
+                                        <NavLink to="/stay" onClick={onLogout}>Logout</NavLink>
+                                    </>
+
                                 ) : (
                                     <>
                                         <NavLink to="/login" onClick={() => setIsMenuOpen(false)}>Log in</NavLink>

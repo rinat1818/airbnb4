@@ -8,6 +8,7 @@ import { SignupPage } from './pages/SignupPage.jsx'
 import { StayDetails } from './pages/StayDetails.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
 import { ScrollToTop } from './cmps/ScrollToTop.jsx'
+import { UserDetails } from './pages/UserDetails.jsx'
 import './assets/styles/main.css'
 
 
@@ -24,6 +25,7 @@ export function RootCmp() {
                     <Route path="/stay/:stayId" element={<StayDetails />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
+                    <Route path="/user" element={<UserDetails />} />
                 </Routes>
             </div>
             <AppFooter />
