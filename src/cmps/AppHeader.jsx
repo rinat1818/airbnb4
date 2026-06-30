@@ -100,7 +100,11 @@ export function AppHeader() {
                     </div>
                     <div className="user-menu">
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                            {loggedinUser ? `Hello, ${loggedinUser.fullname.split(' ')[0]}` : '☰'}
+                            {loggedinUser ? (
+                                <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="user-avatar" />
+                            ) : (
+                                '☰'
+                            )}
                         </button>
                         {isMenuOpen && (
                             <div className="dropdown">

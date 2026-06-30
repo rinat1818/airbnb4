@@ -30,7 +30,7 @@ async function login(username, password) {
 
 async function signup(userCred) {
     if (!userCred.imgUrl) {
-        userCred.imgUrl = 'https://robohash.org/' + userCred.username + '?set=set2'
+        userCred.imgUrl = 'https://robohash.org/' + userCred.username + '?set=set5'
     }
     userCred.score = 10000
 
@@ -54,7 +54,7 @@ function _createUsers() {
             {
                 _id: 'u101',
                 fullname: 'User 1',
-                imgUrl: 'https://robohash.org/user1?set=set2',
+                imgUrl: 'https://robohash.org/user1?set=set5',
                 username: 'user1',
                 password: 'secret',
                 trips: [
@@ -85,7 +85,7 @@ function _createUsers() {
             {
                 _id: 'u102',
                 fullname: 'User 2',
-                imgUrl: 'https://robohash.org/user2?set=set2',
+                imgUrl: 'https://robohash.org/user2?set=set5',
                 username: 'user2',
                 password: 'secret',
                 trips: [
@@ -116,7 +116,7 @@ function _createUsers() {
             {
                 _id: 'u103',
                 fullname: 'User 3',
-                imgUrl: 'https://robohash.org/user3?set=set2',
+                imgUrl: 'https://robohash.org/user3?set=set5',
                 username: 'user3',
                 password: 'secret',
                 trips: [
@@ -147,7 +147,7 @@ function _createUsers() {
             {
                 _id: 'u104',
                 fullname: 'User 4',
-                imgUrl: 'https://robohash.org/user4?set=set2',
+                imgUrl: 'https://robohash.org/user4?set=set5',
                 username: 'user4',
                 password: 'secret',
                 trips: [
@@ -178,7 +178,7 @@ function _createUsers() {
             {
                 _id: 'u105',
                 fullname: 'User 5',
-                imgUrl: 'https://robohash.org/user5?set=set2',
+                imgUrl: 'https://robohash.org/user5?set=set5',
                 username: 'user5',
                 password: 'secret',
                 trips: [
