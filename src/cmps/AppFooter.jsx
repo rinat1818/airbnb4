@@ -64,11 +64,11 @@ export function AppFooter() {
                 <div className="copyright-container">
                     <span>© 2026 Airbob, Inc.</span>
                     <span className="dot">·</span>
-                    <a href="#" className="privacy-link">Privacy</a>
+                    <a className="privacy-link">Privacy</a>
                     <span className="dot">·</span>
-                    <a href="#" className="terms-link">Terms</a>
+                    <a className="terms-link">Terms</a>
                     <span className="dot">·</span>
-                    <a href="#" className="choice-link">Your Privacy Choices</a>
+                    <a className="choice-link">Your Privacy Choices</a>
                 </div>
 
                 <div className="social-container">
