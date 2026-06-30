@@ -8,13 +8,14 @@ export function StayDetails() {
     const { stayId } = useParams()
     const navigate = useNavigate()
     const [stay, setStay] = useState(null)
-    const [currentImgIdx, setCurrentImgIdx] = useState(0)
+    const [showAllPhotos, setShowAllPhotos] = useState(false)
 
     const [checkIn, setCheckIn] = useState(null)
     const [checkOut, setCheckOut] = useState(null)
-    const [guests, setGuests] = useState(1)
+    const [guests, setGuests] = useState({ adults: 1, children: 0, infants: 0, pets: 0 })
+    const [guestsOpen, setGuestsOpen] = useState(false)
 
-    const [toast, setToast] = useState(null)
+    const [toast, setToast] = useState(null) 
     const [toastVisible, setToastVisible] = useState(false)
 
     useEffect(() => {
@@ -29,28 +30,36 @@ export function StayDetails() {
     function showToast(message, type = 'success') {
         setToast({ message, type })
         setToastVisible(true)
-        setTimeout(() => setToastVisible(false), 1500)
-        setTimeout(() => setToast(null), 1500)
+        setTimeout(() => setToastVisible(false), 3500)
+        setTimeout(() => setToast(null), 4000)
     }
 
     if (!stay) return <div className="loading">Loading...</div>
 
     const avgRating = stay.reviews.length
-        ? (stay.reviews.reduce((sum, r) => sum + r.rate, 0) / stay.reviews.length).toFixed(1)
+        ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
         : null
-
-    function prevImg() {
-        setCurrentImgIdx(i => (i === 0 ? stay.imgUrls.length - 1 : i - 1))
-    }
-
-    function nextImg() {
-        setCurrentImgIdx(i => (i === stay.imgUrls.length - 1 ? 0 : i + 1))
-    }
 
     const nights = checkIn && checkOut
         ? Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24))
         : 0
     const totalPrice = nights * stay.price
+
+    const totalGuests = guests.adults + guests.children
+    const guestSummary = [
+        totalGuests > 0 && `${totalGuests} guest${totalGuests > 1 ? 's' : ''}`,
+        guests.infants > 0 && `${guests.infants} infant${guests.infants > 1 ? 's' : ''}`,
+        guests.pets > 0 && `${guests.pets} pet${guests.pets > 1 ? 's' : ''}`
+    ].filter(Boolean).join(', ')
+
+    function updateGuests(type, delta) {
+        setGuests(prev => {
+            const next = { ...prev, [type]: Math.max(0, prev[type] + delta) }
+            if (type === 'adults') next.adults = Math.max(1, next.adults)
+            if ((next.adults + next.children) > stay.capacity) return prev
+            return next
+        })
+    }
 
     function onReserve() {
         if (!checkIn || !checkOut) {
@@ -61,7 +70,7 @@ export function StayDetails() {
             showToast('Check-out must be after check-in', 'error')
             return
         }
-        showToast(`Reservation confirmed! ${nights} night${nights > 1 ? 's' : ''} · $${totalPrice} total`, 'success')
+        showToast(`Reservation confirmed! ${nights} night${nights > 1 ? 's' : ''} · ${guestSummary} · $${totalPrice} total`, 'success')
     }
 
     return (
@@ -82,16 +91,15 @@ export function StayDetails() {
                 <span>{stay.loc.city}, {stay.loc.country}</span>
             </div>
 
-            <div className="carousel">
-                <button className="carousel-btn prev" onClick={prevImg}>‹</button>
-                <img
-                    src={stay.imgUrls[currentImgIdx]}
-                    alt={`${stay.name} photo ${currentImgIdx + 1}`}
-                />
-                <button className="carousel-btn next" onClick={nextImg}>›</button>
-                <span className="carousel-counter">
-                    {currentImgIdx + 1} / {stay.imgUrls.length}
-                </span>
+            <div className={`photo-grid photos-${Math.min(stay.imgUrls.length, 5)}`}>
+                {stay.imgUrls.slice(0, 5).map((url, idx) => (
+                    <div key={idx} className={`photo-cell ${idx === 0 ? 'photo-main' : ''}`}>
+                        <img src={url} alt={`${stay.name} photo ${idx + 1}`} />
+                    </div>
+                ))}
+                <button className="btn-show-photos" onClick={() => setShowAllPhotos(true)}>
+                    ☰ Show all photos
+                </button>
             </div>
 
             <div className="details-layout">
@@ -121,12 +129,9 @@ export function StayDetails() {
                     <div className="stay-amenities">
                         <h2>What this place offers</h2>
                         <ul>
-                            {/* {stay.amenities.map(amenity => (
+                            {stay.amenities.map(amenity => (
                                 <li key={amenity}>{amenity}</li>
-                            ))} */}
-                            {stay.amenities.map((amenity, index) => (
-    <li key={`${amenity}-${index}`}>{amenity}</li>
-))}
+                            ))}
                         </ul>
                     </div>
                 </div>
@@ -174,15 +179,59 @@ export function StayDetails() {
                     </div>
 
                     <div className="guest-field">
-                        <label>GUESTS</label>
-                        <div className="guest-counter">
-                            <button onClick={() => setGuests(g => Math.max(1, g - 1))}>−</button>
-                            <span>{guests} guest{guests > 1 ? 's' : ''}</span>
-                            <button onClick={() => setGuests(g => Math.min(stay.capacity, g + 1))}>+</button>
+                        <div className="guest-field-trigger" onClick={() => setGuestsOpen(o => !o)}>
+                            <label>GUESTS</label>
+                            <div className="guest-field-value">
+                                <span>{guestSummary}</span>
+                                <span className={`guest-chevron ${guestsOpen ? 'open' : ''}`}>⌃</span>
+                            </div>
                         </div>
+
+                        {guestsOpen && (
+                            <div className="guest-dropdown">
+                                {[
+                                    { type: 'adults',   label: 'Adults',   sub: 'Age 13+' },
+                                    { type: 'children', label: 'Children', sub: 'Ages 2–12' },
+                                    { type: 'infants',  label: 'Infants',  sub: 'Under 2' },
+                                    { type: 'pets',     label: 'Pets',     sub: null },
+                                ].map(({ type, label, sub }) => (
+                                    <div key={type} className="guest-row">
+                                        <div className="guest-row-info">
+                                            <span className="guest-row-label">{label}</span>
+                                            {sub && <span className="guest-row-sub">{sub}</span>}
+                                        </div>
+                                        <div className="guest-row-counter">
+                                            <button
+                                                onClick={() => updateGuests(type, -1)}
+                                                disabled={guests[type] === 0 || (type === 'adults' && guests[type] === 1)}
+                                            >−</button>
+                                            <span>{guests[type]}</span>
+                                            <button
+                                                onClick={() => updateGuests(type, 1)}
+                                                disabled={type !== 'infants' && type !== 'pets' && totalGuests >= stay.capacity}
+                                            >+</button>
+                                        </div>
+                                    </div>
+                                ))}
+                                <p className="guest-max-note">
+                                    This place has a maximum of {stay.capacity} guests, not including infants.
+                                </p>
+                                <button className="guest-close" onClick={() => setGuestsOpen(false)}>Close</button>
+                            </div>
+                        )}
                     </div>
 
-                    <button className="btn-reserve" onClick={onReserve}>Reserve</button>
+                    <button
+                        className="btn-reserve"
+                        onClick={onReserve}
+                        onMouseMove={ev => {
+                            const rect = ev.currentTarget.getBoundingClientRect()
+                            ev.currentTarget.style.setProperty('--x', `${ev.clientX - rect.left}px`)
+                            ev.currentTarget.style.setProperty('--y', `${ev.clientY - rect.top}px`)
+                        }}
+                    >
+                        Reserve
+                    </button>
 
                     {nights > 0 && (
                         <div className="booking-summary">
