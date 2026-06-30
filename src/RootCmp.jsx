@@ -7,12 +7,14 @@ import { LoginPage } from './pages/LoginPage.jsx'
 import { SignupPage } from './pages/SignupPage.jsx'
 import { StayDetails } from './pages/StayDetails.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
+import { ScrollToTop } from './cmps/ScrollToTop.jsx'
 import './assets/styles/main.css'
 
 
 export function RootCmp() {
     return (
         <div className="main-layout">
+            <ScrollToTop />
             <AppHeader />
             <div className="main-content">
                 <Routes>
