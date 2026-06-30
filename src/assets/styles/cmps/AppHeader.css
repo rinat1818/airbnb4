@@ -153,12 +153,22 @@
 .menu-btn {
     font-size: 20px;
     width: 38px;
-    aspect-ratio: 1/1;
 
     &:hover {
         background-color: #e6e5e5;
         transform: none;
     }
+}
+
+.menu-btn.logged-in {
+    background: linear-gradient(to right, #e61e4d, #e31c5f, #bd1e59);
+    color: white;
+    border-color: transparent;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    width: auto;
+    white-space: nowrap;
 }
 
 /* .menu-btn span {
