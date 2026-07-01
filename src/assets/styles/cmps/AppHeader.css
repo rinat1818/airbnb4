@@ -12,11 +12,12 @@
     border-bottom: 1px solid #ebebeb;
 
     padding-left: 38px;
-    padding: 1.5em 2em;
+    padding: 2em 2em;
+    /* padding: 1em 2em; */
     width: 100%;
     position: fixed;
-
-    /* margin-top: 100px; */
+  /* margin-bottom: 120px; */
+    /* margin-top: 10px; */
     /* position: static; */
     top: 0;
     z-index: 100;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
+import { useSelector } from 'react-redux'
 import 'react-datepicker/dist/react-datepicker.css'
 import { stayService } from '../services/stayService.js'
 
@@ -10,12 +11,20 @@ export function StayDetails() {
     const [stay, setStay] = useState(null)
     const [currentImgIdx, setCurrentImgIdx] = useState(0)
 
-    const [checkIn, setCheckIn] = useState(null)
-    const [checkOut, setCheckOut] = useState(null)
-    const [guests, setGuests] = useState(1)
+    // const [checkIn, setCheckIn] = useState(null)
+    // const [checkOut, setCheckOut] = useState(null)
+    // const [guests, setGuests] = useState(1)
+    const filterBy = useSelector(state => state.stayModule.filterBy)
+const [checkIn, setCheckIn] = useState(filterBy.startDate || null)
+const [checkOut, setCheckOut] = useState(filterBy.endDate || null)
+const [guests, setGuests] = useState(
+    (filterBy.guests?.adults || 0) + (filterBy.guests?.children || 0) || 1
+)
 
     const [toast, setToast] = useState(null)
     const [toastVisible, setToastVisible] = useState(false)
+
+    
 
     useEffect(() => {
         stayService.get(stayId)
