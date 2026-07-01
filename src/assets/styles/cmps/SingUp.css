@@ -23,7 +23,7 @@
     border-radius: 16px;
     padding: 2rem;
     width: 100%;
-    max-width: 380px;
+    max-width: 500px;
 }
 
 .signup-header {
@@ -60,7 +60,7 @@
     border-color: #222;
 }
 
-.signup-page button {
+.signup-btn {
     width: 100%;
     padding: 20px;
     background: linear-gradient(to right, #e61e4d, #e31c5f, #bd1e59);

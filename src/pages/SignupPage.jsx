@@ -61,7 +61,7 @@ export function SignupPage() {
                         onChange={handleChange}
                         required
                     />
-                    <button>Sign Up</button>
+                    <button className="signup-btn">Sign Up</button>
                 </form>
                 <p className="login-p">Already have an account? <span className="login-link" onClick={() => navigate('/login')}>Log in</span></p>
             </div>
