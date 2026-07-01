@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
 
@@ -127,6 +128,9 @@ export function StayFilter({ onSearchDone }) {
         <section className="stay-filter">
             <div className={`filter-container ${activeField ? 'has-active' : ''}`} ref={filterRef}>
                 <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''} ${activeField === 'location' ? 'active' : ''}`} ref={locationRef}>
+                     {activeField === 'location' && (
+        <motion.div className="active-bg" layoutId="active-bg" transition={{ type: 'spring', stiffness: 500, damping: 35 }} />
+    )}
                     {/* <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''}`} ref={locationRef}> */}
                     <label className="filter-label">Where</label>
                     <input
@@ -164,6 +168,9 @@ export function StayFilter({ onSearchDone }) {
                 </div>
                 {/* <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''}`}> */}
                 <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''} ${activeField === 'date' ? 'active' : ''}`}>
+                     {activeField === 'date' && (
+        <motion.div className="active-bg" layoutId="active-bg" transition={{ type: 'spring', stiffness: 500, damping: 35 }} />
+    )}
                     <label className="filter-label">When</label>
                     <DatePicker
                         selectsRange
@@ -180,6 +187,9 @@ export function StayFilter({ onSearchDone }) {
 
                 {/* <div className={`guests-picker ${activeField && activeField !== 'guests' ? 'dimmed' : ''}`} ref={guestsRef}> */}
                 <div className={`guests-picker ${activeField && activeField !== 'guests' ? 'dimmed' : ''} ${activeField === 'guests' ? 'active' : ''}`} ref={guestsRef}>
+                      {activeField === 'guests' && (
+        <motion.div className="active-bg" layoutId="active-bg" transition={{ type: 'spring', stiffness: 500, damping: 35 }} />
+    )}
                     <label className="filter-label">Who</label>
 
                     <input
