@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { BiSearch } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
 
@@ -229,12 +230,12 @@ export function StayFilter({ onSearchDone }) {
                         </div>
                     )}
                 </div>
-                {/* <button className="search-btn" onClick={onSearch}>
+                <button className="search-btn" onClick={onSearch}>
     <BiSearch />
    
-</button> */}
+</button>
 
-                <button className="search-btn" onClick={onSearch}>🔍</button>
+                {/* <button className="search-btn" onClick={onSearch}>🔍</button> */}
             </div>
         </section>
     )
