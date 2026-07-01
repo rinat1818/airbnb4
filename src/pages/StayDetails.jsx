@@ -92,7 +92,7 @@ const [guestsOpen, setGuestsOpen] = useState(false)
                 </div>
             )}
 
-            <button onClick={() => navigate(-1)} className="btn-back">← Back</button>
+            <button onClick={() => navigate(-1)} className="btn-back"></button>
             <h1>{stay.name}</h1>
             <div className="stay-meta">
                 {avgRating && <span>⭐ {avgRating} · {stay.reviews.length} reviews</span>}
@@ -107,7 +107,7 @@ const [guestsOpen, setGuestsOpen] = useState(false)
                     </div>
                 ))}
                 <button className="btn-show-photos" onClick={() => setShowAllPhotos(true)}>
-                    ☰ Show all photos
+                    Show all photos
                 </button>
             </div>
 
