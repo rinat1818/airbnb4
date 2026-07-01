@@ -52,7 +52,7 @@
     padding: 8px 0;
     margin-bottom: 16px;
     color: #222;
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 .stay-details .btn-back:hover {
@@ -114,18 +114,20 @@
     position: absolute;
     bottom: 16px;
     right: 16px;
-    background: white;
-    border: 1px solid #222;
+    /* background: white; */
+    /* border: 1px solid #222; */
     border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 14px;
+    padding: 6px 12px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
+    opacity: 0.7;
 }
 
 .stay-details .btn-show-photos:hover {
-    background: #f0f0f0;
+    /* background: #f0f0f0; */
+    opacity: 1;
 }
 
 .stay-details .details-layout {
@@ -208,11 +210,13 @@
 
 .stay-details .stay-amenities li {
     font-size: 15px;
+    font-weight: 400;
     color: #333;
-    padding: 10px 14px;
-    border: 1px solid #ebebeb;
+    padding-top: 10px;
+    /* border: 1px solid #ebebeb; */
     border-radius: 10px;
-    background: #fafafa;
+    /* background: #fafafa; */
+    text-align: left;
 }
 
 .stay-details .booking-widget {
@@ -274,8 +278,10 @@
     margin-bottom: 4px;
 }
 
+
 .stay-details .date-field .react-datepicker-wrapper,
-.stay-details .date-field input {
+.stay-details .date-field .react-datepicker__input-container,
+.stay-details .date-field .react-datepicker__input-container input {
     width: 100%;
     border: none;
     outline: none;
@@ -284,8 +290,8 @@
     background: transparent;
     cursor: pointer;
     text-align: left;
+    padding: 0;
 }
-
 .stay-details .guest-field {
     border: 1px solid #b0b0b0;
     border-radius: 10px;
