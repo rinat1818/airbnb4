@@ -100,12 +100,20 @@ export function AppHeader() {
                     </div>
                     <div className="user-menu">
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                            {loggedinUser ? loggedinUser.fullname : '☰'}
+                            {loggedinUser ? (
+                                <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="user-avatar" />
+                            ) : (
+                                '☰'
+                            )}
                         </button>
                         {isMenuOpen && (
                             <div className="dropdown">
                                 {loggedinUser ? (
-                                    <button onClick={onLogout}>Logout</button>
+                                    <>
+                                        <NavLink to="/user" onClick={() => setIsMenuOpen(false)}>My user</NavLink>
+                                        <NavLink to="/" onClick={onLogout}>Logout</NavLink>
+                                    </>
+
                                 ) : (
                                     <>
                                         <NavLink to="/login" onClick={() => setIsMenuOpen(false)}>Log in</NavLink>

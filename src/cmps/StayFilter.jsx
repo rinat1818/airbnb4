@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { BiSearch } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../store/actions/stay.actions.js'
 
@@ -24,6 +26,8 @@ export function StayFilter({ onSearchDone }) {
     const [isLocationOpen, setIsLocationOpen] = useState(false)
 
     const [activeField, setActiveField] = useState(null)
+
+    
 
     const guestsRef = useRef(null)
     const locationRef = useRef(null)
@@ -127,6 +131,9 @@ export function StayFilter({ onSearchDone }) {
         <section className="stay-filter">
             <div className={`filter-container ${activeField ? 'has-active' : ''}`} ref={filterRef}>
                 <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''} ${activeField === 'location' ? 'active' : ''}`} ref={locationRef}>
+                     {activeField === 'location' && (
+        <motion.div className="active-bg" layoutId="active-bg" transition={{ type: 'spring', stiffness: 500, damping: 35 }} />
+    )}
                     {/* <div className={`location-picker ${activeField && activeField !== 'location' ? 'dimmed' : ''}`} ref={locationRef}> */}
                     <label className="filter-label">Where</label>
                     <input
@@ -137,12 +144,18 @@ export function StayFilter({ onSearchDone }) {
                         placeholder="Search by city or country"
                         onChange={handleChange}
                         onFocus={() => { setIsLocationOpen(true); setActiveField('location') }}
+// onClick={() => { setIsLocationOpen(true); setActiveField('location') }}
+ onClick={() => { 
+    setIsLocationOpen(true)
+    setActiveField('location')
+}}
                     />
-                    {isLocationOpen && (
+                    {/* {isLocationOpen && ( */}
+                    {isLocationOpen && locations.filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase())).slice(0, 10).length > 0 && (
                         <div className="location-dropdown">
                             <div className="location-dropdown-inner">
                                 {locations
-                                    .filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase()))
+                                    // .filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase()))
                                     .slice(0, 10)
                                     .map(loc => (
                                         <div key={loc} className="location-item"
@@ -164,6 +177,9 @@ export function StayFilter({ onSearchDone }) {
                 </div>
                 {/* <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''}`}> */}
                 <div className={`date-picker-wrapper ${activeField && activeField !== 'date' ? 'dimmed' : ''} ${activeField === 'date' ? 'active' : ''}`}>
+                     {activeField === 'date' && (
+        <motion.div className="active-bg" layoutId="active-bg" transition={{ type: 'spring', stiffness: 500, damping: 35 }} />
+    )}
                     <label className="filter-label">When</label>
                     <DatePicker
                         selectsRange
@@ -175,11 +191,15 @@ export function StayFilter({ onSearchDone }) {
                         minDate={new Date()}
                         onFocus={() => setActiveField('date')}
                         formatWeekDay={day => day.charAt(0)}
+                          dateFormat="MMM d"
                     />
                 </div>
 
                 {/* <div className={`guests-picker ${activeField && activeField !== 'guests' ? 'dimmed' : ''}`} ref={guestsRef}> */}
                 <div className={`guests-picker ${activeField && activeField !== 'guests' ? 'dimmed' : ''} ${activeField === 'guests' ? 'active' : ''}`} ref={guestsRef}>
+                      {activeField === 'guests' && (
+        <motion.div className="active-bg" layoutId="active-bg" transition={{ type: 'spring', stiffness: 500, damping: 35 }} />
+    )}
                     <label className="filter-label">Who</label>
 
                     <input
@@ -219,12 +239,12 @@ export function StayFilter({ onSearchDone }) {
                         </div>
                     )}
                 </div>
-                {/* <button className="search-btn" onClick={onSearch}>
+                <button className="search-btn" onClick={onSearch}>
     <BiSearch />
    
-</button> */}
+</button>
 
-                <button className="search-btn" onClick={onSearch}>🔍</button>
+                {/* <button className="search-btn" onClick={onSearch}>🔍</button> */}
             </div>
         </section>
     )

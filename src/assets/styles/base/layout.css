@@ -1,6 +1,6 @@
 .main-layout {
     display: grid;
-    margin-top: 195;
+    padding-top: var(--medium-gap);
     grid-template-columns: var(--medium-padding) 1fr var(--medium-padding);
     grid-template-rows: repeat(3, auto);
 

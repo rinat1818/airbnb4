@@ -50,7 +50,7 @@ export function AppFooter() {
                         <ul className="links-list">
                             {links.map((link) => (
                                 <li key={link.label}>
-                                    <a href={link.href} className="footer-link" target="_blank" rel="noopener noreferrer">
+                                    <a className="footer-link" target="_blank" rel="noopener noreferrer">
                                         {link.label}
                                     </a>
                                 </li>
@@ -64,26 +64,26 @@ export function AppFooter() {
                 <div className="copyright-container">
                     <span>© 2026 Airbob, Inc.</span>
                     <span className="dot">·</span>
-                    <a href="#" className="privacy-link">Privacy</a>
+                    <a className="privacy-link">Privacy</a>
                     <span className="dot">·</span>
-                    <a href="#" className="terms-link">Terms</a>
+                    <a className="terms-link">Terms</a>
                     <span className="dot">·</span>
-                    <a href="#" className="choice-link">Your Privacy Choices</a>
+                    <a className="choice-link">Your Privacy Choices</a>
                 </div>
 
                 <div className="social-container">
-                    <img src={GlobeIcon} alt="Globe"/>
+                    <img src={GlobeIcon} alt="Globe" />
                     <h3>English (US)</h3>
                     <h3>$ USD</h3>
                     <div className="icons-container">
                         <button className="icon-btn">
-                            <img src={FacebookIcon} alt="Facebook"/>
+                            <img src={FacebookIcon} alt="Facebook" />
                         </button>
                         <button className="icon-btn">
-                            <img src={TwitterIcon} alt="Twitter"/>
+                            <img src={TwitterIcon} alt="Twitter" />
                         </button>
                         <button className="icon-btn">
-                            <img src={InstagramIcon} alt="Instagram"/>
+                            <img src={InstagramIcon} alt="Instagram" />
                         </button>
                     </div>
                 </div>
