@@ -700,3 +700,30 @@
     border-radius: 999px;
     z-index: -1;
 }
+
+
+/* .guest-label, .guest-sub {
+    display: block;
+    padding-left: 0;
+    margin-left: 0;
+} */
+.guest-sub {
+    text-indent: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.guest-label {
+    display: block;
+}
+.guest-label {
+    text-indent: 0;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.guest-row > div {
+    min-width: 160px;
+      text-align: left;
+
+}
