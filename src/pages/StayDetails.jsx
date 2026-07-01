@@ -11,9 +11,16 @@ export function StayDetails() {
     const [stay, setStay] = useState(null)
     const [showAllPhotos, setShowAllPhotos] = useState(false)
 
-    const [checkIn, setCheckIn] = useState(null)
-    const [checkOut, setCheckOut] = useState(null)
-    const [guests, setGuests] = useState(1)
+    // const [checkIn, setCheckIn] = useState(null)
+    // const [checkOut, setCheckOut] = useState(null)
+    // const [guests, setGuests] = useState(1)
+
+    const filterBy = useSelector(state => state.stayModule.filterBy)
+const [checkIn, setCheckIn] = useState(filterBy.startDate || null)
+const [checkOut, setCheckOut] = useState(filterBy.endDate || null)
+const [guests, setGuests] = useState({ adults: filterBy.guests?.adults || 1, children: filterBy.guests?.children || 0, infants: filterBy.guests?.infants || 0, pets: filterBy.guests?.pets || 0 })
+const [guestsOpen, setGuestsOpen] = useState(false)
+
 
     const [toast, setToast] = useState(null) 
     const [toastVisible, setToastVisible] = useState(false)
@@ -131,9 +138,12 @@ export function StayDetails() {
                     <div className="stay-amenities">
                         <h2>What this place offers</h2>
                         <ul>
-                            {stay.amenities.map(amenity => (
+                            {stay.amenities.map((amenity, index) => (
+    <li key={`${amenity}-${index}`}>{amenity}</li>
+))}
+                            {/* {stay.amenities.map(amenity => (
                                 <li key={amenity}>{amenity}</li>
-                            ))}
+                            ))} */}
                         </ul>
                     </div>
                 </div>
