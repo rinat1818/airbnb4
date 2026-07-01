@@ -57,7 +57,7 @@ export function LoginPage() {
                         required
                     />
                     {error && <p className="error-msg">Username or password is incorrect</p>}
-                    <button>Login</button>
+                    <button className="login-btn">Login</button>
                 </form>
                 <p className="signup-p">Don't have an account? <span className="signup-link" onClick={() => navigate('/signup')}>Signup</span></p>
             </div>
