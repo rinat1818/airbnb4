@@ -115,19 +115,29 @@
     padding: 0.4em 0.6em;
     width: fit-content;
     } */
-    .filter-input-collapsed {
+     .filter-container-collapsed .react-datepicker-wrapper input {
+    font-size: 14px;
+    width: 90px;
+    height: 40px;
+}
+
+.filter-input-collapsed {
     /* min-width: 0; */
     /* padding: 16px; */
+    margin-right: 2px;
        text-align: center;
     width: 107.125px;
     height: 46.400px;
-     font-family: "Airbnb Cereal VF", Circular, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 600;
-   /* color: rgb(145, 43, 43) !important; */
-  cursor: pointer;
-
-  
-   
+    font-family: "Airbnb Cereal VF", Circular, -apple-system, BlinkMacSystemFont, sans-serif;
+    /* font-weight: 600px; */
+    font-size: 14px;
+    /* font-size: 0.95em; */
+    /* font-size: 0.85em; */
+    /* color: rgb(145, 43, 43) !important; */
+    cursor: pointer;
+    
+    
+    
 }
 
 
@@ -151,5 +161,8 @@
     padding: 0 !important;
     flex-direction: row !important;
     align-items: center !important;
-     margin-right: 4px;
+    margin-right: 4px;
+}
+.filter-container-collapsed .react-datepicker-wrapper input {
+    padding: 0 !important;
 }

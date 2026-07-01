@@ -286,7 +286,7 @@
     grid-area: 1 / 2 / 3 / 3;
     align-self: stretch;
     /* border-right: 1.5px solid #e8e8e8; */
-    border-right: 1.5px solid #c22828;
+    border-right: 1.5px solid #d9d6d6;
 }
 
 .filter-container>*:hover {
