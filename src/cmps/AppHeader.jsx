@@ -111,7 +111,7 @@ export function AppHeader() {
                                 {loggedinUser ? (
                                     <>
                                         <NavLink to="/user" onClick={() => setIsMenuOpen(false)}>My user</NavLink>
-                                        <NavLink to="/stay" onClick={onLogout}>Logout</NavLink>
+                                        <NavLink to="/" onClick={onLogout}>Logout</NavLink>
                                     </>
 
                                 ) : (
