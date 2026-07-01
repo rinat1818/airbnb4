@@ -183,6 +183,7 @@ export function StayFilter({ onSearchDone }) {
                         minDate={new Date()}
                         onFocus={() => setActiveField('date')}
                         formatWeekDay={day => day.charAt(0)}
+                          dateFormat="MMM d"
                     />
                 </div>
 

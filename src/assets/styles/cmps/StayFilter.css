@@ -20,16 +20,22 @@
     color: white;
     cursor: pointer;
 } 
-
- .react-datepicker-popper {
+.react-datepicker-popper {
+    position: absolute !important;
+    width: 850px !important;
+    left: 0 !important;
+    
+    margin-top: 8px !important;
+}
+ /* .react-datepicker-popper {
         width: 100% !important;
     max-width: 850px;
      left: 0 !important;
      transform: none !important;
-    margin-top: 8px !important;
+    margin-top: 8px !important; */
     /* left: 0 !important; */
     /* transform: none !important; */
-}
+/* } */
 .react-datepicker__triangle {
     display: none !important;
 }
@@ -298,6 +304,7 @@
     /* width: auto; */
     height: 11px;
     padding: 7px 24px 10px;
+     font-size: 0.95em;
     /* padding: 10px 24px; */
 }
 
