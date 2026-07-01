@@ -27,6 +27,8 @@ export function StayFilter({ onSearchDone }) {
 
     const [activeField, setActiveField] = useState(null)
 
+    
+
     const guestsRef = useRef(null)
     const locationRef = useRef(null)
 
@@ -142,12 +144,18 @@ export function StayFilter({ onSearchDone }) {
                         placeholder="Search by city or country"
                         onChange={handleChange}
                         onFocus={() => { setIsLocationOpen(true); setActiveField('location') }}
+// onClick={() => { setIsLocationOpen(true); setActiveField('location') }}
+ onClick={() => { 
+    setIsLocationOpen(true)
+    setActiveField('location')
+}}
                     />
-                    {isLocationOpen && (
+                    {/* {isLocationOpen && ( */}
+                    {isLocationOpen && locations.filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase())).slice(0, 10).length > 0 && (
                         <div className="location-dropdown">
                             <div className="location-dropdown-inner">
                                 {locations
-                                    .filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase()))
+                                    // .filter(loc => loc.toLowerCase().includes(filterToEdit.location.toLowerCase()))
                                     .slice(0, 10)
                                     .map(loc => (
                                         <div key={loc} className="location-item"
