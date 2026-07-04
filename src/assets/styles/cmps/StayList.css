@@ -1,8 +1,8 @@
 .stay-list {
   width: 100%;
   box-sizing: border-box;
-  padding: 0 var(--r-padding);
-  margin-bottom: var(--x-large-gap);
+  padding: 0;
+  margin-bottom: 40px;
 
   .stay-list-header {
     display: flex;

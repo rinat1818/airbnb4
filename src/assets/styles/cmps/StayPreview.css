@@ -11,7 +11,7 @@
         grid-area: i;
         position: relative;
         width: 100%;
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 22 / 21;
         border-radius: var(--border-radius);
         overflow: hidden;
 
@@ -61,8 +61,8 @@
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(8px);
             color: var(--clr-text);
-            font-family: AirbnbCereal_W_Bd;
             font-size: 0.8em;
+            font-weight: 600;
             padding: 4px 10px;
             border-radius: var(--border-radius);
             pointer-events: none;

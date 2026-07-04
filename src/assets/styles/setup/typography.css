@@ -1,42 +1,7 @@
 /* Airbnb */
 @font-face {
-    font-family: AirbnbCereal_W_Bd;
+    font-family: Figtree;
     /* set name */
-    src: url(/src/assets/fonts/AirbnbCereal_W_Bd.otf);
-    /* url of the font */
-}
-
-@font-face {
-    font-family: AirbnbCereal_W_Bk;
-    /* set name */
-    src: url(/src/assets/fonts/AirbnbCereal_W_Bk.otf);
-    /* url of the font */
-}
-
-@font-face {
-    font-family: AirbnbCereal_W_Blk;
-    /* set name */
-    src: url(/src/assets/fonts/AirbnbCereal_W_Blk.otf);
-    /* url of the font */
-}
-
-@font-face {
-    font-family: AirbnbCereal_W_Lt;
-    /* set name */
-    src: url(/src/assets/fonts/AirbnbCereal_W_Lt.otf);
-    /* url of the font */
-}
-
-@font-face {
-    font-family: AirbnbCereal_W_Md;
-    /* set name */
-    src: url(/src/assets/fonts/AirbnbCereal_W_Md.otf);
-    /* url of the font */
-}
-
-@font-face {
-    font-family: AirbnbCereal_W_XBd;
-    /* set name */
-    src: url(/src/assets/fonts/AirbnbCereal_W_XBd.otf);
+    src: url(/src/assets/fonts/Figtree-VariableFont_wght.ttf);
     /* url of the font */
 }

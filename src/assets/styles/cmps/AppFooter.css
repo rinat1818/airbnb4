@@ -5,13 +5,14 @@
     .links-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: var(--large-gap);
         margin: 0;
         padding: var(--medium-padding) 0;
         border-bottom: 1px solid var(--clr-footer-line);
     }
 
     .links-heading {
+        font-size: 14px;
+        font-weight: 600;
         margin-bottom: var(--small-gap);
     }
 
@@ -46,6 +47,7 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: var(--small-gap);
+        font-size: 16px;
     }
 
     .copyright-container {
@@ -53,6 +55,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: var(--x-small-gap);
+
     }
 
     .social-container {
@@ -84,6 +87,11 @@
         &:hover {
             transform: none;
         }
+    }
+
+    .language-title,
+    .coin-title {
+        font-size: 16px;
     }
 
 

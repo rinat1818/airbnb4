@@ -33,7 +33,7 @@ export function StayIndex() {
   const isSearchPage = !!locationFilter
 
   return (
-    <main className="stay-index">
+    <main className={`stay-index ${isSearchPage ? 'stay-index--search' : ''}`}>
       {isSearchPage ? (
         <StayList
           stays={filteredStays}

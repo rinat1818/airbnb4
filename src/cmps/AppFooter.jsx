@@ -63,18 +63,18 @@ export function AppFooter() {
             <div className="footer-bottom">
                 <div className="copyright-container">
                     <span>© 2026 Airbob, Inc.</span>
-                    <span className="dot">·</span>
+                    <span className="dot"> · </span>
                     <a className="privacy-link">Privacy</a>
-                    <span className="dot">·</span>
+                    <span className="dot"> · </span>
                     <a className="terms-link">Terms</a>
-                    <span className="dot">·</span>
+                    <span className="dot"> · </span>
                     <a className="choice-link">Your Privacy Choices</a>
                 </div>
 
                 <div className="social-container">
                     <img src={GlobeIcon} alt="Globe" />
-                    <h3>English (US)</h3>
-                    <h3>$ USD</h3>
+                    <h3 className="language-title">English (US)</h3>
+                    <h3 className="coin-title">$ USD</h3>
                     <div className="icons-container">
                         <button className="icon-btn">
                             <img src={FacebookIcon} alt="Facebook" />

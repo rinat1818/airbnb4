@@ -1,3 +1,11 @@
+.stay-index {
+    padding-top: 190px;
+}
+
+.stay-index--search {
+    padding-top: 90px;
+}
+
 .stay-list--filtered .stay-list-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
