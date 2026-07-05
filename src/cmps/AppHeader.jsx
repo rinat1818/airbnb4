@@ -117,14 +117,16 @@ useEffect(() => {
                     >
                         <StayFilterCollapsed onClick={() => { setShowCollapsed(false); setShowFull(true) }} />
                     </div>
-                    <Link to="/add-stay" className="host-link">מארח</Link>
+                    {/* <Link to="/add-stay" className="host-link">מארח</Link> */}
                     <div className="user-menu">
+                    {loggedinUser && <Link to="/add-stay" className="host-link">Become a Host</Link>}
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                             {loggedinUser ? (
                                 <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="user-avatar" />
                             ) : (
                                 '☰'
                             )}
+                            {/* {loggedinUser && <Link to="/add-stay" className="host-link">מארח</Link>} */}
                         </button>
                         {isMenuOpen && (
                             <div className="dropdown">
