@@ -40,6 +40,8 @@ export const stayService = {
       loc: {},
       reviews: [],
       likedByUsers: [],
+    //    reviews: [],          
+    // likedByUsers: [],
     }
   },
 }

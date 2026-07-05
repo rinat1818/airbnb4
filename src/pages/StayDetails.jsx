@@ -44,10 +44,12 @@ const [guestsOpen, setGuestsOpen] = useState(false)
     }
 
     if (!stay) return <div className="loading">Loading...</div>
-
-    const avgRating = stay.reviews.length
-        ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
-        : null
+const avgRating = stay.reviews?.length
+    ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
+    : null
+    // const avgRating = stay.reviews.length
+    //     ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
+    //     : null
 
     const nights = checkIn && checkOut
         ? Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24))
@@ -116,12 +118,17 @@ const [guestsOpen, setGuestsOpen] = useState(false)
                 <div className="details-body">
                     <div className="host-info">
                         <img
-                            src={stay.host.imgUrl}
-                            alt={stay.host.fullname}
+                            // src={stay.host.imgUrl}
+                            src={stay.host?.imgUrl}
+
+alt={stay.host?.fullname}
+                            // alt={stay.host.fullname}
                             className="host-avatar"
                         />
                         <div>
-                            <h2>Hosted by {stay.host.fullname}</h2>
+
+                            <h2>Hosted by {stay.host?.fullname}</h2>
+                            {/* <h2>Hosted by {stay.host.fullname}</h2> */}
                             <p>{stay.type} · Up to {stay.capacity} guests</p>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ import { logout } from '../store/actions/user.actions.js'
 import { NavLink, useLocation } from 'react-router-dom'
 import airbnb from '../assets/icons/airbnb.svg'
 import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 export function AppHeader() {
 
@@ -25,7 +26,8 @@ export function AppHeader() {
     useEffect(() => {
         function handleScroll() {
             const scrollY = window.scrollY
-            if (isHomePage) {
+            // if (isHomePage) {
+            if (isHomePage || location.search) {
                 if (scrollY > 100 && showFull && !userExpanded) {
                     setShowFull(false)
                     setTimeout(() => setShowCollapsed(true), 100)
@@ -40,8 +42,8 @@ export function AppHeader() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [isHomePage, showFull, showCollapsed])
 
-
-    useEffect(() => {
+useEffect(() => {
+    setTimeout(() => {
         if (isHomePage && window.scrollY < 100) {
             setShowFull(true)
             setShowCollapsed(false)
@@ -50,8 +52,24 @@ export function AppHeader() {
             setShowCollapsed(true)
         }
         setUserExpanded(false)
+        setIsMenuOpen(false)
         window.dispatchEvent(new Event('scroll'))
-    }, [location.pathname])
+    }, 50)
+}, [location.pathname, location.search])
+//     useEffect(() => {
+//         if (isHomePage && window.scrollY < 100) {
+//     setShowFull(true)
+//     setShowCollapsed(false)
+// } else {
+//     setShowFull(false)
+//     setShowCollapsed(true)
+// }
+//         setUserExpanded(false)
+//           setIsMenuOpen(false)
+    
+//         window.dispatchEvent(new Event('scroll'))
+   
+//     }, [location.pathname, location.search])
     useEffect(() => {
         function handleClickOutside(ev) {
             if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
@@ -62,6 +80,7 @@ export function AppHeader() {
                         setShowCollapsed(false)
                         return
                     }
+                     if (!isHomePage) return 
                     setShowFull(false)
                     setShowCollapsed(true)
                     setUserExpanded(false)
@@ -98,6 +117,7 @@ export function AppHeader() {
                     >
                         <StayFilterCollapsed onClick={() => { setShowCollapsed(false); setShowFull(true) }} />
                     </div>
+                    <Link to="/add-stay" className="host-link">מארח</Link>
                     <div className="user-menu">
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                             {loggedinUser ? (
