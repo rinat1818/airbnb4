@@ -19,3 +19,5 @@
 
 /* Pages */
 @import './pages/StayDetails.css';
+@import './pages/StayAdd.css';
+@import './pages/AddStay.css';

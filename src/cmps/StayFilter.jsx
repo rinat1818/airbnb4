@@ -34,14 +34,14 @@ export function StayFilter({ onSearchDone }) {
 
     const filterRef = useRef(null)
 
-    const locations = [...new Set([
-        ...stays.map(s => s.loc.city),
-        ...stays.map(s => s.loc.country)
-    ])].sort(() => Math.random() - 0.5)
-
-    // useEffect(() => {
-    //     setFilterToEdit(structuredClone(filterBy))
-    // }, [filterBy])
+    // const locations = [...new Set([
+    //     ...stays.map(s => s.loc.city),
+    //     ...stays.map(s => s.loc.country)
+    // ])].sort(() => Math.random() - 0.5)
+const locations = [...new Set([
+    ...stays.map(s => s.loc?.city).filter(Boolean),
+    ...stays.map(s => s.loc?.country).filter(Boolean)
+])].sort(() => Math.random() - 0.5)
 
     useEffect(() => {
         function handleClickOutside(ev) {
