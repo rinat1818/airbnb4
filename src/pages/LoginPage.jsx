@@ -1,5 +1,3 @@
-
-
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -21,7 +19,7 @@ export function LoginPage() {
         ev.preventDefault()
         try {
             await dispatch(login(credentials))
-            navigate('/')
+            navigate('/user')
         } catch (err) {
             setError(true)
         }

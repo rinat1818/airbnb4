@@ -42,34 +42,34 @@ export function AppHeader() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [isHomePage, showFull, showCollapsed])
 
-useEffect(() => {
-    setTimeout(() => {
-        if (isHomePage && window.scrollY < 100) {
-            setShowFull(true)
-            setShowCollapsed(false)
-        } else {
-            setShowFull(false)
-            setShowCollapsed(true)
-        }
-        setUserExpanded(false)
-        setIsMenuOpen(false)
-        window.dispatchEvent(new Event('scroll'))
-    }, 50)
-}, [location.pathname, location.search])
-//     useEffect(() => {
-//         if (isHomePage && window.scrollY < 100) {
-//     setShowFull(true)
-//     setShowCollapsed(false)
-// } else {
-//     setShowFull(false)
-//     setShowCollapsed(true)
-// }
-//         setUserExpanded(false)
-//           setIsMenuOpen(false)
-    
-//         window.dispatchEvent(new Event('scroll'))
-   
-//     }, [location.pathname, location.search])
+    useEffect(() => {
+        setTimeout(() => {
+            if (isHomePage && window.scrollY < 100) {
+                setShowFull(true)
+                setShowCollapsed(false)
+            } else {
+                setShowFull(false)
+                setShowCollapsed(true)
+            }
+            setUserExpanded(false)
+            setIsMenuOpen(false)
+            window.dispatchEvent(new Event('scroll'))
+        }, 50)
+    }, [location.pathname, location.search])
+    //     useEffect(() => {
+    //         if (isHomePage && window.scrollY < 100) {
+    //     setShowFull(true)
+    //     setShowCollapsed(false)
+    // } else {
+    //     setShowFull(false)
+    //     setShowCollapsed(true)
+    // }
+    //         setUserExpanded(false)
+    //           setIsMenuOpen(false)
+
+    //         window.dispatchEvent(new Event('scroll'))
+
+    //     }, [location.pathname, location.search])
     useEffect(() => {
         function handleClickOutside(ev) {
             if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
@@ -80,7 +80,7 @@ useEffect(() => {
                         setShowCollapsed(false)
                         return
                     }
-                     if (!isHomePage) return 
+                    if (!isHomePage) return
                     setShowFull(false)
                     setShowCollapsed(true)
                     setUserExpanded(false)
@@ -119,7 +119,7 @@ useEffect(() => {
                     </div>
                     {/* <Link to="/add-stay" className="host-link">מארח</Link> */}
                     <div className="user-menu">
-                    {loggedinUser && <Link to="/add-stay" className="host-link">Become a Host</Link>}
+                        {loggedinUser && !loggedinUser.isHost && <Link to="/add-stay" className="host-link">Become a Host</Link>}
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                             {loggedinUser ? (
                                 <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="user-avatar" />

@@ -16,6 +16,14 @@ export function signup(credentials) {
     }
 }
 
+export function updateUser(user) {
+    return async dispatch => {
+        const savedUser = await userService.update(user)
+        dispatch({ type: 'SET_USER', user: savedUser })
+        return savedUser
+    }
+}
+
 export function logout() {
     return async dispatch => {
         await userService.logout()
