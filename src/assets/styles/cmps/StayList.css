@@ -65,6 +65,12 @@
     height: 16px;
   }
 
+  button:hover {
+    background: #e4e4e4;
+    border-color: transparent;
+    transform: scale(1.1);
+  }
+
   &.stay-list--filtered {
     & ul {
       display: grid;

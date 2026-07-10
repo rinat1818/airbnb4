@@ -21,10 +21,14 @@ export function UserDetails() {
         return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     }
 
+    function isImageThumb(thumb) {
+        return typeof thumb === 'string' && (thumb.startsWith('http') || thumb.startsWith('/'))
+    }
+
     const navItems = [
         { key: 'about', label: 'About me', thumb: loggedinUser.imgUrl },
         { key: 'trips', label: 'Trips', thumb: trips[0]?.stay?.imgUrl },
-        ...(isHost ? [{ key: 'listings', label: 'Listings', thumb: listings[0]?.imgUrl }] : []),
+        ...(isHost ? [{ key: 'listings', label: 'Listings', thumb: <HouseIcon /> }] : []),
     ]
 
     return (
@@ -41,9 +45,9 @@ export function UserDetails() {
                                     onClick={() => setActiveTab(item.key)}
                                 >
                                     <span className="profile-nav-thumb">
-                                        {item.thumb
+                                        {isImageThumb(item.thumb)
                                             ? <img src={item.thumb} alt="" />
-                                            : <PersonIcon />}
+                                            : item.thumb || <PersonIcon />}
                                     </span>
                                     {item.label}
                                 </button>
@@ -63,35 +67,33 @@ export function UserDetails() {
 
                             <div className="about-row">
                                 <div className="about-card">
-                                    <div className="about-card-avatar-wrap">
-                                        <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="about-card-avatar" />
-                                        <span className="verified-badge"><CheckIcon /></span>
+                                    <div className="about-card-left">
+                                        <div className="about-card-avatar-wrap">
+                                            <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="about-card-avatar" />
+                                            <span className="verified-badge"><CheckIcon /></span>
+                                        </div>
+                                        <h3 className="about-card-name">{loggedinUser.fullname}</h3>
+                                        <p className="about-card-role">{isHost ? 'Host' : 'Guest'}</p>
                                     </div>
-                                    <h3 className="about-card-name">{loggedinUser.fullname}</h3>
-                                    <p className="about-card-role">{isHost ? 'Host' : 'Guest'}</p>
+                                    <div className="about-stats">
+                                        <div className="about-stat">
+                                            <strong>{trips.length}</strong>
+                                            <span>{trips.length === 1 ? 'Trip' : 'Trips'}</span>
+                                        </div>
+                                        <div className="about-stat">
+                                            <strong>0</strong>
+                                            <span>Reviews</span>
+                                        </div>
+                                        {isHost && (
+                                            <>
+                                                <div className="about-stat">
+                                                    <strong>{listings.length}</strong>
+                                                    <span>{listings.length === 1 ? 'Listing' : 'Listings'}</span>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
-
-                                <div className="about-stats">
-                                    <div className="about-stat">
-                                        <strong>{trips.length}</strong>
-                                        <span>{trips.length === 1 ? 'Trip' : 'Trips'}</span>
-                                    </div>
-                                    <hr />
-                                    <div className="about-stat">
-                                        <strong>0</strong>
-                                        <span>Reviews</span>
-                                    </div>
-                                    {isHost && (
-                                        <>
-                                            <hr />
-                                            <div className="about-stat">
-                                                <strong>{listings.length}</strong>
-                                                <span>{listings.length === 1 ? 'Listing' : 'Listings'}</span>
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-
                                 <ul className="about-info-list">
                                     <li>
                                         <ShieldIcon />
@@ -174,15 +176,6 @@ export function UserDetails() {
                         </>
                     )}
 
-                    {activeTab === 'connections' && (
-                        <>
-                            <div className="profile-content-header">
-                                <h2>Connections</h2>
-                            </div>
-                            <p className="empty-state">This feature isn't available yet.</p>
-                        </>
-                    )}
-
                 </div>
             </div>
         </section>
@@ -213,6 +206,21 @@ function PersonIcon() {
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
             <circle cx="12" cy="8" r="4" fill="none" stroke="#717171" strokeWidth="1.5" />
             <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" fill="none" stroke="#717171" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+    )
+}
+
+function HouseIcon() {
+    return (
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+                d="M4 11.5L12 4l8 7.5"
+                fill="none" stroke="#717171" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+            />
+            <path
+                d="M6 10v9a1 1 0 0 0 1 1h3v-5.5h4V20h3a1 1 0 0 0 1-1v-9"
+                fill="none" stroke="#717171" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+            />
         </svg>
     )
 }
