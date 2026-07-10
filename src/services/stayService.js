@@ -57,7 +57,7 @@ import { httpService } from './http.service.js'
 import { storageService } from './storageService.js'
 import { stays } from '../data/stays.js'
 
-const USE_BACKEND = true // ← שני ל-false כדי לחזור ל-localStorage
+const USE_BACKEND = false // ← שני ל-false כדי לחזור ל-localStorage
 const STORAGE_KEY = 'stays'
 
 if (!USE_BACKEND) _createStays()

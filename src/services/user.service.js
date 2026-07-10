@@ -50,165 +50,165 @@
 // function _createUsers() {
 //     let users = JSON.parse(localStorage.getItem(STORAGE_KEY))
 //     if (!users || !users.length) {
-        // users = [
-        //     {
-        //         _id: 'u101',
-        //         fullname: 'User 1',
-        //         imgUrl: 'https://robohash.org/user1?set=set5',
-        //         username: 'user1',
-        //         password: 'secret',
-        //         trips: [
-        //             {
-        //                 _id: 't1001',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aaaf8',
-        //                     name: 'Westin Kaanapali KORVN 2BR',
-        //                     price: 595,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436975/hx9ravtjop3uqv4giupt.jpg',
-        //                 },
-        //                 startDate: '2024-07-10',
-        //                 endDate: '2024-07-15',
-        //             },
-        //             {
-        //                 _id: 't1002',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aaaf9',
-        //                     name: 'Belle chambre à côté Metro Papineau',
-        //                     price: 30,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663437045/dmquvficldi8ssfdlrrx.jpg',
-        //                 },
-        //                 startDate: '2023-09-02',
-        //                 endDate: '2023-09-06',
-        //             },
-        //             {
-        //                 _id: 't1011',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aab02',
-        //                     name: 'Penthouse Sands of Kahana Sandy Swimmable Beach',
-        //                     price: 800,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436917/mqkfjmfpmyqpqmzmqgau.jpg',
-        //                 },
-        //                 startDate: '2026-08-10',
-        //                 endDate: '2026-08-15',
-        //             },
-        //             {
-        //                 _id: 't1012',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aab03',
-        //                     name: '+Spacious Studio&Kitchenette near Blue Mosque+',
-        //                     price: 264,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436321/g2cs1w7tkxsx58penq9j.jpg',
-        //                 },
-        //                 startDate: '2026-09-05',
-        //                 endDate: '2026-09-09',
-        //             },
-        //         ],
-        //     },
-        //     {
-        //         _id: 'u102',
-        //         fullname: 'User 2',
-        //         imgUrl: 'https://robohash.org/user2?set=set5',
-        //         username: 'user2',
-        //         password: 'secret',
-        //         trips: [
-        //             {
-        //                 _id: 't1003',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aaafa',
-        //                     name: 'M&M Space MM2  Apartamento no centro da cidade',
-        //                     price: 65,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436861/xrxhgsif3ekhxgn8irlm.jpg',
-        //                 },
-        //                 startDate: '2024-08-01',
-        //                 endDate: '2024-08-07',
-        //             },
-        //             {
-        //                 _id: 't1004',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aaafb',
-        //                     name: 'Fresh and modern 1BR in Bed-Stuy',
-        //                     price: 79,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436912/xle8ueqxjeazbs4bp09p.jpg',
-        //                 },
-        //                 startDate: '2023-10-12',
-        //                 endDate: '2023-10-16',
-        //             },
-        //             {
-        //                 _id: 't1013',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aab04',
-        //                     name: 'Grand apartment Sagrada Familia',
-        //                     price: 169,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436811/ym5nh1anownexsyzgbqq.jpg',
-        //                 },
-        //                 startDate: '2026-07-25',
-        //                 endDate: '2026-07-29',
-        //             },
-        //             {
-        //                 _id: 't1014',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aab05',
-        //                     name: 'Spacious and quiet duplex apartment in Poble Sec',
-        //                     price: 130,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436397/nde7l2hrwezdfzbvhczj.jpg',
-        //                 },
-        //                 startDate: '2026-10-03',
-        //                 endDate: '2026-10-07',
-        //             },
-        //         ],
-        //     },
-        //     {
-        //         _id: 'u103',
-        //         fullname: 'User 3',
-        //         imgUrl: 'https://robohash.org/user3?set=set5',
-        //         username: 'user3',
-        //         password: 'secret',
-        //         trips: [
-        //             {
-        //                 _id: 't1005',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aaafc',
-        //                     name: 'Habitación centro de Barcelona',
-        //                     price: 40,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436983/pivldxmrxssnhyzixhes.jpg',
-        //                 },
-        //                 startDate: '2024-07-20',
-        //                 endDate: '2024-07-23',
-        //             },
-        //             {
-        //                 _id: 't1006',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aaafd',
-        //                     name: 'DOUBLE ROOM IN THE HEART OF BCN',
-        //                     price: 25,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436793/httqod38otalkzp9kynq.jpg',
-        //                 },
-        //                 startDate: '2023-11-05',
-        //                 endDate: '2023-11-09',
-        //             },
-        //             {
-        //                 _id: 't1015',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aab06',
-        //                     name: '*CoZy Private Williamsburg Home*',
-        //                     price: 225,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436394/kscsvxyn0uro9tjhefeb.jpg',
-        //                 },
-        //                 startDate: '2026-08-20',
-        //                 endDate: '2026-08-24',
-        //             },
-        //             {
-        //                 _id: 't1016',
-        //                 stay: {
-        //                     _id: '622f337a75c7d36e498aab07',
-        //                     name: 'Newly and comfortable apt',
-        //                     price: 463,
-        //                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436867/yocip4igdbruuh2grzpf.jpg',
-        //                 },
-        //                 startDate: '2026-11-14',
-        //                 endDate: '2026-11-18',
-        //             },
-        //         ],
+// users = [
+//     {
+//         _id: 'u101',
+//         fullname: 'User 1',
+//         imgUrl: 'https://robohash.org/user1?set=set5',
+//         username: 'user1',
+//         password: 'secret',
+//         trips: [
+//             {
+//                 _id: 't1001',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aaaf8',
+//                     name: 'Westin Kaanapali KORVN 2BR',
+//                     price: 595,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436975/hx9ravtjop3uqv4giupt.jpg',
+//                 },
+//                 startDate: '2024-07-10',
+//                 endDate: '2024-07-15',
+//             },
+//             {
+//                 _id: 't1002',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aaaf9',
+//                     name: 'Belle chambre à côté Metro Papineau',
+//                     price: 30,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663437045/dmquvficldi8ssfdlrrx.jpg',
+//                 },
+//                 startDate: '2023-09-02',
+//                 endDate: '2023-09-06',
+//             },
+//             {
+//                 _id: 't1011',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aab02',
+//                     name: 'Penthouse Sands of Kahana Sandy Swimmable Beach',
+//                     price: 800,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436917/mqkfjmfpmyqpqmzmqgau.jpg',
+//                 },
+//                 startDate: '2026-08-10',
+//                 endDate: '2026-08-15',
+//             },
+//             {
+//                 _id: 't1012',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aab03',
+//                     name: '+Spacious Studio&Kitchenette near Blue Mosque+',
+//                     price: 264,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436321/g2cs1w7tkxsx58penq9j.jpg',
+//                 },
+//                 startDate: '2026-09-05',
+//                 endDate: '2026-09-09',
+//             },
+//         ],
+//     },
+//     {
+//         _id: 'u102',
+//         fullname: 'User 2',
+//         imgUrl: 'https://robohash.org/user2?set=set5',
+//         username: 'user2',
+//         password: 'secret',
+//         trips: [
+//             {
+//                 _id: 't1003',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aaafa',
+//                     name: 'M&M Space MM2  Apartamento no centro da cidade',
+//                     price: 65,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436861/xrxhgsif3ekhxgn8irlm.jpg',
+//                 },
+//                 startDate: '2024-08-01',
+//                 endDate: '2024-08-07',
+//             },
+//             {
+//                 _id: 't1004',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aaafb',
+//                     name: 'Fresh and modern 1BR in Bed-Stuy',
+//                     price: 79,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436912/xle8ueqxjeazbs4bp09p.jpg',
+//                 },
+//                 startDate: '2023-10-12',
+//                 endDate: '2023-10-16',
+//             },
+//             {
+//                 _id: 't1013',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aab04',
+//                     name: 'Grand apartment Sagrada Familia',
+//                     price: 169,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436811/ym5nh1anownexsyzgbqq.jpg',
+//                 },
+//                 startDate: '2026-07-25',
+//                 endDate: '2026-07-29',
+//             },
+//             {
+//                 _id: 't1014',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aab05',
+//                     name: 'Spacious and quiet duplex apartment in Poble Sec',
+//                     price: 130,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436397/nde7l2hrwezdfzbvhczj.jpg',
+//                 },
+//                 startDate: '2026-10-03',
+//                 endDate: '2026-10-07',
+//             },
+//         ],
+//     },
+//     {
+//         _id: 'u103',
+//         fullname: 'User 3',
+//         imgUrl: 'https://robohash.org/user3?set=set5',
+//         username: 'user3',
+//         password: 'secret',
+//         trips: [
+//             {
+//                 _id: 't1005',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aaafc',
+//                     name: 'Habitación centro de Barcelona',
+//                     price: 40,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436983/pivldxmrxssnhyzixhes.jpg',
+//                 },
+//                 startDate: '2024-07-20',
+//                 endDate: '2024-07-23',
+//             },
+//             {
+//                 _id: 't1006',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aaafd',
+//                     name: 'DOUBLE ROOM IN THE HEART OF BCN',
+//                     price: 25,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436793/httqod38otalkzp9kynq.jpg',
+//                 },
+//                 startDate: '2023-11-05',
+//                 endDate: '2023-11-09',
+//             },
+//             {
+//                 _id: 't1015',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aab06',
+//                     name: '*CoZy Private Williamsburg Home*',
+//                     price: 225,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436394/kscsvxyn0uro9tjhefeb.jpg',
+//                 },
+//                 startDate: '2026-08-20',
+//                 endDate: '2026-08-24',
+//             },
+//             {
+//                 _id: 't1016',
+//                 stay: {
+//                     _id: '622f337a75c7d36e498aab07',
+//                     name: 'Newly and comfortable apt',
+//                     price: 463,
+//                     imgUrl: 'http://res.cloudinary.com/dmtlr2viw/image/upload/v1663436867/yocip4igdbruuh2grzpf.jpg',
+//                 },
+//                 startDate: '2026-11-14',
+//                 endDate: '2026-11-18',
+//             },
+//         ],
 //             },
 //             {
 //                 _id: 'u104',
@@ -324,8 +324,10 @@
 
 import { httpService } from './http.service.js'
 import { storageService } from './storageService.js'
+import { users } from '../data/users.js'
 
-const USE_BACKEND = true
+
+const USE_BACKEND = false
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 const STORAGE_KEY = 'users'
 
@@ -384,15 +386,8 @@ function getLoggedinUser() {
 }
 
 function _createUsers() {
-    let users = JSON.parse(localStorage.getItem(STORAGE_KEY))
-    if (!users || !users.length) {
-        users = [
-            { _id: 'u101', fullname: 'User 1', imgUrl: 'https://robohash.org/user1?set=set5', username: 'user1', password: 'user1', isAdmin: false },
-            { _id: 'u102', fullname: 'User 2', imgUrl: 'https://robohash.org/user2?set=set5', username: 'user2', password: 'user2', isAdmin: false },
-            { _id: 'u103', fullname: 'User 3', imgUrl: 'https://robohash.org/user3?set=set5', username: 'user3', password: 'user3', isAdmin: false },
-            { _id: 'u104', fullname: 'User 4', imgUrl: 'https://robohash.org/user4?set=set5', username: 'user4', password: 'user4', isAdmin: false },
-            { _id: 'u105', fullname: 'User 5', imgUrl: 'https://robohash.org/user5?set=set5', username: 'user5', password: 'user5', isAdmin: false },
-        ]
+    let savedUsers = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    if (!savedUsers || !savedUsers.length) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(users))
     }
 }
