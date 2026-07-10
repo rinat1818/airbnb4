@@ -75,30 +75,50 @@ export function UserDetails() {
                                         <h3 className="about-card-name">{loggedinUser.fullname}</h3>
                                         <p className="about-card-role">{isHost ? 'Host' : 'Guest'}</p>
                                     </div>
+
                                     <div className="about-stats">
                                         <div className="about-stat">
                                             <strong>{trips.length}</strong>
                                             <span>{trips.length === 1 ? 'Trip' : 'Trips'}</span>
                                         </div>
                                         <div className="about-stat">
-                                            <strong>0</strong>
-                                            <span>Reviews</span>
+                                            <strong>{loggedinUser.reviewCount ?? 0}</strong>
+                                            <span>{loggedinUser.reviewCount === 1 ? 'Review' : 'Reviews'}</span>
                                         </div>
+                                        {typeof loggedinUser.yearsOnAirbnb === 'number' && (
+                                            <div className="about-stat">
+                                                <strong>{loggedinUser.yearsOnAirbnb}</strong>
+                                                <span>{loggedinUser.yearsOnAirbnb === 1 ? 'Year on Airbnb' : 'Years on Airbnb'}</span>
+                                            </div>
+                                        )}
                                         {isHost && (
-                                            <>
-                                                <div className="about-stat">
-                                                    <strong>{listings.length}</strong>
-                                                    <span>{listings.length === 1 ? 'Listing' : 'Listings'}</span>
-                                                </div>
-                                            </>
+                                            <div className="about-stat">
+                                                <strong>{listings.length}</strong>
+                                                <span>{listings.length === 1 ? 'Listing' : 'Listings'}</span>
+                                            </div>
                                         )}
                                     </div>
                                 </div>
+
                                 <ul className="about-info-list">
-                                    <li>
-                                        <ShieldIcon />
-                                        <span className="about-info-link">Identity verified</span>
-                                    </li>
+                                    {loggedinUser.work && (
+                                        <li>
+                                            <BriefcaseIcon />
+                                            <span>My work: {loggedinUser.work}</span>
+                                        </li>
+                                    )}
+                                    {loggedinUser.languages?.length > 0 && (
+                                        <li>
+                                            <SpeechIcon />
+                                            <span>Speaks {loggedinUser.languages.join(', ')}</span>
+                                        </li>
+                                    )}
+                                    {loggedinUser.isIdentityVerified && (
+                                        <li>
+                                            <ShieldIcon />
+                                            <span className="about-info-link">Identity verified</span>
+                                        </li>
+                                    )}
                                 </ul>
                             </div>
 
@@ -220,6 +240,27 @@ function HouseIcon() {
             <path
                 d="M6 10v9a1 1 0 0 0 1 1h3v-5.5h4V20h3a1 1 0 0 0 1-1v-9"
                 fill="none" stroke="#717171" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+            />
+        </svg>
+    )
+}
+
+function BriefcaseIcon() {
+    return (
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <rect x="3" y="7" width="18" height="12" rx="2" fill="none" stroke="#222222" strokeWidth="1.5" />
+            <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" fill="none" stroke="#222222" strokeWidth="1.5" />
+            <path d="M3 12h18" stroke="#222222" strokeWidth="1.5" />
+        </svg>
+    )
+}
+
+function SpeechIcon() {
+    return (
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+                d="M4 5h16v10H8l-4 4V5z"
+                fill="none" stroke="#222222" strokeWidth="1.5" strokeLinejoin="round"
             />
         </svg>
     )

@@ -24,7 +24,7 @@ export function StayPreview({ stay }) {
       <div className="stay-image-wrapper">
         <img src={image} alt={stay.name} loading="lazy" className="stay-image" />
 
-        {avgRating >= 4 && (
+        {avgRating >= 4.7 && (
           <span className="guest-favourite">Guest favourite</span>
         )}
 
