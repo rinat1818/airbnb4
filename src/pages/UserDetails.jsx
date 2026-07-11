@@ -1,13 +1,22 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { loadUsers } from '../store/actions/user.actions.js'
 import '../assets/styles/pages/UserDetails.css'
 
 export function UserDetails() {
 
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
     const stays = useSelector(state => state.stayModule.stays)
+    const users = useSelector(state => state.userModule.users)
+    const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState('about')
+
+    // Reservations on a host's listings live inside *other* users' `trips`
+    // arrays, so we need the full users collection, not just loggedinUser.
+    useEffect(() => {
+        if (loggedinUser?.isHost) dispatch(loadUsers())
+    }, [loggedinUser?.isHost])
 
     if (!loggedinUser) return <div className="user-details">No user logged in</div>
 
@@ -38,18 +47,31 @@ export function UserDetails() {
         .sort((a, b) => (b.rating || 0) - (a.rating || 0))
         .slice(0, 4)
 
+    // Reservations = other users' trips that booked one of this host's stays.
+    const hostStayIds = hostStays.map(stay => stay._id)
+
+    const allReservations = isHost
+        ? (users || []).flatMap(user =>
+            (user.trips || [])
+                .filter(trip => hostStayIds.includes(trip.stay?._id))
+                .map(trip => ({ ...trip, guest: user }))
+        )
+        : []
+
+    const upcomingReservations = allReservations.filter(res => new Date(res.endDate) > today)
+    const pastReservations = allReservations.filter(res => new Date(res.endDate) < today)
+
     function formatDate(dateStr) {
         return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     }
 
-    function isImageThumb(thumb) {
-        return typeof thumb === 'string' && (thumb.startsWith('http') || thumb.startsWith('/'))
-    }
-
     const navItems = [
-        { key: 'about', label: 'About me', thumb: loggedinUser.imgUrl },
-        { key: 'trips', label: 'Trips', thumb: trips[0]?.stay?.imgUrl },
-        ...(isHost ? [{ key: 'listings', label: 'Listings', thumb: <HouseIcon /> }] : []),
+        { key: 'about', label: 'About me', thumb: <PersonIcon /> },
+        { key: 'trips', label: 'Trips', thumb: <MountainIcon /> },
+        ...(isHost ? [
+            { key: 'listings', label: 'Listings', thumb: <HouseIcon /> },
+            { key: 'reservations', label: 'Reservations', thumb: <CalendarIcon /> },
+        ] : []),
     ]
 
     return (
@@ -66,9 +88,7 @@ export function UserDetails() {
                                     onClick={() => setActiveTab(item.key)}
                                 >
                                     <span className="profile-nav-thumb">
-                                        {isImageThumb(item.thumb)
-                                            ? <img src={item.thumb} alt="" />
-                                            : item.thumb || <PersonIcon />}
+                                        {item.thumb}
                                     </span>
                                     {item.label}
                                 </button>
@@ -239,6 +259,46 @@ export function UserDetails() {
                         </>
                     )}
 
+                    {activeTab === 'reservations' && isHost && (
+                        <>
+                            <div className="profile-content-header">
+                                <h2>Reservations</h2>
+                            </div>
+
+                            <h3>Upcoming reservations</h3>
+                            {!upcomingReservations.length && <p className="empty-state">No upcoming reservations yet</p>}
+                            <ul className="trip-list">
+                                {upcomingReservations.map(res => (
+                                    <li key={res._id} className="trip-card">
+                                        <img src={res.stay.imgUrl} alt={res.stay.name} className="trip-img" />
+                                        <div className="trip-info">
+                                            <h4>{res.stay.name}</h4>
+                                            <p className="trip-dates">{formatDate(res.startDate)} – {formatDate(res.endDate)}</p>
+                                            <p className="trip-price">${res.stay.price} / night</p>
+                                            <p className="reservation-guest">Guest: {res.guest.fullname}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <h3>Past reservations</h3>
+                            {!pastReservations.length && <p className="empty-state">No past reservations yet</p>}
+                            <ul className="trip-list">
+                                {pastReservations.map(res => (
+                                    <li key={res._id} className="trip-card">
+                                        <img src={res.stay.imgUrl} alt={res.stay.name} className="trip-img" />
+                                        <div className="trip-info">
+                                            <h4>{res.stay.name}</h4>
+                                            <p className="trip-dates">{formatDate(res.startDate)} – {formatDate(res.endDate)}</p>
+                                            <p className="trip-price">${res.stay.price} / night</p>
+                                            <p className="reservation-guest">Guest: {res.guest.fullname}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
+
                 </div>
             </div>
         </section>
@@ -269,6 +329,28 @@ function PersonIcon() {
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
             <circle cx="12" cy="8" r="4" fill="none" stroke="#717171" strokeWidth="1.5" />
             <path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6" fill="none" stroke="#717171" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+    )
+}
+
+function MountainIcon() {
+    return (
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+                d="M3 19l6.5-11 4 6.5L16 10l5 9z"
+                fill="none" stroke="#717171" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round"
+            />
+            <circle cx="8" cy="6.5" r="1.6" fill="none" stroke="#717171" strokeWidth="1.5" />
+        </svg>
+    )
+}
+
+function CalendarIcon() {
+    return (
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="#717171" strokeWidth="1.5" />
+            <path d="M3.5 9.5h17" stroke="#717171" strokeWidth="1.5" />
+            <path d="M8 3v4M16 3v4" stroke="#717171" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
     )
 }

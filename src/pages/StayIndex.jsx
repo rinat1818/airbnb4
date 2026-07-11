@@ -37,7 +37,7 @@ export function StayIndex() {
       {isSearchPage ? (
         <StayList
           stays={filteredStays}
-          title={`Over ${filteredStays.length} homes`}
+          title={`Over ${filteredStays.length} homes in ${locationFilter}`}
           className="stay-list--filtered"
         />
       ) : (

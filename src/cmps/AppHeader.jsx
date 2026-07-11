@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StayFilter } from './StayFilter.jsx'
 import { StayFilterCollapsed } from './StayFilterCollapsed.jsx'
@@ -17,11 +16,31 @@ export function AppHeader() {
     const [userExpanded, setUserExpanded] = useState(false)
 
     // const filterRef = useRef(null)
+    const headerRef = useRef(null)
     const dispatch = useDispatch()
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
 
     const location = useLocation()
     const isHomePage = location.pathname === '/'
+
+    // Keep --header-height in sync with the header's real, current height
+    // (it changes as the header collapses/expands on scroll), so any page
+    // can pad its content correctly without hardcoding pixel values.
+    useLayoutEffect(() => {
+        const headerEl = headerRef.current
+        if (!headerEl) return
+
+        function updateHeaderHeight() {
+            document.documentElement.style.setProperty('--header-height', `${headerEl.offsetHeight}px`)
+        }
+
+        updateHeaderHeight()
+
+        const resizeObserver = new ResizeObserver(updateHeaderHeight)
+        resizeObserver.observe(headerEl)
+
+        return () => resizeObserver.disconnect()
+    }, [])
 
     useEffect(() => {
         function handleScroll() {
@@ -98,7 +117,7 @@ export function AppHeader() {
     }
 
     return (
-        <header className="app-header">
+        <header className="app-header" ref={headerRef}>
             <section className="header-container">
                 <div className="header-top">
 

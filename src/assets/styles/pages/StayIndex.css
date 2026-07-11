@@ -1,9 +1,11 @@
 .stay-index {
-    padding-top: 190px;
+    padding-top: calc(var(--header-height, 190px) + 24px);
+    transition: padding-top 0.2s ease;
 }
 
 .stay-index--search {
-    padding-top: 90px;
+    /* no fixed override here — padding-top is driven by --header-height above,
+       which already reflects whatever state (full/collapsed) the header is in */
 }
 
 .stay-list--filtered .stay-list-grid {

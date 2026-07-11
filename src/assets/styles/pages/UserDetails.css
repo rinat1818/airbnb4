@@ -401,6 +401,12 @@
     margin: 0;
 }
 
+.reservation-guest {
+    font-size: 13px;
+    color: #717171;
+    margin: 4px 0 0;
+}
+
 /* ---------- Listing edit button ---------- */
 
 .listing-card {

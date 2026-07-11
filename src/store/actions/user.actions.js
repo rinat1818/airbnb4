@@ -38,6 +38,14 @@ export function loadUser() {
     }
 }
 
+export function loadUsers() {
+    return async dispatch => {
+        const users = await userService.query()
+        dispatch({ type: 'SET_USERS', users })
+        return users
+    }
+}
+
 export function setFilter(filterBy) {
     return dispatch => {
         dispatch({ type: 'SET_FILTER', filterBy })
