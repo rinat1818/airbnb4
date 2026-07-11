@@ -125,6 +125,7 @@
     padding: 0;
     line-height: 1;
 }
+
 .tags-input {
     display: flex;
     flex-wrap: wrap;
@@ -144,10 +145,90 @@
     font-size: 14px;
     cursor: pointer;
 }
+
 /* .tags-input {
     display: block;
 } */
-.dd{
-    display: block;
+.dd {
     padding: 15px;
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 768px) {
+    .add-stay {
+        padding-top: 90px;
+        padding-bottom: 40px;
+    }
+
+    .add-stay-form {
+        padding: 1.5em;
+        gap: 1.5em;
+    }
+
+    .address-fields {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .address-fields input:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .form-row {
+        gap: 1em;
+    }
+
+    .amenities-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 480px) {
+    .add-stay {
+        padding-top: 70px;
+        padding-bottom: 32px;
+    }
+
+    .add-stay-form {
+        padding: 1em;
+        gap: 1.25em;
+    }
+
+    .address-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .address-fields input:last-child {
+        grid-column: auto;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1em;
+    }
+
+    .dd {
+        padding: 0;
+    }
+
+    .upload-area {
+        padding: 1.5em 1em;
+    }
+
+    .upload-icon {
+        font-size: 2em;
+    }
+
+    .amenities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* A fixed 300px button leaves almost no margin on a ~320–375px phone —
+       go full width instead, matching the login/signup buttons. */
+    .btn-save {
+        width: 100%;
+        max-width: 100%;
+    }
 }

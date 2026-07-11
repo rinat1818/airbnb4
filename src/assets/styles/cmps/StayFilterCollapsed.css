@@ -1,5 +1,3 @@
-
-
 .guests-picker-collapsed {
     position: relative;
 }
@@ -165,4 +163,35 @@
 }
 .filter-container-collapsed .react-datepicker-wrapper input {
     padding: 0 !important;
+}
+
+/* ---------- Mobile (phones) ---------- */
+/* Full width budget here is shared with the logo and the account menu
+   button (see AppHeader.css), so there's no room left for separate
+   check-in / check-out / guest fields once every other header element
+   is accounted for. Tapping anywhere on this collapsed pill already
+   opens the full search overlay (.filter-collapsed-wrapper's onClick in
+   AppHeader.jsx), so trimming it down to just the location field keeps
+   the same "tap to search" behavior with a pill that actually fits. */
+@media (max-width: 480px) {
+    .filter-container-collapsed {
+        max-width: 190px;
+    }
+
+    .filter-container-collapsed .react-datepicker-wrapper,
+    .filter-container-collapsed .guests-picker-collapsed {
+        display: none;
+    }
+
+    .filter-input-collapsed {
+        width: 130px;
+        height: 38px;
+        font-size: 13px;
+        border-right: none !important;
+    }
+
+    .stay-filter-collapsed button:last-child {
+        width: 26px;
+        height: 26px;
+    }
 }

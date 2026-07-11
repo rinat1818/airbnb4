@@ -23,6 +23,11 @@ export function AppHeader() {
     const location = useLocation()
     const isHomePage = location.pathname === '/'
 
+    // Same breakpoint used across the CSS for the mobile layout.
+    function isMobileViewport() {
+        return window.innerWidth <= 768
+    }
+
     // Keep --header-height in sync with the header's real, current height
     // (it changes as the header collapses/expands on scroll), so any page
     // can pad its content correctly without hardcoding pixel values.
@@ -51,7 +56,10 @@ export function AppHeader() {
                     setShowFull(false)
                     setTimeout(() => setShowCollapsed(true), 100)
                 }
-                if (scrollY < 50 && showCollapsed) {
+                // On mobile the filter should only open from an explicit tap,
+                // not automatically re-expand just because the user scrolled
+                // back up to the top of the page.
+                if (!isMobileViewport() && scrollY < 50 && showCollapsed) {
                     setShowCollapsed(false)
                     setTimeout(() => setShowFull(true), 100)
                 }
@@ -63,7 +71,7 @@ export function AppHeader() {
 
     useEffect(() => {
         setTimeout(() => {
-            if (isHomePage && window.scrollY < 100) {
+            if (!isMobileViewport() && isHomePage && window.scrollY < 100) {
                 setShowFull(true)
                 setShowCollapsed(false)
             } else {
@@ -136,21 +144,21 @@ export function AppHeader() {
                     >
                         <StayFilterCollapsed onClick={() => { setShowCollapsed(false); setShowFull(true) }} />
                     </div>
-                    {/* <Link to="/add-stay" className="host-link">מארח</Link> */}
                     <div className="user-menu">
-                        {loggedinUser && !loggedinUser.isHost && <Link to="/add-stay" className="host-link">Become a Host</Link>}
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                             {loggedinUser ? (
                                 <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="user-avatar" />
                             ) : (
                                 '☰'
                             )}
-                            {/* {loggedinUser && <Link to="/add-stay" className="host-link">מארח</Link>} */}
                         </button>
                         {isMenuOpen && (
                             <div className="dropdown">
                                 {loggedinUser ? (
                                     <>
+                                        {!loggedinUser.isHost && (
+                                            <NavLink to="/add-stay" onClick={() => setIsMenuOpen(false)}>Become a Host</NavLink>
+                                        )}
                                         <NavLink to="/user" onClick={() => setIsMenuOpen(false)}>My user</NavLink>
                                         <NavLink to="/" onClick={onLogout}>Logout</NavLink>
                                     </>
@@ -166,7 +174,14 @@ export function AppHeader() {
                     </div>
                 </div>
                 <div className={`header-bottom ${showFull ? 'visible' : ''}`}>
-                    {/* <StayFilter onSearchDone={() => { setTimeout(() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }, 50) }} /> */}
+                    <button
+                        type="button"
+                        className="filter-close-btn"
+                        onClick={() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }}
+                        aria-label="Close search"
+                    >
+                        ✕
+                    </button>
                     <StayFilter onSearchDone={() => setUserExpanded(false)} />
                 </div>
             </section>

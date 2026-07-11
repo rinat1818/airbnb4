@@ -34,16 +34,30 @@
     transform: translateY(-16px);
 }
 
+@media (max-width: 480px) {
+    .toast {
+        top: 16px;
+        left: 16px;
+        right: 16px;
+        max-width: none;
+    }
+}
+
 .stay-details {
     max-width: 1120px;
     margin: 0 auto;
     padding: 24px 24px 80px;
     font-family: 'Circular', -apple-system, BlinkMacSystemFont, sans-serif;
     color: #222;
+    /* Previously nothing here accounted for the fixed header at all —
+       only .btn-back's flat 45px margin-top stood in for it, which is
+       far short of the header's real height (up to ~190px full-size).
+       Use the live header height instead, same pattern as StayIndex. */
+    padding-top: calc(var(--header-height, 190px) + 24px);
+    transition: padding-top 0.2s ease;
 }
 
 .stay-details .btn-back {
-    margin-top: 45px;
     background: none;
     border: none;
     font-size: 15px;
@@ -131,21 +145,34 @@
 }
 
 .stay-details .details-layout {
-    display: flex;
-    gap: 80px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    grid-template-areas:
+        "host   widget"
+        "rest   widget";
+    column-gap: 80px;
+    row-gap: 0;
+    align-items: start;
 }
 
 .stay-details .details-body {
-    flex: 1;
+    grid-area: rest;
     min-width: 0;
 }
 
 .stay-details .host-info {
+    grid-area: host;
     display: flex;
     align-items: center;
     gap: 16px;
     padding: 24px 0;
+    min-width: 0;
+}
+
+.stay-details .host-info>div {
+    /* Flex items default to min-width: auto, which lets a long host name
+       force this row wider than its column instead of wrapping. */
+    min-width: 0;
 }
 
 .stay-details .host-avatar {
@@ -220,8 +247,8 @@
 }
 
 .stay-details .booking-widget {
+    grid-area: widget;
     width: 360px;
-    flex-shrink: 0;
     position: sticky;
     top: 100px;
     border: 1px solid #ddd;
@@ -229,6 +256,7 @@
     padding: 24px;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
     background: white;
+    min-width: 0;
 }
 
 .stay-details .booking-price {
@@ -292,6 +320,7 @@
     text-align: left;
     padding: 0;
 }
+
 .stay-details .guest-field {
     border: 1px solid #b0b0b0;
     border-radius: 10px;
@@ -491,4 +520,104 @@
     border-top: 1px solid #ebebeb;
     padding-top: 12px;
     font-size: 16px;
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 1024px) {
+    .stay-details .details-layout {
+        column-gap: 40px;
+    }
+
+    .stay-details .booking-widget {
+        width: 320px;
+    }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 900px) {
+
+    /* 360px sticky sidebar has nowhere to sit once the body content next
+       to it drops under ~500-600px — stack everything in a single column.
+       Reordered so the reservation widget appears right after the host
+       info and before the About/amenities section, so price + Reserve
+       are visible without scrolling through the whole listing first. */
+    .stay-details .details-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "host"
+            "widget"
+            "rest";
+        row-gap: 16px;
+    }
+
+    .stay-details .booking-widget {
+        width: 100%;
+        position: static;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 768px) {
+    .stay-details {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .stay-details h1 {
+        font-size: 22px;
+    }
+
+    /* The 3-column/2-row 5-photo grid has no usable arrangement at phone
+       width — cells would be under 100px tall. Show just the main photo
+       full-width instead; "Show all photos" remains the way to see the
+       rest (assuming that opens a full gallery elsewhere in the app). */
+    .stay-details .photo-grid,
+    .stay-details .photo-grid.photos-1 {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        aspect-ratio: 4 / 3;
+    }
+
+    .stay-details .photo-grid .photo-cell:not(.photo-main) {
+        display: none;
+    }
+
+    .stay-details .photo-grid .photo-main {
+        grid-row: auto;
+    }
+
+    .stay-details .stay-amenities ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .stay-details {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .stay-details .booking-widget {
+        padding: 16px;
+    }
+
+    .stay-details .booking-dates {
+        flex-direction: column;
+    }
+
+    .stay-details .date-field {
+        border-right: none;
+        border-bottom: 1px solid #b0b0b0;
+    }
+
+    .stay-details .date-field:last-child {
+        border-bottom: none;
+    }
+
+    .stay-details .host-avatar {
+        width: 44px;
+        height: 44px;
+    }
 }

@@ -45,7 +45,7 @@ export function UserDetails() {
 
     const bestReviews = [...allReviews]
         .sort((a, b) => (b.rating || 0) - (a.rating || 0))
-        .slice(0, 4)
+        .slice(0, 3)
 
     // Reservations = other users' trips that booked one of this host's stays.
     const hostStayIds = hostStays.map(stay => stay._id)
@@ -86,11 +86,13 @@ export function UserDetails() {
                                 <button
                                     className={`profile-nav-btn ${activeTab === item.key ? 'active' : ''}`}
                                     onClick={() => setActiveTab(item.key)}
+                                    title={item.label}
+                                    aria-label={item.label}
                                 >
                                     <span className="profile-nav-thumb">
                                         {item.thumb}
                                     </span>
-                                    {item.label}
+                                    <span className="profile-nav-label">{item.label}</span>
                                 </button>
                             </li>
                         ))}

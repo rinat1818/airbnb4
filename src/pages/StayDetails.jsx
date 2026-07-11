@@ -115,24 +115,19 @@ export function StayDetails() {
 
             <div className="details-layout">
 
-                <div className="details-body">
-                    <div className="host-info">
-                        <img
-                            // src={stay.host.imgUrl}
-                            src={stay.host?.imgUrl}
-
-                            alt={stay.host?.fullname}
-                            // alt={stay.host.fullname}
-                            className="host-avatar"
-                        />
-                        <div>
-
-                            <h2>Hosted by {stay.host?.fullname}</h2>
-                            {/* <h2>Hosted by {stay.host.fullname}</h2> */}
-                            <p>{stay.type} · Up to {stay.capacity} guests</p>
-                        </div>
+                <div className="host-info">
+                    <img
+                        src={stay.host?.imgUrl}
+                        alt={stay.host?.fullname}
+                        className="host-avatar"
+                    />
+                    <div>
+                        <h2>Hosted by {stay.host?.fullname}</h2>
+                        <p>{stay.type} · Up to {stay.capacity} guests</p>
                     </div>
+                </div>
 
+                <div className="details-body">
                     <hr />
 
                     <div className="stay-description">
@@ -148,9 +143,6 @@ export function StayDetails() {
                             {stay.amenities.map((amenity, index) => (
                                 <li key={`${amenity}-${index}`}>{amenity}</li>
                             ))}
-                            {/* {stay.amenities.map(amenity => (
-                                <li key={amenity}>{amenity}</li>
-                            ))} */}
                         </ul>
                     </div>
                 </div>
