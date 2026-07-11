@@ -1,0 +1,81 @@
+/* ============================================================
+   Breakpoint reference & global mobile fixes
+   ============================================================
+   Plain CSS has no shared breakpoint variables (custom media
+   queries aren't supported without a preprocessor), so this file
+   is both documentation and the home for cross-cutting mobile
+   rules that don't belong to any single component's stylesheet.
+   Component-specific responsive rules live in their own files
+   (AppHeader.css, StayFilter.css, StayDetails.css, etc.) — this
+   file only holds things that are truly app-wide.
+
+   Breakpoint scale used across the app:
+     1280px  — large desktop -> laptop
+     1024px  — laptop -> tablet landscape
+     900px   — tablet landscape -> tablet portrait
+     768px   — tablet portrait -> large phone   (primary breakpoint)
+     600px   — large phone -> phone
+     480px   — phone                            (secondary breakpoint)
+     400px   — small phone
+   ============================================================ */
+
+/* ---------- Global layout spacing ----------
+   layout.css's .main-content margin-top (48px) is a hardcoded
+   value, not a custom property, so it isn't covered by the
+   var(--medium-padding) overrides in vars.css. Shrinking it here
+   keeps the header-to-content gap proportional as the header
+   itself gets shorter on mobile. */
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-top: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        margin-top: 16px;
+    }
+}
+
+/* ---------- Safety net against horizontal scroll ----------
+   Catches any fixed-width element that slips through a component
+   file's own responsive pass (e.g. a stray dropdown or image that
+   doesn't get clamped) so it clips instead of creating a
+   horizontal scrollbar on the whole page. */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+}
+
+/* ---------- Root font-size scale for very small phones ----------
+   base.css's h2/h3 use rem units, so this proportionally shrinks
+   headings app-wide on the smallest screens without needing a
+   font-size override in every component file. */
+
+@media (max-width: 360px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+/* ---------- Visibility utilities ----------
+   Available for any component's markup: add className="hide-mobile"
+   or className="show-mobile" where a mobile-only or desktop-only
+   element is needed. */
+
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .show-mobile {
+        display: none !important;
+    }
+}
