@@ -16,16 +16,16 @@ export function StayDetails() {
     // const [guests, setGuests] = useState(1)
 
     const filterBy = useSelector(state => state.stayModule.filterBy)
-const [checkIn, setCheckIn] = useState(filterBy.startDate || null)
-const [checkOut, setCheckOut] = useState(filterBy.endDate || null)
-const [guests, setGuests] = useState({ adults: filterBy.guests?.adults || 1, children: filterBy.guests?.children || 0, infants: filterBy.guests?.infants || 0, pets: filterBy.guests?.pets || 0 })
-const [guestsOpen, setGuestsOpen] = useState(false)
+    const [checkIn, setCheckIn] = useState(filterBy.startDate || null)
+    const [checkOut, setCheckOut] = useState(filterBy.endDate || null)
+    const [guests, setGuests] = useState({ adults: filterBy.guests?.adults || 1, children: filterBy.guests?.children || 0, infants: filterBy.guests?.infants || 0, pets: filterBy.guests?.pets || 0 })
+    const [guestsOpen, setGuestsOpen] = useState(false)
 
 
-    const [toast, setToast] = useState(null) 
+    const [toast, setToast] = useState(null)
     const [toastVisible, setToastVisible] = useState(false)
 
-    
+
 
     useEffect(() => {
         stayService.get(stayId)
@@ -44,9 +44,9 @@ const [guestsOpen, setGuestsOpen] = useState(false)
     }
 
     if (!stay) return <div className="loading">Loading...</div>
-const avgRating = stay.reviews?.length
-    ? (stay.reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / stay.reviews.length).toFixed(1)
-    : null
+    const avgRating = stay.reviews?.length
+        ? (stay.reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / stay.reviews.length).toFixed(1)
+        : null
     // const avgRating = stay.reviews.length
     //     ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
     //     : null
@@ -121,7 +121,7 @@ const avgRating = stay.reviews?.length
                             // src={stay.host.imgUrl}
                             src={stay.host?.imgUrl}
 
-alt={stay.host?.fullname}
+                            alt={stay.host?.fullname}
                             // alt={stay.host.fullname}
                             className="host-avatar"
                         />
@@ -146,8 +146,8 @@ alt={stay.host?.fullname}
                         <h2>What this place offers</h2>
                         <ul>
                             {stay.amenities.map((amenity, index) => (
-    <li key={`${amenity}-${index}`}>{amenity}</li>
-))}
+                                <li key={`${amenity}-${index}`}>{amenity}</li>
+                            ))}
                             {/* {stay.amenities.map(amenity => (
                                 <li key={amenity}>{amenity}</li>
                             ))} */}
@@ -209,10 +209,10 @@ alt={stay.host?.fullname}
                         {guestsOpen && (
                             <div className="guest-dropdown">
                                 {[
-                                    { type: 'adults',   label: 'Adults',   sub: 'Age 13+' },
+                                    { type: 'adults', label: 'Adults', sub: 'Age 13+' },
                                     { type: 'children', label: 'Children', sub: 'Ages 2–12' },
-                                    { type: 'infants',  label: 'Infants',  sub: 'Under 2' },
-                                    { type: 'pets',     label: 'Pets',     sub: null },
+                                    { type: 'infants', label: 'Infants', sub: 'Under 2' },
+                                    { type: 'pets', label: 'Pets', sub: null },
                                 ].map(({ type, label, sub }) => (
                                     <div key={type} className="guest-row">
                                         <div className="guest-row-info">

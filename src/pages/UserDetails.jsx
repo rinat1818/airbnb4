@@ -6,6 +6,7 @@ import '../assets/styles/pages/UserDetails.css'
 export function UserDetails() {
 
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
+    const stays = useSelector(state => state.stayModule.stays)
     const [activeTab, setActiveTab] = useState('about')
 
     if (!loggedinUser) return <div className="user-details">No user logged in</div>
@@ -16,6 +17,26 @@ export function UserDetails() {
     const upcomingTrips = trips.filter(trip => new Date(trip.endDate) > today)
     const listings = loggedinUser.stays || []
     const isHost = !!loggedinUser.isHost
+
+    // Reviews live nested inside each stay's `reviews` array in stays.js,
+    // so pull them from the stays this user hosts (or wrote, as a guest).
+    const hostStays = isHost
+        ? stays.filter(stay => stay.host?._id === loggedinUser._id)
+        : []
+
+    const allReviews = isHost
+        ? hostStays.flatMap(stay =>
+            (stay.reviews || []).map(review => ({ ...review, stayName: stay.name }))
+        )
+        : stays.flatMap(stay =>
+            (stay.reviews || [])
+                .filter(review => review.by?._id === loggedinUser._id)
+                .map(review => ({ ...review, stayName: stay.name }))
+        )
+
+    const bestReviews = [...allReviews]
+        .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+        .slice(0, 4)
 
     function formatDate(dateStr) {
         return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
@@ -72,7 +93,7 @@ export function UserDetails() {
                                             <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="about-card-avatar" />
                                             <span className="verified-badge"><CheckIcon /></span>
                                         </div>
-                                        <h3 className="about-card-name">{loggedinUser.fullname}</h3>
+                                        <h2 className="about-card-name">{loggedinUser.fullname}</h2>
                                         <p className="about-card-role">{isHost ? 'Host' : 'Guest'}</p>
                                     </div>
 
@@ -89,12 +110,6 @@ export function UserDetails() {
                                             <div className="about-stat">
                                                 <strong>{loggedinUser.yearsOnAirbnb}</strong>
                                                 <span>{loggedinUser.yearsOnAirbnb === 1 ? 'Year on Airbnb' : 'Years on Airbnb'}</span>
-                                            </div>
-                                        )}
-                                        {isHost && (
-                                            <div className="about-stat">
-                                                <strong>{listings.length}</strong>
-                                                <span>{listings.length === 1 ? 'Listing' : 'Listings'}</span>
                                             </div>
                                         )}
                                     </div>
@@ -126,7 +141,35 @@ export function UserDetails() {
 
                             <div className="reviews-section">
                                 <h2>My reviews</h2>
-                                <p className="empty-state">No reviews yet</p>
+                                {!bestReviews.length && <p className="empty-state">No reviews yet</p>}
+                                {!!bestReviews.length && (
+                                    <ul className="review-list">
+                                        {bestReviews.map(review => (
+                                            <li key={`${review.by?._id}-${review.at}`} className="review-card">
+                                                <div className="review-card-header">
+                                                    <img
+                                                        src={review.by?.imgUrl}
+                                                        alt={review.by?.fullname}
+                                                        className="review-avatar"
+                                                    />
+                                                    <div>
+                                                        <h4>{review.by?.fullname}</h4>
+                                                        <p className="review-date">{formatDate(review.at)}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="review-rating">
+                                                    {Array.from({ length: 5 }).map((_, i) => (
+                                                        <StarIcon key={i} filled={i < Math.round(review.rating || 0)} />
+                                                    ))}
+                                                </div>
+
+                                                <p className="review-txt">{review.txt}</p>
+                                                <p className="review-stay">Stayed at {review.stayName}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
                         </>
                     )}
@@ -261,6 +304,20 @@ function SpeechIcon() {
             <path
                 d="M4 5h16v10H8l-4 4V5z"
                 fill="none" stroke="#222222" strokeWidth="1.5" strokeLinejoin="round"
+            />
+        </svg>
+    )
+}
+
+function StarIcon({ filled }) {
+    return (
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+            <path
+                d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"
+                fill={filled ? '#222222' : 'none'}
+                stroke="#222222"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
             />
         </svg>
     )
