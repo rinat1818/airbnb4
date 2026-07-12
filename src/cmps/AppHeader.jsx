@@ -84,63 +84,26 @@ export function AppHeader() {
         }, 50)
     }, [location.pathname, location.search])
 
+    useEffect(() => {
+        function handleClickOutside(ev) {
+            if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
 
-
-
-    //     useEffect(() => {
-    //         if (isHomePage && window.scrollY < 100) {
-    //     setShowFull(true)
-    //     setShowCollapsed(false)
-    // } else {
-    //     setShowFull(false)
-    //     setShowCollapsed(true)
-    // }
-    //         setUserExpanded(false)
-    //           setIsMenuOpen(false)
-
-    //         window.dispatchEvent(new Event('scroll'))
-
-    //     }, [location.pathname, location.search])
-
-
-
-
-useEffect(() => {
-    function handleClickOutside(ev) {
-        if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
-            if (showFull) {
-                setShowFull(false)
-                setShowCollapsed(true)
-                setUserExpanded(false)
+                if (showFull) {
+                    if (isHomePage && window.scrollY < 100) {
+                        setShowFull(true)
+                        setShowCollapsed(false)
+                        return
+                    }
+                    if (!isHomePage) return
+                    setShowFull(false)
+                    setShowCollapsed(true)
+                    setUserExpanded(false)
+                }
             }
         }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-}, [showFull])
-    
-//     useEffect(() => {
-//         function handleClickOutside(ev) {
-//             if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
-
-//                 if (showFull) {
-//                     if (isHomePage && window.scrollY < 100) {
-//                         setShowFull(true)
-//                         setShowCollapsed(false)
-//                         return
-//                     }
-//                  if (!isHomePage) {
-//     setShowFull(false)
-//     setShowCollapsed(true)
-//     setUserExpanded(false)
-//     return
-// }
-//                 }
-//             }
-//         }
-//         document.addEventListener('mousedown', handleClickOutside)
-//         return () => document.removeEventListener('mousedown', handleClickOutside)
-//     }, [showFull, isHomePage])
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [showFull, isHomePage])
 
 
     async function onLogout() {
