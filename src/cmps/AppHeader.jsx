@@ -106,15 +106,16 @@ export function AppHeader() {
 
 
 useEffect(() => {
-    function handleClickOutside(ev) {
-        if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
-            if (showFull) {
-                setShowFull(false)
-                setShowCollapsed(true)
-                setUserExpanded(false)
-            }
+ function handleClickOutside(ev) {
+    if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn') && !ev.target.closest('.app-header')) {
+        if (showFull) {
+            if (isHomePage && window.scrollY < 100) return
+            setShowFull(false)
+            setShowCollapsed(true)
+            setUserExpanded(false)
         }
     }
+}
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
 }, [showFull])
