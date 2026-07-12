@@ -75,6 +75,7 @@ export function StayFilterCollapsed({ onClick }) {
                     placeholderText="Anyweek"
                     monthsShown={2}
                     minDate={new Date()}
+                     dateFormat="MMM d"
                 />
                 <div className="guests-picker-collapsed" ref={guestsRef}>
                     {/* <button onClick={() => setIsGuestsOpen(!isGuestsOpen)}>
