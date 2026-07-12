@@ -324,8 +324,10 @@
 
 import { httpService } from './http.service.js'
 import { storageService } from './storageService.js'
+import { users } from '../data/users.js'
 
-const USE_BACKEND = true
+
+const USE_BACKEND = false
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 const STORAGE_KEY = 'users'
 
@@ -337,11 +339,34 @@ export const userService = {
     signup,
     getLoggedinUser,
     query,
+    getById,
+    update,
 }
 
 function query() {
     if (USE_BACKEND) return httpService.get('user')
     return storageService.query(STORAGE_KEY)
+}
+
+async function getById(userId) {
+    if (USE_BACKEND) return httpService.get(`user/${userId}`)
+    const savedUsers = await storageService.query(STORAGE_KEY)
+    return savedUsers.find(u => u._id === userId)
+}
+
+async function update(user) {
+    if (USE_BACKEND) {
+        const savedUser = await httpService.put(`user/${user._id}`, user)
+        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(savedUser))
+        return savedUser
+    }
+    const savedUsers = await storageService.query(STORAGE_KEY)
+    const idx = savedUsers.findIndex(u => u._id === user._id)
+    if (idx === -1) return Promise.reject('User not found')
+    savedUsers[idx] = user
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(savedUsers))
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
+    return user
 }
 
 async function login(username, password) {
@@ -384,15 +409,8 @@ function getLoggedinUser() {
 }
 
 function _createUsers() {
-    let users = JSON.parse(localStorage.getItem(STORAGE_KEY))
-    if (!users || !users.length) {
-        users = [
-            { _id: 'u101', fullname: 'User 1', imgUrl: 'https://robohash.org/user1?set=set5', username: 'user1', password: 'user1', isAdmin: false },
-            { _id: 'u102', fullname: 'User 2', imgUrl: 'https://robohash.org/user2?set=set5', username: 'user2', password: 'user2', isAdmin: false },
-            { _id: 'u103', fullname: 'User 3', imgUrl: 'https://robohash.org/user3?set=set5', username: 'user3', password: 'user3', isAdmin: false },
-            { _id: 'u104', fullname: 'User 4', imgUrl: 'https://robohash.org/user4?set=set5', username: 'user4', password: 'user4', isAdmin: false },
-            { _id: 'u105', fullname: 'User 5', imgUrl: 'https://robohash.org/user5?set=set5', username: 'user5', password: 'user5', isAdmin: false },
-        ]
+    let savedUsers = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    if (!savedUsers || !savedUsers.length) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(users))
     }
 }

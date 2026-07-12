@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StayFilter } from './StayFilter.jsx'
 import { StayFilterCollapsed } from './StayFilterCollapsed.jsx'
@@ -17,11 +16,36 @@ export function AppHeader() {
     const [userExpanded, setUserExpanded] = useState(false)
 
     // const filterRef = useRef(null)
+    const headerRef = useRef(null)
     const dispatch = useDispatch()
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
 
     const location = useLocation()
     const isHomePage = location.pathname === '/'
+
+    // Same breakpoint used across the CSS for the mobile layout.
+    function isMobileViewport() {
+        return window.innerWidth <= 768
+    }
+
+    // Keep --header-height in sync with the header's real, current height
+    // (it changes as the header collapses/expands on scroll), so any page
+    // can pad its content correctly without hardcoding pixel values.
+    useLayoutEffect(() => {
+        const headerEl = headerRef.current
+        if (!headerEl) return
+
+        function updateHeaderHeight() {
+            document.documentElement.style.setProperty('--header-height', `${headerEl.offsetHeight}px`)
+        }
+
+        updateHeaderHeight()
+
+        const resizeObserver = new ResizeObserver(updateHeaderHeight)
+        resizeObserver.observe(headerEl)
+
+        return () => resizeObserver.disconnect()
+    }, [])
 
     useEffect(() => {
         function handleScroll() {
@@ -32,7 +56,10 @@ export function AppHeader() {
                     setShowFull(false)
                     setTimeout(() => setShowCollapsed(true), 100)
                 }
-                if (scrollY < 50 && showCollapsed) {
+                // On mobile the filter should only open from an explicit tap,
+                // not automatically re-expand just because the user scrolled
+                // back up to the top of the page.
+                if (!isMobileViewport() && scrollY < 50 && showCollapsed) {
                     setShowCollapsed(false)
                     setTimeout(() => setShowFull(true), 100)
                 }
@@ -42,38 +69,34 @@ export function AppHeader() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [isHomePage, showFull, showCollapsed])
 
-useEffect(() => {
-    setTimeout(() => {
-        if (isHomePage && window.scrollY < 100) {
-            setShowFull(true)
-            setShowCollapsed(false)
-        } else {
-            setShowFull(false)
-            setShowCollapsed(true)
-        }
-        setUserExpanded(false)
-        setIsMenuOpen(false)
-        window.dispatchEvent(new Event('scroll'))
-    }, 50)
-}, [location.pathname, location.search])
-//     useEffect(() => {
-//         if (isHomePage && window.scrollY < 100) {
-//     setShowFull(true)
-//     setShowCollapsed(false)
-// } else {
-//     setShowFull(false)
-//     setShowCollapsed(true)
-// }
-//         setUserExpanded(false)
-//           setIsMenuOpen(false)
-    
-//         window.dispatchEvent(new Event('scroll'))
-   
-//     }, [location.pathname, location.search])
+    useEffect(() => {
+        setTimeout(() => {
+            if (!isMobileViewport() && isHomePage && window.scrollY < 100) {
+                setShowFull(true)
+                setShowCollapsed(false)
+            } else {
+                setShowFull(false)
+                setShowCollapsed(true)
+            }
+            setUserExpanded(false)
+            setIsMenuOpen(false)
+            window.dispatchEvent(new Event('scroll'))
+        }, 50)
+    }, [location.pathname, location.search])
+    //     useEffect(() => {
+    //         if (isHomePage && window.scrollY < 100) {
+    //     setShowFull(true)
+    //     setShowCollapsed(false)
+    // } else {
+    //     setShowFull(false)
+    //     setShowCollapsed(true)
+    // }
+    //         setUserExpanded(false)
+    //           setIsMenuOpen(false)
 
+    //         window.dispatchEvent(new Event('scroll'))
 
-
-
+    //     }, [location.pathname, location.search])
     useEffect(() => {
         function handleClickOutside(ev) {
             if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
@@ -84,7 +107,7 @@ useEffect(() => {
                         setShowCollapsed(false)
                         return
                     }
-                     if (!isHomePage) return 
+                    if (!isHomePage) return
                     setShowFull(false)
                     setShowCollapsed(true)
                     setUserExpanded(false)
@@ -102,7 +125,7 @@ useEffect(() => {
     }
 
     return (
-        <header className="app-header">
+        <header className="app-header" ref={headerRef}>
             <section className="header-container">
                 <div className="header-top">
 
@@ -121,21 +144,21 @@ useEffect(() => {
                     >
                         <StayFilterCollapsed onClick={() => { setShowCollapsed(false); setShowFull(true) }} />
                     </div>
-                    {/* <Link to="/add-stay" className="host-link">מארח</Link> */}
                     <div className="user-menu">
-                    {loggedinUser && <Link to="/add-stay" className="host-link">Become a Host</Link>}
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                             {loggedinUser ? (
                                 <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="user-avatar" />
                             ) : (
                                 '☰'
                             )}
-                            {/* {loggedinUser && <Link to="/add-stay" className="host-link">מארח</Link>} */}
                         </button>
                         {isMenuOpen && (
                             <div className="dropdown">
                                 {loggedinUser ? (
                                     <>
+                                        {!loggedinUser.isHost && (
+                                            <NavLink to="/add-stay" onClick={() => setIsMenuOpen(false)}>Become a Host</NavLink>
+                                        )}
                                         <NavLink to="/user" onClick={() => setIsMenuOpen(false)}>My user</NavLink>
                                         <NavLink to="/" onClick={onLogout}>Logout</NavLink>
                                     </>
@@ -151,7 +174,14 @@ useEffect(() => {
                     </div>
                 </div>
                 <div className={`header-bottom ${showFull ? 'visible' : ''}`}>
-                    {/* <StayFilter onSearchDone={() => { setTimeout(() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }, 50) }} /> */}
+                    <button
+                        type="button"
+                        className="filter-close-btn"
+                        onClick={() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }}
+                        aria-label="Close search"
+                    >
+                        ✕
+                    </button>
                     <StayFilter onSearchDone={() => setUserExpanded(false)} />
                 </div>
             </section>

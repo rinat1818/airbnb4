@@ -1,75 +1,366 @@
 .user-details {
-    max-width: 900px;
     margin: 0 auto;
-    padding: 48px 24px 80px;
+    /* Safety net: if any child ever overflows horizontally (long name,
+       long review text, a card that doesn't shrink right), this stops it
+       from forcing the whole page into horizontal scroll — it clips at
+       the container edge instead of dragging the page wider than the
+       viewport, which is what "elements cut off" looks like in practice. */
+    overflow-x: hidden;
 }
 
-/* Header */
+/* ---------- Layout ---------- */
 
+.profile-layout {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+}
 
-.user-details-header {
+.profile-nav {
+    padding-top: 86px;
+    padding-left: 56px;
+    padding-bottom: 80px;
+    /* Grid items default to min-width: auto, which means this column
+       won't shrink below its content's unwrapped natural width — it'll
+       force the whole page wider instead of wrapping text. This is the
+       actual cause of content getting clipped at the screen edge. */
+    min-width: 0;
+}
+
+.profile-content {
+    padding-top: 86px;
+    padding-left: 144px;
+    padding-bottom: 80px;
+    border-left: 1px solid #ebebeb;
+    min-width: 0;
+}
+
+/* ---------- Left nav ---------- */
+
+.profile-nav-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 24px;
+}
+
+.profile-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.profile-nav-btn {
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding-bottom: 32px;
-    margin-bottom: 32px;
-    border-bottom: 1px solid #ebebeb;
+    gap: 14px;
+    padding: 10px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #222;
+    cursor: pointer;
+    text-align: left;
 }
 
-.user-avatar-wrap {
-    width: 28px;
-    height: 28px;
+.profile-nav-btn:hover {
+    background: #f7f7f7;
+}
+
+.profile-nav-btn.active {
+    background: #f2f2f2;
+}
+
+.profile-nav-thumb {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     overflow: hidden;
-    display: inline-block;
     flex-shrink: 0;
-    background-color: #f2f2f2;
+    background: #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.user-details .user-avatar-wrap.large {
-    width: 96px;
-    height: 96px;
-    border: 3px solid #fff;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
-}
-
-.user-details .user-avatar-wrap.large .user-avatar {
+.profile-nav-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.5);
 }
 
-.user-info h2 {
-    font-size: 28px;
+/* ---------- Content header ---------- */
+
+.profile-content-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.profile-content-header h2 {
+    font-size: 32px;
     font-weight: 600;
     color: #222;
-    margin: 0 0 4px;
-}
-
-.user-info .username {
-    font-size: 16px;
-    color: #717171;
     margin: 0;
 }
 
-/* Trips */
-
-.user-trips h3 {
+.profile-content h3 {
     font-size: 20px;
     font-weight: 600;
     color: #222;
     margin: 20px 0 20px;
 }
 
-.no-trips {
+.edit-btn {
+    padding: 8px 16px;
+    border: none;
+    background: #f2f2f2;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #222;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.edit-btn:hover {
+    background: #ebebeb;
+}
+
+/* ---------- About card row ---------- */
+
+.about-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.about-card {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 36px;
+    padding: 24px 24px;
+    border: 1px solid #ebebeb;
+    border-radius: 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.about-card-left {
+    padding: 0 30px;
+}
+
+.about-card-avatar-wrap {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.about-card-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.verified-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #ff385c;
+    border: 3px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-card-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222;
+    margin: 0 0 4px;
+}
+
+.about-card-role {
+    font-size: 15px;
+    color: #717171;
+    margin: 0;
+}
+
+.about-stats {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 100px;
+}
+
+.about-stat {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.about-stat:last-child {
+    border-bottom: none;
+}
+
+.about-stat strong {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}
+
+.about-stat span {
+    font-size: 13px;
+    color: #717171;
+}
+
+.about-info-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 4px;
+}
+
+.about-info-list li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 15px;
+    color: #222;
+}
+
+.about-info-list li>span {
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+.about-info-link {
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.profile-divider {
+    border: none;
+    border-top: 1px solid #ebebeb;
+    margin: 40px 0;
+}
+
+/* ---------- Reviews ---------- */
+
+.reviews-section h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #222;
+    margin: 0 0 20px;
+}
+
+.empty-state {
     color: #717171;
     font-size: 15px;
 }
 
-.trip-list {
+.review-list {
     list-style: none;
     margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.review-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid #ebebeb;
+    border-radius: 16px;
+    transition: box-shadow 0.2s ease;
+    min-width: 0;
+}
+
+.review-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.review-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.review-card-header>div {
+    min-width: 0;
+}
+
+.review-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #ebebeb;
+}
+
+.review-card-header h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.review-date {
+    font-size: 13px;
+    color: #717171;
+    margin: 2px 0 0;
+}
+
+.review-rating {
+    display: flex;
+    gap: 2px;
+}
+
+.review-txt {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #222;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.review-stay {
+    font-size: 13px;
+    color: #717171;
+    margin: 0;
+}
+
+/* ---------- Trip / listing cards ---------- */
+
+.trip-list {
+    list-style: none;
+    margin: 0 0 8px;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -83,10 +374,19 @@
     border: 1px solid #ebebeb;
     border-radius: 16px;
     transition: box-shadow 0.2s ease;
+    min-width: 0;
 }
 
 .trip-card:hover {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.trip-card-link {
+    display: flex;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
 }
 
 .trip-img {
@@ -125,4 +425,210 @@
     font-weight: 600;
     color: #222;
     margin: 0;
+}
+
+.reservation-guest {
+    font-size: 13px;
+    color: #717171;
+    margin: 4px 0 0;
+}
+
+/* ---------- Listing edit button ---------- */
+
+.listing-card {
+    position: relative;
+    align-items: flex-start;
+}
+
+.listing-card .trip-card-link {
+    padding-right: 64px;
+}
+
+.listing-edit-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: #f2f2f2;
+    color: #222;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s ease;
+}
+
+.listing-edit-btn:hover {
+    background: #ebebeb;
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 1024px) {
+    .profile-layout {
+        grid-template-columns: 240px 1fr;
+    }
+
+    .profile-nav {
+        padding-top: 56px;
+        padding-left: 32px;
+    }
+
+    .profile-content {
+        padding-top: 56px;
+        padding-left: 48px;
+    }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+
+    /* The 500px side nav has nowhere to go once the viewport itself is
+       narrower than that — stack nav above content instead of beside it. */
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-nav {
+        padding: 20px 16px 12px;
+    }
+
+    .profile-nav-title {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    /* Labels (About me / Trips / Listings / Reservations) take up more
+       horizontal room than a phone has to spare next to 3–4 tabs — drop
+       to icon-only, centered, with the label still available as a
+       tooltip/aria-label for accessibility. */
+    .profile-nav ul {
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .profile-nav-btn {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .profile-nav-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    .profile-nav-label {
+        display: none;
+    }
+
+    .profile-content {
+        padding: 20px;
+        border-left: none;
+        border-top: 1px solid #ebebeb;
+    }
+
+    .profile-content-header h2 {
+        font-size: 26px;
+    }
+
+    .review-list,
+    .trip-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* Was only stacking below 480px, leaving most real phones (390–430px
+       wide) still forcing avatar + stats into a horizontal row that ran
+       past the screen edge and got clipped. Stack it as soon as the page
+       itself goes single-column instead. */
+    .about-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .about-card-left {
+        padding: 0;
+    }
+
+    /* Three stats stacked as separate full-width rows (Trips / Reviews /
+       Years, each on its own line) burns a lot of vertical space —
+       lay them out side by side instead, like Airbnb's own profile card. */
+    .about-stats {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .about-stat {
+        flex: 1;
+        align-items: center;
+        text-align: center;
+        padding: 0 8px;
+        border-bottom: none;
+        border-right: 1px solid #ebebeb;
+    }
+
+    .about-stat:last-child {
+        border-right: none;
+    }
+
+    /* Guarantee review cards can never be wider than their column,
+       regardless of what's inside them. */
+    .review-card {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px;
+    }
+
+    .review-txt {
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-nav {
+        padding: 16px 16px 8px;
+    }
+
+    .profile-content {
+        padding: 16px;
+    }
+
+    .profile-content-header h2 {
+        font-size: 22px;
+    }
+
+    .about-card {
+        padding: 16px;
+    }
+
+    .about-card-avatar {
+        width: 72px;
+        height: 72px;
+    }
+
+    .trip-card {
+        padding: 12px;
+    }
+
+    .trip-img {
+        width: 72px;
+        height: 72px;
+    }
+
+    .review-card {
+        padding: 14px;
+    }
+
+    .review-avatar {
+        width: 36px;
+        height: 36px;
+    }
 }

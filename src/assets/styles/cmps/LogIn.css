@@ -87,3 +87,32 @@
         cursor: pointer;
     }
 }
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 480px) {
+    .login-page {
+        padding: 0 var(--small-padding);
+        box-sizing: border-box;
+    }
+
+    .login-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: 12px;
+    }
+
+    .login-header h1 {
+        font-size: 1.4rem;
+    }
+
+    /* iOS Safari auto-zooms the page on focus for any input under 16px —
+       keep it at/above 16px so tapping a field doesn't jolt the layout. */
+    .login-page input {
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+
+    .login-btn {
+        padding: 14px;
+    }
+}

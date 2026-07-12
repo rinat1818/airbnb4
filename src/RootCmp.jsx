@@ -1,4 +1,3 @@
-
 // import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AppHeader } from './cmps/AppHeader.jsx'
@@ -33,6 +32,7 @@ export function RootCmp() {
                     <Route path="/signup" element={<SignupPage />} />
                     <Route path="/user" element={<UserDetails />} />
                     <Route path="/add-stay" element={<AddStay />} />
+                    <Route path="/add-stay/:stayId" element={<AddStay />} />
                 </Routes>
             </div>
             <AppFooter />
