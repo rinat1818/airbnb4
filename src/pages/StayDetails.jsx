@@ -45,7 +45,7 @@ const [guestsOpen, setGuestsOpen] = useState(false)
 
     if (!stay) return <div className="loading">Loading...</div>
 const avgRating = stay.reviews?.length
-    ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
+    ? (stay.reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / stay.reviews.length).toFixed(1)
     : null
     // const avgRating = stay.reviews.length
     //     ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
@@ -96,11 +96,11 @@ const avgRating = stay.reviews?.length
 
             <button onClick={() => navigate(-1)} className="btn-back"></button>
             <h1>{stay.name}</h1>
-            <div className="stay-meta">
+            {/* <div className="stay-meta">
                 {avgRating && <span>⭐ {avgRating} · {stay.reviews.length} reviews</span>}
                 <br />
                 <span>{stay.loc.city}, {stay.loc.country}</span>
-            </div>
+            </div> */}
 
             <div className={`photo-grid photos-${Math.min(stay.imgUrls.length, 5)}`}>
                 {stay.imgUrls.slice(0, 5).map((url, idx) => (
