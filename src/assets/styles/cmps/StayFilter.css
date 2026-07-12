@@ -865,3 +865,15 @@
     text-align: left;
 
 }
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range,
+.react-datepicker__day--range-start,
+.react-datepicker__day--range-end {
+    background-color: #ff385c !important;
+    color: white !important;
+}
+
+.react-datepicker__day--in-selecting-range {
+    background-color: rgba(255, 56, 92, 0.3) !important;
+}
