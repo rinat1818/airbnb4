@@ -41,12 +41,20 @@ export function AddStay() {
         const { name, value } = ev.target
         setStayToEdit(prev => ({ ...prev, loc: { ...prev.loc, [name]: value } }))
     }
-
-    function handleImgUpload(ev) {
+    async function handleImgUpload(ev) {
         const file = ev.target.files[0]
         if (!file) return
-        const url = URL.createObjectURL(file)
-        setStayToEdit(prev => ({ ...prev, imgUrls: [...(prev.imgUrls || []), url] }))
+
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('upload_preset', 'my_staybob')
+
+        const res = await fetch('https://api.cloudinary.com/v1_1/kbwymfbq/image/upload', {
+            method: 'POST',
+            body: formData
+        })
+        const data = await res.json()
+        setStayToEdit(prev => ({ ...prev, imgUrls: [...prev.imgUrls, data.secure_url] }))
     }
 
     function toggleAmenity(amenity) {
