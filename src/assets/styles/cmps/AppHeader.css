@@ -248,25 +248,30 @@
         font-size: 1.4em;
     }
 
-    .filter-close-btn {
+    /* Sits in the same header-top slot the hamburger menu occupies, and
+       only appears once the filter is actually open (.search-open), so
+       it replaces the menu button 1:1 instead of floating awkwardly
+       over the search fields below. */
+    .header-top.search-open .user-menu {
+        display: none;
+    }
+
+    .header-top.search-open .filter-close-btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        position: absolute;
-        top: 0;
-        right: 8px;
-        z-index: 20;
-        width: 32px;
-        height: 32px;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
         border: none;
         background: #f2f2f2;
         color: #222;
-        font-size: 14px;
+        font-size: 16px;
         cursor: pointer;
+        flex-shrink: 0;
     }
 
-    .filter-close-btn:hover {
+    .header-top.search-open .filter-close-btn:hover {
         background: #e6e5e5;
     }
 }
@@ -334,6 +339,14 @@
     body.search-modal-lock .header-bottom {
         position: relative;
         z-index: 95;
+        pointer-events: auto;
+        touch-action: auto;
+    }
+
+    /* The close (✕) button now lives inside header-top, which the rule
+       above disables — re-enable just this one button so it still works
+       to actually close the filter. */
+    body.search-modal-lock .header-top .filter-close-btn {
         pointer-events: auto;
         touch-action: auto;
     }

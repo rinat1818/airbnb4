@@ -156,7 +156,7 @@ export function AppHeader() {
     return (
         <header className="app-header" ref={headerRef}>
             <section className="header-container">
-                <div className="header-top">
+                <div className={`header-top ${showFull ? 'search-open' : ''}`}>
 
                     {/* <div className="logo-container">
                         <img src={airbnb} alt="logo" />
@@ -173,6 +173,16 @@ export function AppHeader() {
                     >
                         <StayFilterCollapsed onClick={() => { setShowCollapsed(false); setShowFull(true) }} />
                     </div>
+
+                    <button
+                        type="button"
+                        className="filter-close-btn"
+                        onClick={() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }}
+                        aria-label="Close search"
+                    >
+                        ✕
+                    </button>
+
                     <div className="user-menu">
                         {loggedinUser && !loggedinUser.isHost && (
                             <NavLink to="/add-stay" className="host-link">Become a Host</NavLink>
@@ -206,14 +216,6 @@ export function AppHeader() {
                     </div>
                 </div>
                 <div className={`header-bottom ${showFull ? 'visible' : ''}`}>
-                    <button
-                        type="button"
-                        className="filter-close-btn"
-                        onClick={() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }}
-                        aria-label="Close search"
-                    >
-                        ✕
-                    </button>
                     <StayFilter onSearchDone={() => setUserExpanded(false)} />
                 </div>
             </section>
