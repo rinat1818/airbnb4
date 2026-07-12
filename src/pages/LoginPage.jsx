@@ -19,7 +19,7 @@ export function LoginPage() {
         ev.preventDefault()
         try {
             await dispatch(login(credentials))
-            navigate('/user')
+            navigate('/')
         } catch (err) {
             setError(true)
         }
