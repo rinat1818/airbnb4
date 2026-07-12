@@ -124,6 +124,14 @@ export function AppHeader() {
         setIsMenuOpen(false)
     }
 
+    // On mobile, while the user has actively opened the search filter,
+    // lock the page: no background scroll, no touching anything else
+    // until they close the filter (✕ button, search, or tap outside).
+    useEffect(() => {
+        document.body.classList.toggle('search-modal-lock', userExpanded)
+        return () => document.body.classList.remove('search-modal-lock')
+    }, [userExpanded])
+
     return (
         <header className="app-header" ref={headerRef}>
             <section className="header-container">

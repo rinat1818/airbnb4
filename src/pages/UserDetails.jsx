@@ -45,7 +45,7 @@ export function UserDetails() {
 
     const bestReviews = [...allReviews]
         .sort((a, b) => (b.rating || 0) - (a.rating || 0))
-        .slice(0, 3)
+        .slice(0, 4)
 
     // Reservations = other users' trips that booked one of this host's stays.
     const hostStayIds = hostStays.map(stay => stay._id)

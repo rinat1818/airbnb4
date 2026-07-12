@@ -278,3 +278,33 @@
         height: 26px;
     }
 }
+/* Mobile search takeover: while the filter is open, trap scroll/touch
+   to the filter itself until the user closes it. */
+@media (max-width: 768px) {
+    body.search-modal-lock {
+        overflow: hidden;
+        touch-action: none;
+    }
+
+    body.search-modal-lock::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 90;
+    }
+
+    body.search-modal-lock .main-content,
+    body.search-modal-lock .main-footer,
+    body.search-modal-lock .header-top {
+        pointer-events: none;
+        touch-action: none;
+    }
+
+    body.search-modal-lock .header-bottom {
+        position: relative;
+        z-index: 95;
+        pointer-events: auto;
+        touch-action: auto;
+    }
+}
