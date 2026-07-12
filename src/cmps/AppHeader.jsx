@@ -70,6 +70,10 @@ useEffect(() => {
 //         window.dispatchEvent(new Event('scroll'))
    
 //     }, [location.pathname, location.search])
+
+
+
+
     useEffect(() => {
         function handleClickOutside(ev) {
             if (!ev.target.closest('.header-bottom') && !ev.target.closest('.filter-collapsed-wrapper') && !ev.target.closest('.search-btn')) {
