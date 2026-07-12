@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import DatePicker from 'react-datepicker'
 import { useSelector } from 'react-redux'
+import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { stayService } from '../services/stayService.js'
 
@@ -10,22 +10,17 @@ export function StayDetails() {
     const navigate = useNavigate()
     const [stay, setStay] = useState(null)
     const [showAllPhotos, setShowAllPhotos] = useState(false)
+    const [showSubNav, setShowSubNav] = useState(false)
+    const [activeSection, setActiveSection] = useState('photos')
 
-    // const [checkIn, setCheckIn] = useState(null)
-    // const [checkOut, setCheckOut] = useState(null)
-    // const [guests, setGuests] = useState(1)
-
-    const filterBy = useSelector(state => state.stayModule.filterBy)
-    const [checkIn, setCheckIn] = useState(filterBy.startDate || null)
-    const [checkOut, setCheckOut] = useState(filterBy.endDate || null)
-    const [guests, setGuests] = useState({ adults: filterBy.guests?.adults || 1, children: filterBy.guests?.children || 0, infants: filterBy.guests?.infants || 0, pets: filterBy.guests?.pets || 0 })
+    const loggedinUser = useSelector(state => state.userModule.loggedinUser)
+    const [checkIn, setCheckIn] = useState(null)
+    const [checkOut, setCheckOut] = useState(null)
+    const [guests, setGuests] = useState({ adults: 1, children: 0, infants: 0, pets: 0 })
     const [guestsOpen, setGuestsOpen] = useState(false)
 
-
-    const [toast, setToast] = useState(null)
+    const [toast, setToast] = useState(null) 
     const [toastVisible, setToastVisible] = useState(false)
-
-
 
     useEffect(() => {
         stayService.get(stayId)
@@ -36,6 +31,26 @@ export function StayDetails() {
             })
     }, [stayId])
 
+    useEffect(() => {
+        function onScroll() {
+            const photoGrid = document.querySelector('.photo-grid')
+            if (!photoGrid) return
+            const gridBottom = photoGrid.getBoundingClientRect().bottom
+            setShowSubNav(gridBottom < 80)
+
+            const sections = ['photos', 'amenities', 'reviews', 'location']
+            for (const id of [...sections].reverse()) {
+                const el = document.getElementById(`section-${id}`)
+                if (el && el.getBoundingClientRect().top < 140) {
+                    setActiveSection(id)
+                    break
+                }
+            }
+        }
+        window.addEventListener('scroll', onScroll)
+        return () => window.removeEventListener('scroll', onScroll)
+    }, [])
+
     function showToast(message, type = 'success') {
         setToast({ message, type })
         setToastVisible(true)
@@ -44,12 +59,10 @@ export function StayDetails() {
     }
 
     if (!stay) return <div className="loading">Loading...</div>
-    const avgRating = stay.reviews?.length
-        ? (stay.reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / stay.reviews.length).toFixed(1)
+
+    const avgRating = stay.reviews.length
+        ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
         : null
-    // const avgRating = stay.reviews.length
-    //     ? (stay.reviews.reduce((sum, r) => sum + (r.rate || 0), 0) / stay.reviews.length).toFixed(1)
-    //     : null
 
     const nights = checkIn && checkOut
         ? Math.round((checkOut - checkIn) / (1000 * 60 * 60 * 24))
@@ -81,7 +94,30 @@ export function StayDetails() {
             showToast('Check-out must be after check-in', 'error')
             return
         }
-        showToast(`Reservation confirmed! ${nights} night${nights > 1 ? 's' : ''} · ${guestSummary} · $${totalPrice} total`, 'success')
+
+        const bookingDetails = {
+            stayId: stay._id,
+            stayName: stay.name,
+            stayImg: stay.imgUrls[0],
+            stayCity: stay.loc.city,
+            stayCountry: stay.loc.country,
+            hostName: stay.host.fullname,
+            pricePerNight: stay.price,
+            checkIn: checkIn.toISOString(),
+            checkOut: checkOut.toISOString(),
+            nights,
+            totalPrice,
+            guests,
+        }
+
+        sessionStorage.setItem('pendingBooking', JSON.stringify(bookingDetails))
+
+        if (!loggedinUser) {
+            sessionStorage.setItem('redirectAfterLogin', `/booking/confirm`)
+            navigate('/login')
+        } else {
+            navigate('/booking/confirm')
+        }
     }
 
     return (
@@ -94,40 +130,51 @@ export function StayDetails() {
                 </div>
             )}
 
-            <button onClick={() => navigate(-1)} className="btn-back"></button>
+            <button onClick={() => navigate(-1)} className="btn-back">Back</button>
             <h1>{stay.name}</h1>
-            {/* <div className="stay-meta">
-                {avgRating && <span>⭐ {avgRating} · {stay.reviews.length} reviews</span>}
-                <br />
-                <span>{stay.loc.city}, {stay.loc.country}</span>
-            </div> */}
 
-            <div className={`photo-grid photos-${Math.min(stay.imgUrls.length, 5)}`}>
+            {showSubNav && (
+                <nav className="stay-subnav">
+                    <div className="stay-subnav-inner">
+                        {['photos', 'amenities', 'reviews', 'location'].map(section => (
+                            <a
+                                key={section}
+                                href={`#section-${section}`}
+                                className={`subnav-link ${activeSection === section ? 'active' : ''}`}
+                            >
+                                {section.charAt(0).toUpperCase() + section.slice(1)}
+                            </a>
+                        ))}
+                    </div>
+                </nav>
+            )}
+
+            <div id="section-photos" className={`photo-grid photos-${Math.min(stay.imgUrls.length, 5)}`}>
                 {stay.imgUrls.slice(0, 5).map((url, idx) => (
                     <div key={idx} className={`photo-cell ${idx === 0 ? 'photo-main' : ''}`}>
                         <img src={url} alt={`${stay.name} photo ${idx + 1}`} />
                     </div>
                 ))}
                 <button className="btn-show-photos" onClick={() => setShowAllPhotos(true)}>
-                    Show all photos
+                    ☰ Show all photos
                 </button>
             </div>
 
             <div className="details-layout">
 
-                <div className="host-info">
-                    <img
-                        src={stay.host?.imgUrl}
-                        alt={stay.host?.fullname}
-                        className="host-avatar"
-                    />
-                    <div>
-                        <h2>Hosted by {stay.host?.fullname}</h2>
-                        <p>{stay.type} · Up to {stay.capacity} guests</p>
-                    </div>
-                </div>
-
                 <div className="details-body">
+                    <div className="host-info">
+                        <img
+                            src={stay.host.imgUrl}
+                            alt={stay.host.fullname}
+                            className="host-avatar"
+                        />
+                        <div>
+                            <h2>Hosted by {stay.host.fullname}</h2>
+                            <p>{stay.type} · Up to {stay.capacity} guests</p>
+                        </div>
+                    </div>
+
                     <hr />
 
                     <div className="stay-description">
@@ -137,27 +184,32 @@ export function StayDetails() {
 
                     <hr />
 
-                    <div className="stay-amenities">
+                    <div id="section-amenities" className="stay-amenities">
                         <h2>What this place offers</h2>
                         <ul>
-                            {stay.amenities.map((amenity, index) => (
-                                <li key={`${amenity}-${index}`}>{amenity}</li>
+                            {stay.amenities.map(amenity => (
+                                <li key={amenity}>{amenity}</li>
                             ))}
                         </ul>
                     </div>
-                </div>
 
+                    <hr />
+
+                    <div id="section-reviews" className="stay-reviews-placeholder">                    </div>
+
+                    <div id="section-location" className="stay-location-placeholder">                    </div>
+                </div>
                 <div className="booking-widget">
                     <div className="booking-price">
                         <span className="price">${stay.price}</span>
                         <span className="per-night"> / night</span>
                     </div>
 
-                    {avgRating && (
+                    {/* {avgRating && (
                         <div className="booking-rating">
                             ⭐ {avgRating} · {stay.reviews.length} reviews
                         </div>
-                    )}
+                    )} */}
 
                     <div className="booking-dates">
                         <div className="date-field">
@@ -173,6 +225,11 @@ export function StayDetails() {
                                 endDate={checkOut}
                                 minDate={new Date()}
                                 placeholderText="Add date"
+                                popperPlacement="bottom-start"
+                                popperModifiers={[
+                                    { name: 'offset', options: { offset: [0, 4] } },
+                                    { name: 'preventOverflow', options: { boundary: 'viewport', padding: 16 } },
+                                ]}
                             />
                         </div>
                         <div className="date-field">
@@ -185,6 +242,11 @@ export function StayDetails() {
                                 endDate={checkOut}
                                 minDate={checkIn || new Date()}
                                 placeholderText="Add date"
+                                popperPlacement="bottom-end"
+                                popperModifiers={[
+                                    { name: 'offset', options: { offset: [0, 4] } },
+                                    { name: 'preventOverflow', options: { boundary: 'viewport', padding: 16 } },
+                                ]}
                             />
                         </div>
                     </div>
@@ -201,10 +263,10 @@ export function StayDetails() {
                         {guestsOpen && (
                             <div className="guest-dropdown">
                                 {[
-                                    { type: 'adults', label: 'Adults', sub: 'Age 13+' },
+                                    { type: 'adults',   label: 'Adults',   sub: 'Age 13+' },
                                     { type: 'children', label: 'Children', sub: 'Ages 2–12' },
-                                    { type: 'infants', label: 'Infants', sub: 'Under 2' },
-                                    { type: 'pets', label: 'Pets', sub: null },
+                                    { type: 'infants',  label: 'Infants',  sub: 'Under 2' },
+                                    { type: 'pets',     label: 'Pets',     sub: null },
                                 ].map(({ type, label, sub }) => (
                                     <div key={type} className="guest-row">
                                         <div className="guest-row-info">
