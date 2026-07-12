@@ -432,8 +432,9 @@ async function getById(userId) {
 async function update(user) {
     if (USE_BACKEND) {
         const savedUser = await httpService.put(`user/${user._id}`, user)
-        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(savedUser))
-        return savedUser
+        const updatedUser = { ...user, ...savedUser }
+        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(updatedUser))
+        return updatedUser
     }
     const savedUsers = await storageService.query(STORAGE_KEY)
     const idx = savedUsers.findIndex(u => u._id === user._id)
