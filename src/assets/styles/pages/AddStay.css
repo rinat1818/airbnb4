@@ -152,6 +152,11 @@
 .dd {
     padding: 15px;
 }
+.uploaded-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
 
 /* ---------- Tablet ---------- */
 

@@ -118,7 +118,7 @@ export function AddStay() {
                     </div>
                 </div>
 
-                <div className="form-field upload-field">
+                {/* <div className="form-field upload-field">
                     <label htmlFor="img-upload">
                         <div className="upload-area">
                             <span className="upload-icon">☁️</span>
@@ -126,7 +126,26 @@ export function AddStay() {
                         </div>
                     </label>
                     <input id="img-upload" type="file" accept="image/*" onChange={handleImgUpload} hidden />
+                </div> */}
+<div className="form-field upload-field">
+    <label htmlFor="img-upload">
+        <div className="upload-area">
+            {stayToEdit.imgUrls.length > 0 ? (
+                <div className="uploaded-images">
+                    {stayToEdit.imgUrls.map((url, idx) => (
+                        <img key={idx} src={url} alt={`upload-${idx}`} style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }} />
+                    ))}
                 </div>
+            ) : (
+                <>
+                    <span className="upload-icon">☁️</span>
+                    <p>Drop file here or <span className="upload-link">click to upload</span></p>
+                </>
+            )}
+        </div>
+    </label>
+    <input id="img-upload" type="file" accept="image/*" onChange={handleImgUpload} hidden />
+</div>
 
                 <div className="form-row" >
                     {['capacity', 'bedrooms', 'bathrooms'].map(field => (
