@@ -10,24 +10,14 @@
     gap: 10px;
     font-size: 15px;
     font-weight: 500;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.toast-success {
-    background: #008a05;
-    color: white;
-}
-
-.toast-error {
-    background: #e02020;
-    color: white;
-}
-
-.toast-enter {
-    opacity: 1;
-    transform: translateY(0);
-}
+.toast-success { background: #008a05; color: white; }
+.toast-error   { background: #e02020; color: white; }
+.toast-enter   { opacity: 1; transform: translateY(0); }
+.toast-exit    { opacity: 0; transform: translateY(-16px); }
 
 .toast-exit {
     opacity: 0;
@@ -49,10 +39,6 @@
     padding: 24px 24px 80px;
     font-family: 'Circular', -apple-system, BlinkMacSystemFont, sans-serif;
     color: #222;
-    /* Previously nothing here accounted for the fixed header at all —
-       only .btn-back's flat 45px margin-top stood in for it, which is
-       far short of the header's real height (up to ~190px full-size).
-       Use the live header height instead, same pattern as StayIndex. */
     padding-top: calc(var(--header-height, 190px) + 24px);
     transition: padding-top 0.2s ease;
 }
@@ -66,12 +52,10 @@
     padding: 8px 0;
     margin-bottom: 16px;
     color: #222;
-    /* text-decoration: underline; */
+    text-decoration: underline;
 }
 
-.stay-details .btn-back:hover {
-    color: #000;
-}
+.stay-details .btn-back:hover { color: #000; }
 
 .stay-details h1 {
     font-size: 26px;
@@ -87,6 +71,7 @@
     flex-direction: column;
     gap: 4px;
 }
+
 
 .stay-details .photo-grid {
     position: relative;
@@ -128,21 +113,20 @@
     position: absolute;
     bottom: 16px;
     right: 16px;
-    /* background: white; */
-    /* border: 1px solid #222; */
+    background: white;
+    border: 1px solid #222;
     border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 12px;
+    padding: 8px 14px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
-    opacity: 0.7;
 }
 
 .stay-details .btn-show-photos:hover {
-    /* background: #f0f0f0; */
-    opacity: 1;
+    background: #f0f0f0;
 }
+
 
 .stay-details .details-layout {
     display: grid;
@@ -160,6 +144,7 @@
     min-width: 0;
 }
 
+
 .stay-details .host-info {
     grid-area: host;
     display: flex;
@@ -170,8 +155,6 @@
 }
 
 .stay-details .host-info>div {
-    /* Flex items default to min-width: auto, which lets a long host name
-       force this row wider than its column instead of wrapping. */
     min-width: 0;
 }
 
@@ -200,6 +183,7 @@
     margin: 8px 0;
 }
 
+
 .stay-details .stay-description {
     padding: 24px 0;
 }
@@ -215,6 +199,7 @@
     line-height: 1.7;
     color: #444;
 }
+
 
 .stay-details .stay-amenities {
     padding: 24px 0;
@@ -237,14 +222,12 @@
 
 .stay-details .stay-amenities li {
     font-size: 15px;
-    font-weight: 400;
     color: #333;
-    padding-top: 10px;
-    /* border: 1px solid #ebebeb; */
+    padding: 10px 0px 10px 0px; 
     border-radius: 10px;
-    /* background: #fafafa; */
-    text-align: left;
+    justify-content: left;
 }
+
 
 .stay-details .booking-widget {
     grid-area: widget;
@@ -254,7 +237,7 @@
     border: 1px solid #ddd;
     border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.1);
     background: white;
     min-width: 0;
 }
@@ -294,8 +277,8 @@
 }
 
 .stay-details .date-field:last-child {
-    border-right: none;
-}
+     border-right: none; 
+    }
 
 .stay-details .date-field label {
     display: block;
@@ -305,7 +288,6 @@
     color: #222;
     margin-bottom: 4px;
 }
-
 
 .stay-details .date-field .react-datepicker-wrapper,
 .stay-details .date-field .react-datepicker__input-container,
@@ -320,6 +302,7 @@
     text-align: left;
     padding: 0;
 }
+
 
 .stay-details .guest-field {
     border: 1px solid #b0b0b0;
@@ -370,7 +353,7 @@
     background: white;
     border: 1px solid #ddd;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     padding: 16px;
     z-index: 10;
 }
@@ -481,9 +464,11 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle 120px at var(--x, 50%) var(--y, 50%),
-            rgba(255, 255, 255, 0.25),
-            transparent 70%);
+    background: radial-gradient(
+        circle 120px at var(--x, 50%) var(--y, 50%),
+        rgba(255,255,255,0.25),
+        transparent 70%
+    );
     opacity: 0;
     transition: opacity 0.25s ease;
     z-index: -1;
@@ -520,6 +505,49 @@
     border-top: 1px solid #ebebeb;
     padding-top: 12px;
     font-size: 16px;
+}
+
+.stay-details .react-datepicker {
+    font-size: 11px !important;
+    border: 1px solid #ebebeb !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12) !important;
+    width: 280px !important;
+}
+ 
+.stay-details .react-datepicker__month-container {
+    width: 280px !important;
+    float: none !important;
+}
+ 
+.stay-details .react-datepicker__day {
+    width: 1.6rem !important;
+    line-height: 1.6rem !important;
+    margin: 1px !important;
+    font-size: 11px !important;
+}
+ 
+.stay-details .react-datepicker__day-name {
+    width: 1.6rem !important;
+    font-size: 10px !important;
+    margin: 1px !important;
+}
+ 
+.stay-details .react-datepicker__header {
+    padding: 8px 0 4px !important;
+}
+ 
+.stay-details .react-datepicker__current-month {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+ 
+.stay-details .react-datepicker__navigation {
+    top: 8px !important;
+}
+ 
+.react-datepicker__triangle {
+    display: none !important;
 }
 
 /* ---------- Tablet ---------- */
