@@ -13,7 +13,36 @@
 
   .stay-list-title {
     display: flex;
+    align-items: center;
     gap: var(--small-gap);
+    min-width: 0;
+  }
+
+  .stay-list-title h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .stay-list-title .title-btn {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Long titles ("Popular homes in United States") need to shrink to fit
+     one row next to the arrow button on a narrow phone screen instead of
+     wrapping or squashing the button. */
+  @media (max-width: 600px) {
+    .stay-list-title h2 {
+      font-size: 1.05rem;
+    }
+
+    .stay-list-title .title-btn {
+      width: 24px;
+      height: 24px;
+    }
   }
 
 
@@ -61,9 +90,6 @@
       flex: 0 0 calc((100% - 12px) / 2);
     }
 
-    @media (max-width: 420px) {
-      flex: 0 0 78%;
-    }
   }
 
   .stay-list__arrows {

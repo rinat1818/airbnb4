@@ -149,10 +149,39 @@ useEffect(() => {
         setIsMenuOpen(false)
     }
 
+    // On mobile, while the user has actively opened the search filter,
+    // lock the page: no background scroll, no touching anything else
+    // until they close the filter (✕ button, search, or tap outside).
+    useEffect(() => {
+        document.body.classList.toggle('search-modal-lock', userExpanded)
+        return () => document.body.classList.remove('search-modal-lock')
+    }, [userExpanded])
+
+    // Close the account/user dropdown when tapping anywhere outside it
+    // (the menu button or the dropdown panel itself).
+    useEffect(() => {
+        function handleClickOutsideMenu(ev) {
+            if (isMenuOpen && !ev.target.closest('.user-menu')) {
+                setIsMenuOpen(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutsideMenu)
+        return () => document.removeEventListener('mousedown', handleClickOutsideMenu)
+    }, [isMenuOpen])
+
+    // Same mobile takeover treatment as the search filter: while the
+    // dropdown is open, lock the page so nothing else can be scrolled
+    // or touched until the menu is closed (tap the button again, pick
+    // an item, or tap outside).
+    useEffect(() => {
+        document.body.classList.toggle('menu-modal-lock', isMenuOpen)
+        return () => document.body.classList.remove('menu-modal-lock')
+    }, [isMenuOpen])
+
     return (
         <header className="app-header" ref={headerRef}>
             <section className="header-container">
-                <div className="header-top">
+                <div className={`header-top ${showFull ? 'search-open' : ''}`}>
 
                     {/* <div className="logo-container">
                         <img src={airbnb} alt="logo" />
@@ -169,7 +198,20 @@ useEffect(() => {
                     >
                         <StayFilterCollapsed onClick={() => { setShowCollapsed(false); setShowFull(true) }} />
                     </div>
+
+                    <button
+                        type="button"
+                        className="filter-close-btn"
+                        onClick={() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }}
+                        aria-label="Close search"
+                    >
+                        ✕
+                    </button>
+
                     <div className="user-menu">
+                        {loggedinUser && !loggedinUser.isHost && (
+                            <NavLink to="/add-stay" className="host-link">Become a Host</NavLink>
+                        )}
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
                             {loggedinUser ? (
                                 <img src={loggedinUser.imgUrl} alt={loggedinUser.fullname} className="user-avatar" />
@@ -182,7 +224,7 @@ useEffect(() => {
                                 {loggedinUser ? (
                                     <>
                                         {!loggedinUser.isHost && (
-                                            <NavLink to="/add-stay" onClick={() => setIsMenuOpen(false)}>Become a Host</NavLink>
+                                            <NavLink to="/add-stay" className="host-link-dropdown" onClick={() => setIsMenuOpen(false)}>Become a Host</NavLink>
                                         )}
                                         <NavLink to="/user" onClick={() => setIsMenuOpen(false)}>My user</NavLink>
                                         <NavLink to="/" onClick={onLogout}>Logout</NavLink>
@@ -199,14 +241,6 @@ useEffect(() => {
                     </div>
                 </div>
                 <div className={`header-bottom ${showFull ? 'visible' : ''}`}>
-                    <button
-                        type="button"
-                        className="filter-close-btn"
-                        onClick={() => { setShowFull(false); setShowCollapsed(true); setUserExpanded(false) }}
-                        aria-label="Close search"
-                    >
-                        ✕
-                    </button>
                     <StayFilter onSearchDone={() => setUserExpanded(false)} />
                 </div>
             </section>
