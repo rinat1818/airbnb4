@@ -402,7 +402,7 @@ import { httpService } from './http.service.js'
 import { storageService } from './storageService.js'
 import { users } from '../data/users.js'
 
-const USE_BACKEND = true
+const USE_BACKEND = true // ← שני ל-false כדי לחזור ל-localStorage
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
 const STORAGE_KEY = 'users'
 
