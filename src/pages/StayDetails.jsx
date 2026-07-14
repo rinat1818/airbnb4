@@ -19,7 +19,7 @@ export function StayDetails() {
     const [guests, setGuests] = useState({ adults: 1, children: 0, infants: 0, pets: 0 })
     const [guestsOpen, setGuestsOpen] = useState(false)
 
-    const [toast, setToast] = useState(null) 
+    const [toast, setToast] = useState(null)
     const [toastVisible, setToastVisible] = useState(false)
 
     useEffect(() => {
@@ -101,6 +101,7 @@ export function StayDetails() {
             stayImg: stay.imgUrls[0],
             stayCity: stay.loc.city,
             stayCountry: stay.loc.country,
+            stayType: stay.type,
             hostName: stay.host.fullname,
             pricePerNight: stay.price,
             checkIn: checkIn.toISOString(),
@@ -165,9 +166,12 @@ export function StayDetails() {
                 <div className="details-body">
                     <div className="host-info">
                         <img
-                            src={stay.host.imgUrl}
-                            alt={stay.host.fullname}
+                            src={stay.host?.pictureUrl}
+                            alt={stay.host?.fullname}
                             className="host-avatar"
+                            onError={e => {
+                                e.target.src = `https://robohash.org/${encodeURIComponent(stay.host?.fullname)}?set=set5`
+                            }}
                         />
                         <div>
                             <h2>Hosted by {stay.host.fullname}</h2>
@@ -187,9 +191,11 @@ export function StayDetails() {
                     <div id="section-amenities" className="stay-amenities">
                         <h2>What this place offers</h2>
                         <ul>
-                            {stay.amenities.map(amenity => (
-                                <li key={amenity}>{amenity}</li>
+                            {stay.amenities.map((amenity, index) => (
+                                <li key={`${amenity}-${index}`}>{amenity}</li>
                             ))}
+
+
                         </ul>
                     </div>
 
@@ -225,7 +231,7 @@ export function StayDetails() {
                                 endDate={checkOut}
                                 minDate={new Date()}
                                 placeholderText="Add date"
-                                popperPlacement="bottom-start"
+                                // popperPlacement="bottom-end"
                                 popperModifiers={[
                                     { name: 'offset', options: { offset: [0, 4] } },
                                     { name: 'preventOverflow', options: { boundary: 'viewport', padding: 16 } },
@@ -242,7 +248,7 @@ export function StayDetails() {
                                 endDate={checkOut}
                                 minDate={checkIn || new Date()}
                                 placeholderText="Add date"
-                                popperPlacement="bottom-end"
+                                // popperPlacement="bottom-end"
                                 popperModifiers={[
                                     { name: 'offset', options: { offset: [0, 4] } },
                                     { name: 'preventOverflow', options: { boundary: 'viewport', padding: 16 } },
@@ -263,10 +269,10 @@ export function StayDetails() {
                         {guestsOpen && (
                             <div className="guest-dropdown">
                                 {[
-                                    { type: 'adults',   label: 'Adults',   sub: 'Age 13+' },
+                                    { type: 'adults', label: 'Adults', sub: 'Age 13+' },
                                     { type: 'children', label: 'Children', sub: 'Ages 2–12' },
-                                    { type: 'infants',  label: 'Infants',  sub: 'Under 2' },
-                                    { type: 'pets',     label: 'Pets',     sub: null },
+                                    { type: 'infants', label: 'Infants', sub: 'Under 2' },
+                                    { type: 'pets', label: 'Pets', sub: null },
                                 ].map(({ type, label, sub }) => (
                                     <div key={type} className="guest-row">
                                         <div className="guest-row-info">
@@ -321,6 +327,6 @@ export function StayDetails() {
                 </div>
 
             </div>
-        </section>
+        </section >
     )
 }
