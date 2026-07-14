@@ -878,6 +878,11 @@
     background-color: rgba(255, 56, 92, 0.3) !important;
 }
 .react-datepicker__day--today {
+    /* background-color: #ff385c !important; */
+    /* color: white !important; */
+    border-radius: 50%;
+}
+.react-datepicker__day--keyboard-selected {
     background-color: #ff385c !important;
     color: white !important;
     border-radius: 50%;
