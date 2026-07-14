@@ -11,7 +11,7 @@ import { AddStay } from './pages/AddStay.jsx'
 // import { ScrollToTop } from './cmps/ScrollToTop.jsx'
 
 
-
+import { BookingConfirm } from './pages/BookingConfirm.jsx'
 import { ScrollToTop } from './cmps/ScrollToTop.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 import './assets/styles/main.css'
@@ -28,6 +28,7 @@ export function RootCmp() {
                     <Route path="/stay" element={<StayIndex />} />
                     <Route path="/stay/search" element={<StayIndex />} />
                     <Route path="/stay/:stayId" element={<StayDetails />} />
+                    <Route path="/booking/confirm" element={<BookingConfirm />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignupPage />} />
                     <Route path="/user" element={<UserDetails />} />

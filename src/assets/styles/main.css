@@ -20,6 +20,7 @@
 /* Pages */
 @import './pages/StayDetails.css';
 @import './pages/AddStay.css';
+@import './pages/BookingConfirm.css';
 
 /* Responsive (global mobile fixes — imported last for cascade priority) */
 @import './setup/mq.css';

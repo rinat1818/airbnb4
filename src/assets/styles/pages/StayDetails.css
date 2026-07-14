@@ -39,7 +39,8 @@
     padding: 24px 24px 80px;
     font-family: 'Circular', -apple-system, BlinkMacSystemFont, sans-serif;
     color: #222;
-    padding-top: calc(var(--header-height, 190px) + 24px);
+    /* padding-top: calc(var(--header-height, 190px) + 24px); */
+    padding-top:80px;
     transition: padding-top 0.2s ease;
 }
 
@@ -51,7 +52,7 @@
     cursor: pointer;
     padding: 8px 0;
     margin-bottom: 16px;
-    color: #222;
+    color: #3b3b3b;
     text-decoration: underline;
 }
 
@@ -60,7 +61,7 @@
 .stay-details h1 {
     font-size: 26px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 22px;
 }
 
 .stay-details .stay-meta {
@@ -243,7 +244,7 @@
 }
 
 .stay-details .booking-price {
-    margin-bottom: 4px;
+    margin-bottom: 10px;
 }
 
 .stay-details .booking-price .price {
