@@ -104,8 +104,8 @@ const locations = [...new Set([
 
     const guestTypes = [
         { key: 'adults', label: 'Adults', sub: 'Ages 13 or above' },
-        { key: 'children', label: 'Children', sub: 'Ages 2 – 12' },  // ← יש כאן רווח בהתחלה?
-        { key: 'infants', label: 'Infants', sub: 'Under 2' },  // ← ואולי כאן?
+        { key: 'children', label: 'Children', sub: 'Ages 2 – 12' },  
+        { key: 'infants', label: 'Infants', sub: 'Under 2' },  
         { key: 'pets', label: 'Pets', sub: 'Bringing a service animal?' },
     ]
 
