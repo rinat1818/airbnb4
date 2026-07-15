@@ -60,7 +60,7 @@ export function BookingConfirm() {
 
     return (
         <section className="booking-confirm">
-            <button className="btn-back-confirm" onClick={() => navigate(-1)}>Back</button>
+            {/* <button className="btn-back-confirm" onClick={() => navigate(-1)}>Back</button> */}
 
             <h1>Confirm your reservation</h1>
             {loggedinUser && (
