@@ -209,7 +209,7 @@ useEffect(() => {
                     </button>
 
                     <div className="user-menu">
-                        {loggedinUser && !loggedinUser.isHost && (
+                        {loggedinUser && (
                             <NavLink to="/add-stay" className="host-link">Become a Host</NavLink>
                         )}
                         <button className={`menu-btn ${loggedinUser ? 'logged-in' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -221,14 +221,12 @@ useEffect(() => {
                         </button>
                         {isMenuOpen && (
                             <div className="dropdown">
-                                {loggedinUser ? (
+                               {loggedinUser ? (
                                     <>
-                                        {!loggedinUser.isHost && (
-                                            <NavLink to="/add-stay" className="host-link-dropdown" onClick={() => setIsMenuOpen(false)}>Become a Host</NavLink>
-                                        )}
-                                        <NavLink to="/user" onClick={() => setIsMenuOpen(false)}>My user</NavLink>
-                                        <NavLink to="/" onClick={onLogout}>Logout</NavLink>
-                                    </>
+                                       <NavLink to="/add-stay" className="host-link-dropdown" onClick={() => setIsMenuOpen(false)}>Become a Host</NavLink>
+<NavLink to="/user" onClick={() => setIsMenuOpen(false)}>My user</NavLink>
+<NavLink to="/" onClick={onLogout}>Logout</NavLink>
+</>
 
                                 ) : (
                                     <>
