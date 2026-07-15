@@ -97,6 +97,7 @@ export function StayDetails() {
 
         const bookingDetails = {
             stayId: stay._id,
+            hostId: stay.host._id,
             stayName: stay.name,
             stayImg: stay.imgUrls[0],
             stayCity: stay.loc.city,

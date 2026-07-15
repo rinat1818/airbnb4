@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { loadUsers } from '../store/actions/user.actions.js'
+import { loadBookings } from '../store/actions/booking.actions.js'
 import '../assets/styles/pages/UserDetails.css'
 
 export function UserDetails() {
@@ -9,26 +10,35 @@ export function UserDetails() {
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
     const stays = useSelector(state => state.stayModule.stays)
     const users = useSelector(state => state.userModule.users)
+    const bookings = useSelector(state => state.bookingModule.bookings)
     const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState('about')
 
-    // Reservations on a host's listings live inside *other* users' `trips`
-    // arrays, so we need the full users collection, not just loggedinUser.
+    const isHost = !!loggedinUser?.isHost
+
+    // My own trips as a guest
     useEffect(() => {
-        if (loggedinUser?.isHost) dispatch(loadUsers())
-    }, [loggedinUser?.isHost])
+        if (loggedinUser?._id) dispatch(loadBookings({ userId: loggedinUser._id }))
+    }, [loggedinUser?._id])
+
+    // Reservations made on my listings, as a host — need the guest's info too
+    useEffect(() => {
+        if (isHost && loggedinUser?._id) {
+            dispatch(loadBookings({ hostId: loggedinUser._id }))
+            dispatch(loadUsers())
+        }
+    }, [isHost, loggedinUser?._id])
 
     if (!loggedinUser) return <div className="user-details">No user logged in</div>
 
     const today = new Date()
-    const trips = loggedinUser.trips || []
-    const pastTrips = trips.filter(trip => new Date(trip.endDate) < today)
-    const upcomingTrips = trips.filter(trip => new Date(trip.endDate) > today)
-    const listings = loggedinUser.stays || []
-    const isHost = !!loggedinUser.isHost
 
-    // Reviews live nested inside each stay's `reviews` array in stays.js,
-    // so pull them from the stays this user hosts (or wrote, as a guest).
+    const trips = bookings.filter(b => b.userId === loggedinUser._id)
+    const pastTrips = trips.filter(trip => new Date(trip.checkOut) < today)
+    const upcomingTrips = trips.filter(trip => new Date(trip.checkOut) >= today)
+
+    const listings = loggedinUser.stays || []
+
     const hostStays = isHost
         ? stays.filter(stay => stay.host?._id === loggedinUser._id)
         : []
@@ -47,19 +57,15 @@ export function UserDetails() {
         .sort((a, b) => (b.rating || 0) - (a.rating || 0))
         .slice(0, 4)
 
-    // Reservations = other users' trips that booked one of this host's stays.
-    const hostStayIds = hostStays.map(stay => stay._id)
-
+    // Reservations on my stays, as a host — resolve guest info from `users`
     const allReservations = isHost
-        ? (users || []).flatMap(user =>
-            (user.trips || [])
-                .filter(trip => hostStayIds.includes(trip.stay?._id))
-                .map(trip => ({ ...trip, guest: user }))
-        )
+        ? bookings
+            .filter(b => b.hostId === loggedinUser._id)
+            .map(b => ({ ...b, guest: users.find(u => u._id === b.userId) }))
         : []
 
-    const upcomingReservations = allReservations.filter(res => new Date(res.endDate) > today)
-    const pastReservations = allReservations.filter(res => new Date(res.endDate) < today)
+    const upcomingReservations = allReservations.filter(res => new Date(res.checkOut) >= today)
+    const pastReservations = allReservations.filter(res => new Date(res.checkOut) < today)
 
     function formatDate(dateStr) {
         return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
@@ -207,11 +213,11 @@ export function UserDetails() {
                             <ul className="trip-list">
                                 {upcomingTrips.map(trip => (
                                     <li key={trip._id} className="trip-card">
-                                        <img src={trip.stay.imgUrl} alt={trip.stay.name} className="trip-img" />
+                                        <img src={trip.stayImg} alt={trip.stayName} className="trip-img" />
                                         <div className="trip-info">
-                                            <h4>{trip.stay.name}</h4>
-                                            <p className="trip-dates">{formatDate(trip.startDate)} – {formatDate(trip.endDate)}</p>
-                                            <p className="trip-price">${trip.stay.price} / night</p>
+                                            <h4>{trip.stayName}</h4>
+                                            <p className="trip-dates">{formatDate(trip.checkIn)} – {formatDate(trip.checkOut)}</p>
+                                            <p className="trip-price">${trip.pricePerNight} / night</p>
                                         </div>
                                     </li>
                                 ))}
@@ -222,11 +228,11 @@ export function UserDetails() {
                             <ul className="trip-list">
                                 {pastTrips.map(trip => (
                                     <li key={trip._id} className="trip-card">
-                                        <img src={trip.stay.imgUrl} alt={trip.stay.name} className="trip-img" />
+                                        <img src={trip.stayImg} alt={trip.stayName} className="trip-img" />
                                         <div className="trip-info">
-                                            <h4>{trip.stay.name}</h4>
-                                            <p className="trip-dates">{formatDate(trip.startDate)} – {formatDate(trip.endDate)}</p>
-                                            <p className="trip-price">${trip.stay.price} / night</p>
+                                            <h4>{trip.stayName}</h4>
+                                            <p className="trip-dates">{formatDate(trip.checkIn)} – {formatDate(trip.checkOut)}</p>
+                                            <p className="trip-price">${trip.pricePerNight} / night</p>
                                         </div>
                                     </li>
                                 ))}
@@ -272,12 +278,12 @@ export function UserDetails() {
                             <ul className="trip-list">
                                 {upcomingReservations.map(res => (
                                     <li key={res._id} className="trip-card">
-                                        <img src={res.stay.imgUrl} alt={res.stay.name} className="trip-img" />
+                                        <img src={res.stayImg} alt={res.stayName} className="trip-img" />
                                         <div className="trip-info">
-                                            <h4>{res.stay.name}</h4>
-                                            <p className="trip-dates">{formatDate(res.startDate)} – {formatDate(res.endDate)}</p>
-                                            <p className="trip-price">${res.stay.price} / night</p>
-                                            <p className="reservation-guest">Guest: {res.guest.fullname}</p>
+                                            <h4>{res.stayName}</h4>
+                                            <p className="trip-dates">{formatDate(res.checkIn)} – {formatDate(res.checkOut)}</p>
+                                            <p className="trip-price">${res.pricePerNight} / night</p>
+                                            <p className="reservation-guest">Guest: {res.guest?.fullname || 'Unknown guest'}</p>
                                         </div>
                                     </li>
                                 ))}
@@ -288,12 +294,12 @@ export function UserDetails() {
                             <ul className="trip-list">
                                 {pastReservations.map(res => (
                                     <li key={res._id} className="trip-card">
-                                        <img src={res.stay.imgUrl} alt={res.stay.name} className="trip-img" />
+                                        <img src={res.stayImg} alt={res.stayName} className="trip-img" />
                                         <div className="trip-info">
-                                            <h4>{res.stay.name}</h4>
-                                            <p className="trip-dates">{formatDate(res.startDate)} – {formatDate(res.endDate)}</p>
-                                            <p className="trip-price">${res.stay.price} / night</p>
-                                            <p className="reservation-guest">Guest: {res.guest.fullname}</p>
+                                            <h4>{res.stayName}</h4>
+                                            <p className="trip-dates">{formatDate(res.checkIn)} – {formatDate(res.checkOut)}</p>
+                                            <p className="trip-price">${res.pricePerNight} / night</p>
+                                            <p className="reservation-guest">Guest: {res.guest?.fullname || 'Unknown guest'}</p>
                                         </div>
                                     </li>
                                 ))}

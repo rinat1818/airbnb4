@@ -18,6 +18,10 @@ export function StayIndex() {
 
   const filteredStays = stays.filter(stay => {
     if (!locationFilter) return true
+    if (!stay.loc || !stay.loc.city || !stay.loc.country) {
+      console.log('BAD STAY FOUND:', stay)
+      return false
+    }
     const loc = locationFilter.toLowerCase()
     return stay.loc.city.toLowerCase().includes(loc) ||
       stay.loc.country.toLowerCase().includes(loc)

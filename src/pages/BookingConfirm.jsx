@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { addBooking } from '../store/actions/booking.actions.js'
 // import '../assets/styles/pages/BookingConfirm.css'
 
 export function BookingConfirm() {
@@ -8,6 +10,7 @@ export function BookingConfirm() {
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
     const [booking, setBooking] = useState(null)
     const [confirmed, setConfirmed] = useState(false)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const pending = sessionStorage.getItem('pendingBooking')
@@ -15,9 +18,19 @@ export function BookingConfirm() {
         setBooking(JSON.parse(pending))
     }, [])
 
-    function onConfirm() {
-        setConfirmed(true)
-        sessionStorage.removeItem('pendingBooking')
+    async function onConfirm() {
+        try {
+            const bookingToSave = {
+                ...booking,
+                userId: loggedinUser?._id,
+            }
+            await dispatch(addBooking(bookingToSave))
+            setConfirmed(true)
+            sessionStorage.removeItem('pendingBooking')
+        } catch (err) {
+            console.error('Failed to save booking', err)
+            // consider a toast/error state here
+        }
     }
 
     if (!booking) return null
