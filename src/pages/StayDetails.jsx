@@ -153,7 +153,7 @@ export function StayDetails() {
                 </div>
             )}
 
-            <button onClick={() => navigate(-1)} className="btn-back">Back</button>
+            {/* <button onClick={() => navigate(-1)} className="btn-back">Back</button> */}
             <h1>{stay.name}</h1>
 
             {showSubNav && (
