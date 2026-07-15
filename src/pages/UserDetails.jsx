@@ -13,7 +13,7 @@ export function UserDetails() {
     const bookings = useSelector(state => state.bookingModule.bookings)
     const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState('about')
-
+    
     const isHost = !!loggedinUser?.isHost
 
     // My own trips as a guest

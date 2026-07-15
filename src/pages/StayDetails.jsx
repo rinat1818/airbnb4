@@ -13,10 +13,22 @@ export function StayDetails() {
     const [showSubNav, setShowSubNav] = useState(false)
     const [activeSection, setActiveSection] = useState('photos')
 
+    // const loggedinUser = useSelector(state => state.userModule.loggedinUser)
+    // const [checkIn, setCheckIn] = useState(null)
+    // const [checkOut, setCheckOut] = useState(null)
+
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
-    const [checkIn, setCheckIn] = useState(null)
-    const [checkOut, setCheckOut] = useState(null)
-    const [guests, setGuests] = useState({ adults: 1, children: 0, infants: 0, pets: 0 })
+    const filterBy = useSelector(state => state.stayModule.filterBy)
+    const [checkIn, setCheckIn] = useState(filterBy?.startDate ? new Date(filterBy.startDate) : null)
+    const [checkOut, setCheckOut] = useState(filterBy?.endDate ? new Date(filterBy.endDate) : null)
+
+
+    const [guests, setGuests] = useState(
+        filterBy?.guests && (filterBy.guests.adults + filterBy.guests.children) > 0
+            ? filterBy.guests
+            : { adults: 1, children: 0, infants: 0, pets: 0 }
+    )
+    // const [guests, setGuests] = useState({ adults: 1, children: 0, infants: 0, pets: 0 })
     const [guestsOpen, setGuestsOpen] = useState(false)
 
     const [toast, setToast] = useState(null)
@@ -30,6 +42,15 @@ export function StayDetails() {
                 navigate('/')
             })
     }, [stayId])
+
+
+  useEffect(() => {
+        if (filterBy?.startDate) setCheckIn(new Date(filterBy.startDate))
+        if (filterBy?.endDate) setCheckOut(new Date(filterBy.endDate))
+        if (filterBy?.guests && (filterBy.guests.adults + filterBy.guests.children) > 0) {
+            setGuests(filterBy.guests)
+        }
+    }, [filterBy])
 
     useEffect(() => {
         function onScroll() {
