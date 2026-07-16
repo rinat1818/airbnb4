@@ -156,7 +156,7 @@ export function AddStay() {
                     ))}
                 </div>
 
-                <div className="form-row dd">
+                <div className="form-row">
                     <div className="form-field ">
                         <label>Labels</label>
                         <div className="tags-input ">
